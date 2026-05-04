@@ -1,1 +1,301 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>CLOW Official</title><style>*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#eee7df;color:#171313}button,input,textarea,select{font:inherit}button{cursor:pointer}img{max-width:100%;display:block}.app{width:min(430px,100%);min-height:100vh;margin:0 auto;background:#fbf7f2;border-left:1px solid #ddd3c9;border-right:1px solid #ddd3c9}header{position:sticky;top:0;z-index:30;padding:12px 14px 9px;background:rgba(251,247,242,.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(0,0,0,.08)}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.logo{font-weight:950;font-size:20px;letter-spacing:.14em}.tag{font-size:11px;color:#7c716b;font-weight:850}.tabs,.subtabs,.filters{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar,.subtabs::-webkit-scrollbar,.filters::-webkit-scrollbar{display:none}.tab,.subtab,.filter{flex:0 0 auto;border:1px solid rgba(0,0,0,.1);border-radius:999px;padding:8px 13px;background:rgba(255,255,255,.7);color:#5e544f;font-size:13px;font-weight:850}.tab.active,.subtab.active,.filter.active{background:#171313;color:#fff}.page{display:none;padding:14px 14px 36px;animation:fade .18s ease}.page.active{display:block}@keyframes fade{from{opacity:.4;transform:translateY(3px)}to{opacity:1;transform:none}}h1,h2,h3,p{margin:0}h1{font-size:54px;line-height:.88;letter-spacing:-.08em;text-transform:uppercase}h2{font-size:24px;letter-spacing:-.04em}h3{font-size:17px}p{font-size:14px;line-height:1.55;color:#756b65}.hero{min-height:390px;border-radius:28px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;background:linear-gradient(rgba(0,0,0,.03),rgba(0,0,0,.45)),radial-gradient(circle at 32% 16%,#fff,transparent 13%),linear-gradient(145deg,#211d2a,#a474b3 52%,#f4b59d);box-shadow:0 18px 44px rgba(91,66,101,.22)}.label{width:fit-content;border:1px solid rgba(255,255,255,.26);border-radius:999px;padding:7px 10px;background:rgba(255,255,255,.14);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.hero-copy{padding:16px;border-radius:22px;background:rgba(0,0,0,.34);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.14)}.hero p{color:rgba(255,255,255,.78);font-size:13px}.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.card,.item,.composer,.detail,.modal-card{border:1px solid rgba(0,0,0,.08);border-radius:22px;background:rgba(255,255,255,.7);box-shadow:0 12px 28px rgba(0,0,0,.045)}.card,.item,.detail{padding:14px}.title{display:flex;justify-content:space-between;align-items:center;margin:22px 0 10px}.title span,.muted,small,.meta{color:#8b8078;font-size:12px;font-weight:780}.add{border:0;border-radius:999px;background:#171313;color:#fff;padding:8px 12px;font-size:12px;font-weight:900}.row{display:flex;gap:12px;align-items:center;margin-bottom:10px}.thumb{width:86px;height:104px;flex:0 0 86px;border-radius:18px;background:linear-gradient(135deg,#19171d,#ba8abd,#f4c1a8);object-fit:cover}.square{width:98px;height:98px}.content{min-width:0;flex:1}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.mini{border:1px solid rgba(0,0,0,.1);border-radius:999px;background:#fff;padding:7px 10px;font-size:12px;font-weight:850;color:#5e544f}.danger{color:#d92d20}.pill{display:inline-block;margin-top:8px;border-radius:999px;padding:6px 9px;background:#efe7ff;color:#6d4ed8;font-size:11px;font-weight:900}.post-img,.detail-img{width:100%;border-radius:18px;margin-top:10px;max-height:320px;object-fit:cover}.composer{padding:13px;margin-bottom:12px;background:#171313;color:#fff}.field{width:100%;border:1px solid rgba(0,0,0,.12);border-radius:15px;padding:11px;margin:6px 0;background:#fff;color:#171313}.composer .field{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff}.field::placeholder{color:#9b948e}.submit{width:100%;border:0;border-radius:999px;margin-top:8px;padding:11px;background:#fff;color:#171313;font-weight:950}.composer .submit{background:#fff;color:#171313}.dark-submit{background:#171313;color:#fff}.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f29ac0,#7d6fff);object-fit:cover;flex:0 0 36px}.head{display:flex;gap:9px;align-items:center;margin-bottom:9px}.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.product{padding:10px}.price{font-weight:950;margin-top:7px}.goods-img{aspect-ratio:1/1;border-radius:17px;margin-bottom:10px;background:linear-gradient(135deg,#fff,#e8d7ff 45%,#f6a7bd);object-fit:cover}.modal{position:fixed;inset:0;z-index:60;display:none;background:rgba(0,0,0,.5);padding:18px;align-items:flex-end}.modal.open{display:flex}.modal-card{width:min(430px,100%);margin:0 auto;max-height:88vh;overflow:auto;background:#fbf7f2;padding:16px}.modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.close{border:0;background:#171313;color:#fff;border-radius:999px;padding:8px 12px;font-weight:900}.hidden{display:none!important}.empty{text-align:center;color:#8b8078;padding:22px}.comment{margin-top:10px;padding:10px;border-radius:15px;background:#f2ece6;color:#6d625b;font-size:13px}.comments input{margin-top:8px}.catline{margin-top:8px}.album-cover{width:98px;height:98px;border-radius:18px;background:radial-gradient(circle at 34% 28%,#fff,transparent 12%),linear-gradient(135deg,#f29ac0,#7d6fff 50%,#101010);object-fit:cover}.detail h2{margin-bottom:8px}.detail pre{white-space:pre-wrap;font-family:inherit;color:#756b65;font-size:14px;line-height:1.55}.back{margin-bottom:12px}footer{text-align:center;color:#958a83;font-size:12px;padding:24px 14px 34px}@media(min-width:700px){.app{margin-top:18px;margin-bottom:18px;border-radius:30px;overflow:hidden}}</style></head><body><div class="app"><header><div class="top"><div class="logo" onclick="showTab('home')">CLOW</div><div class="tag">OFFICIAL</div></div><nav class="tabs"><button class="tab active" data-tab="home">Home</button><button class="tab" data-tab="members">Members</button><button class="tab" data-tab="discography">Discography</button><button class="tab" data-tab="schedule">Schedule</button><button class="tab" data-tab="community">Community</button><button class="tab" data-tab="shop">Shop</button><button class="tab" data-tab="notice">Notice</button></nav></header><main><section id="home" class="page active"><div class="hero"><span class="label">new era</span><div class="hero-copy"><h1>Clow</h1><p>관리 가능한 모바일 공식 홈페이지. 멤버, 앨범, 스케줄, 커뮤니티, 샵, 공지를 직접 추가하고 수정할 수 있어.</p></div></div><div class="quick"><div class="card"><b>Editable</b><p>모든 데이터는 이 브라우저에 저장됨.</p></div><div class="card"><b>Official App</b><p>팬 커뮤니티와 아티스트 글 지원.</p></div></div></section><section id="members" class="page"><div class="title"><h2>Members</h2><button class="add" onclick="openMemberForm()">+ 추가</button></div><div id="membersList"></div></section><section id="discography" class="page"><div class="title"><h2>Discography</h2><button class="add" onclick="openAlbumForm()">+ 추가</button></div><div id="albumsList"></div></section><section id="schedule" class="page"><div class="title"><h2>Schedule</h2><button class="add" onclick="openScheduleForm()">+ 추가</button></div><div class="filters" id="scheduleFilters"><button class="filter active" data-type="all">All</button><button class="filter" data-type="album">앨범</button><button class="filter" data-type="broadcast">방송</button><button class="filter" data-type="event">행사</button><button class="filter" data-type="etc">기타</button></div><div id="scheduleList"></div></section><section id="community" class="page"><div class="title"><h2>Community</h2><span>Fan / Artist</span></div><div class="subtabs"><button class="subtab active" data-com="fan">Fan</button><button class="subtab" data-com="artist">Artist</button><button class="subtab" data-com="artistProfiles">Artist Profiles</button></div><div id="fanBox"><div class="composer"><input id="fanNick" class="field" placeholder="닉네임"><textarea id="fanText" class="field" placeholder="팬 커뮤니티 글"></textarea><input id="fanImg" type="file" accept="image/*" class="field"><button class="submit" onclick="addFanPost()">팬 글 올리기</button></div><div id="fanPosts"></div></div><div id="artistBox" class="hidden"><div class="composer"><select id="artistSelect" class="field"></select><textarea id="artistText" class="field" placeholder="아티스트 커뮤니티 글"></textarea><input id="artistImg" type="file" accept="image/*" class="field"><button class="submit" onclick="addArtistPost()">아티스트 글 올리기</button></div><div id="artistPosts"></div></div><div id="artistProfilesBox" class="hidden"><div class="title"><h2>8 Profiles</h2><span>고정 프로필</span></div><div id="artistProfilesList"></div></div></section><section id="shop" class="page"><div class="title"><h2>Shop</h2><button class="add" onclick="openProductForm()">+ 추가</button></div><div class="filters" id="shopFilters"><button class="filter active" data-cat="all">All</button><button class="filter" data-cat="membership">Membership</button><button class="filter" data-cat="album">Album</button><button class="filter" data-cat="products">Products</button><button class="filter" data-cat="ticket">Ticket</button></div><div id="productsList" class="shop-grid"></div></section><section id="notice" class="page"><div class="title"><h2>Notice</h2><button class="add" onclick="openNoticeForm()">+ 추가</button></div><div id="noticesList"></div></section><section id="detailPage" class="page"><button class="mini back" onclick="backToLast()">← 뒤로</button><div id="detailContent"></div></section></main><footer>© 2026 CLOW. Local editable official app.</footer></div><div id="modal" class="modal"><div class="modal-card"><div class="modal-top"><h2 id="modalTitle">Edit</h2><button class="close" onclick="closeModal()">닫기</button></div><div id="modalBody"></div></div></div><script>const K='clow_app_v3';let lastTab='home',scheduleType='all',shopCat='all';const imgGrad='';const defaults={members:[{id:id(),name:'Member 01',role:'Vocal · Performance',bio:'부드러운 톤과 중심을 잡는 무드.',detail:'생일: 01.01\n포지션: 보컬\n키워드: moon, soft, bloom',img:''},{id:id(),name:'Member 02',role:'Dance · Visual',bio:'선명한 비주얼과 세련된 퍼포먼스.',detail:'생일: 02.02\n포지션: 댄스\n키워드: pearl, chic, wave',img:''}],albums:[{id:id(),title:'Bloom.exe',type:'Digital Single',date:'2026.05.24',desc:'CLOW의 첫 디지털 싱글.',tracks:'01 Bloom.exe\n02 Afterglow\n03 Bloom.exe Inst.',img:''}],schedules:[{id:id(),type:'album',date:'2026-05-10',title:'Concept Photo Archive',desc:'첫 콘셉트 포토 공개 예정.'},{id:id(),type:'broadcast',date:'2026-05-17',title:'Debut Trailer',desc:'공식 트레일러 공개.'}],fanPosts:[{id:id(),nick:'clow_fan',text:'오늘 컨셉 너무 예쁘다… 공식홈 분위기 미쳤음.',img:'',likes:128,comments:['첫 글 저장됨!']}],artistProfiles:Array.from({length:8},(_,i)=>({id:'artist'+(i+1),name:'Member '+String(i+1).padStart(2,'0'),role:'CLOW Artist',img:''})),artistPosts:[{id:id(),artistId:'artist1',text:'안녕하세요, CLOW입니다. 첫 번째 콘셉트 포토를 곧 공개합니다.',img:'',likes:999,comments:['기대중!']}],products:[{id:id(),cat:'products',name:'Logo T-shirt',desc:'Black / White',price:'39000',img:''},{id:id(),cat:'album',name:'Bloom.exe Album',desc:'Photo book + CD',price:'22000',img:''},{id:id(),cat:'membership',name:'CLOW Membership Kit',desc:'멤버십 전용 구매상품',price:'45000',img:''},{id:id(),cat:'ticket',name:'Debut Showcase Ticket',desc:'Offline event',price:'77000',img:''}],notices:[{id:id(),date:'2026.05.04',title:'CLOW Official Homepage Open',body:'공식 홈페이지가 오픈되었습니다. 모든 메뉴는 자유롭게 수정할 수 있습니다.'}]};function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}function load(){let d=localStorage.getItem(K);if(!d){localStorage.setItem(K,JSON.stringify(defaults));return structuredClone(defaults)}try{return JSON.parse(d)}catch{return structuredClone(defaults)}}let db=load();function save(){localStorage.setItem(K,JSON.stringify(db))}function fileData(input){return new Promise(res=>{let f=input.files&&input.files[0];if(!f)return res('');let r=new FileReader();r.onload=()=>res(r.result);r.readAsDataURL(f)})}function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}function img(src,cls='thumb'){return src?`<img class="${cls}" src="${src}">`:`<div class="${cls}"></div>`}function showTab(t){lastTab=t==='detailPage'?lastTab:t;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(t).classList.add('active');scrollTo({top:0,behavior:'smooth'})}document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>showTab(t.dataset.tab));function openModal(title,body){modalTitle.textContent=title;modalBody.innerHTML=body;modal.classList.add('open')}function closeModal(){modal.classList.remove('open');modalBody.innerHTML=''}function backToLast(){showTab(lastTab)}function detail(html){detailContent.innerHTML=html;showTab('detailPage')}function render(){renderMembers();renderAlbums();renderSchedules();renderCommunity();renderShop();renderNotices()}function renderMembers(){membersList.innerHTML=db.members.map(m=>`<article class="item row" onclick="memberDetail('${m.id}')">${img(m.img)}<div class="content"><h3>${esc(m.name)}</h3><small>${esc(m.role)}</small><p>${esc(m.bio)}</p><div class="actions" onclick="event.stopPropagation()"><button class="mini" onclick="openMemberForm('${m.id}')">수정</button><button class="mini danger" onclick="del('members','${m.id}')">삭제</button></div></div></article>`).join('')||'<div class="empty">멤버를 추가해줘.</div>'}function memberDetail(mid){let m=db.members.find(x=>x.id===mid);detail(`<div class="detail">${img(m.img,'detail-img')}<h2>${esc(m.name)}</h2><small>${esc(m.role)}</small><p>${esc(m.bio)}</p><pre>${esc(m.detail||'상세 정보 없음')}</pre><div class="actions"><button class="mini" onclick="openMemberForm('${m.id}')">수정</button></div></div>`)}function openMemberForm(mid){let m=db.members.find(x=>x.id===mid)||{name:'',role:'',bio:'',detail:'',img:''};openModal(mid?'멤버 수정':'멤버 추가',`<input id="mName" class="field" placeholder="이름" value="${esc(m.name)}"><input id="mRole" class="field" placeholder="포지션" value="${esc(m.role)}"><textarea id="mBio" class="field" placeholder="짧은 소개">${esc(m.bio)}</textarea><textarea id="mDetail" class="field" placeholder="상세 정보">${esc(m.detail)}</textarea><input id="mImg" class="field" type="file" accept="image/*"><button class="submit dark-submit" onclick="saveMember('${mid||''}')">저장</button>`)}async function saveMember(mid){let im=await fileData(mImg),old=db.members.find(x=>x.id===mid)||{};let o={id:mid||id(),name:mName.value||'New Member',role:mRole.value,bio:mBio.value,detail:mDetail.value,img:im||old.img||''};db.members=mid?db.members.map(x=>x.id===mid?o:x):[o,...db.members];save();closeModal();renderMembers()}function renderAlbums(){albumsList.innerHTML=db.albums.map(a=>`<article class="item row" onclick="albumDetail('${a.id}')">${img(a.img,'album-cover')}<div class="content"><small>${esc(a.type)} · ${esc(a.date)}</small><h3>${esc(a.title)}</h3><p>${esc(a.desc)}</p><div class="actions" onclick="event.stopPropagation()"><button class="mini" onclick="openAlbumForm('${a.id}')">수정</button><button class="mini danger" onclick="del('albums','${a.id}')">삭제</button></div></div></article>`).join('')||'<div class="empty">앨범을 추가해줘.</div>'}function albumDetail(aid){let a=db.albums.find(x=>x.id===aid);detail(`<div class="detail">${img(a.img,'detail-img')}<small>${esc(a.type)} · ${esc(a.date)}</small><h2>${esc(a.title)}</h2><p>${esc(a.desc)}</p><pre>${esc(a.tracks)}</pre><button class="mini" onclick="openAlbumForm('${a.id}')">수정</button></div>`)}function openAlbumForm(aid){let a=db.albums.find(x=>x.id===aid)||{title:'',type:'',date:'',desc:'',tracks:'',img:''};openModal(aid?'앨범 수정':'앨범 추가',`<input id="aTitle" class="field" placeholder="앨범명" value="${esc(a.title)}"><input id="aType" class="field" placeholder="Digital Single / EP" value="${esc(a.type)}"><input id="aDate" class="field" placeholder="발매일" value="${esc(a.date)}"><textarea id="aDesc" class="field" placeholder="설명">${esc(a.desc)}</textarea><textarea id="aTracks" class="field" placeholder="트랙리스트">${esc(a.tracks)}</textarea><input id="aImg" class="field" type="file" accept="image/*"><button class="submit dark-submit" onclick="saveAlbum('${aid||''}')">저장</button>`)}async function saveAlbum(aid){let im=await fileData(aImg),old=db.albums.find(x=>x.id===aid)||{};let o={id:aid||id(),title:aTitle.value||'New Album',type:aType.value,date:aDate.value,desc:aDesc.value,tracks:aTracks.value,img:im||old.img||''};db.albums=aid?db.albums.map(x=>x.id===aid?o:x):[o,...db.albums];save();closeModal();renderAlbums()}document.getElementById('scheduleFilters').onclick=e=>{let f=e.target.closest('.filter');if(!f)return;scheduleType=f.dataset.type;document.querySelectorAll('#scheduleFilters .filter').forEach(x=>x.classList.toggle('active',x===f));renderSchedules()};function renderSchedules(){let arr=db.schedules.filter(s=>scheduleType==='all'||s.type===scheduleType);scheduleList.innerHTML=arr.map(s=>`<div class="item"><span class="pill">${typeName(s.type)}</span><small> ${esc(s.date)}</small><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p><div class="actions"><button class="mini" onclick="openScheduleForm('${s.id}')">수정</button><button class="mini danger" onclick="del('schedules','${s.id}')">삭제</button></div></div>`).join('')||'<div class="empty">스케줄 없음</div>'}function typeName(t){return{album:'앨범',broadcast:'방송',event:'행사',etc:'기타'}[t]||t}function openScheduleForm(sid){let s=db.schedules.find(x=>x.id===sid)||{type:'album',date:'',title:'',desc:''};openModal(sid?'스케줄 수정':'스케줄 추가',`<select id="sType" class="field"><option value="album">앨범</option><option value="broadcast">방송</option><option value="event">행사</option><option value="etc">기타</option></select><input id="sDate" class="field" type="date" value="${esc(s.date)}"><input id="sTitle" class="field" placeholder="제목" value="${esc(s.title)}"><textarea id="sDesc" class="field" placeholder="내용">${esc(s.desc)}</textarea><button class="submit dark-submit" onclick="saveSchedule('${sid||''}')">저장</button>`);sType.value=s.type}function saveSchedule(sid){let o={id:sid||id(),type:sType.value,date:sDate.value,title:sTitle.value||'New Schedule',desc:sDesc.value};db.schedules=sid?db.schedules.map(x=>x.id===sid?o:x):[o,...db.schedules];save();closeModal();renderSchedules()}document.querySelectorAll('.subtab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.subtab').forEach(x=>x.classList.remove('active'));t.classList.add('active');fanBox.classList.toggle('hidden',t.dataset.com!=='fan');artistBox.classList.toggle('hidden',t.dataset.com!=='artist');artistProfilesBox.classList.toggle('hidden',t.dataset.com!=='artistProfiles')});async function addFanPost(){let im=await fileData(fanImg);db.fanPosts.unshift({id:id(),nick:fanNick.value||'fan',text:fanText.value,img:im,likes:0,comments:[]});fanText.value='';fanImg.value='';save();renderCommunity()}async function addArtistPost(){let im=await fileData(artistImg);db.artistPosts.unshift({id:id(),artistId:artistSelect.value,text:artistText.value,img:im,likes:0,comments:[]});artistText.value='';artistImg.value='';save();renderCommunity()}function renderCommunity(){artistSelect.innerHTML=db.artistProfiles.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');fanPosts.innerHTML=db.fanPosts.map(p=>postHTML(p,'fan')).join('')||'<div class="empty">팬 글 없음</div>';artistPosts.innerHTML=db.artistPosts.map(p=>postHTML(p,'artist')).join('')||'<div class="empty">아티스트 글 없음</div>';artistProfilesList.innerHTML=db.artistProfiles.map(p=>`<div class="item row">${img(p.img,'avatar')}<div class="content"><h3>${esc(p.name)}</h3><small>${esc(p.role)}</small><button class="mini" onclick="openArtistProfile('${p.id}')">수정</button></div></div>`).join('')}function postHTML(p,type){let prof=type==='artist'?db.artistProfiles.find(x=>x.id===p.artistId):null;let name=type==='artist'?(prof?.name||'Artist'):p.nick;let av=type==='artist'?prof?.img:'';return`<article class="item"><div class="head">${av?`<img class="avatar" src="${av}">`:'<div class="avatar"></div>'}<div><b>${esc(name)}</b><br><small>${type==='artist'?'Artist Community':'Fan Community'}</small></div></div><p>${esc(p.text)}</p>${p.img?`<img class="post-img" src="${p.img}">`:''}<div class="actions"><button class="mini" onclick="likePost('${type}','${p.id}')">♡ ${p.likes||0}</button><button class="mini" onclick="commentPost('${type}','${p.id}')">댓글</button><button class="mini" onclick="editPost('${type}','${p.id}')">수정</button><button class="mini danger" onclick="deletePost('${type}','${p.id}')">삭제</button></div>${(p.comments||[]).map(c=>`<div class="comment">${esc(c)}</div>`).join('')}</article>`}function likePost(type,pid){let arr=type==='artist'?db.artistPosts:db.fanPosts;let p=arr.find(x=>x.id===pid);p.likes=(p.likes||0)+1;save();renderCommunity()}function commentPost(type,pid){let c=prompt('댓글 입력');if(!c)return;let arr=type==='artist'?db.artistPosts:db.fanPosts;arr.find(x=>x.id===pid).comments.push(c);save();renderCommunity()}function editPost(type,pid){let arr=type==='artist'?db.artistPosts:db.fanPosts,p=arr.find(x=>x.id===pid);let txt=prompt('글 수정',p.text);if(txt===null)return;p.text=txt;save();renderCommunity()}function deletePost(type,pid){let k=type==='artist'?'artistPosts':'fanPosts';db[k]=db[k].filter(x=>x.id!==pid);save();renderCommunity()}function openArtistProfile(pid){let p=db.artistProfiles.find(x=>x.id===pid);openModal('아티스트 프로필 수정',`<input id="apName" class="field" value="${esc(p.name)}"><input id="apRole" class="field" value="${esc(p.role)}"><input id="apImg" class="field" type="file" accept="image/*"><button class="submit dark-submit" onclick="saveArtistProfile('${pid}')">저장</button>`)}async function saveArtistProfile(pid){let im=await fileData(apImg);db.artistProfiles=db.artistProfiles.map(p=>p.id===pid?{...p,name:apName.value,role:apRole.value,img:im||p.img}:p);save();closeModal();renderCommunity()}document.getElementById('shopFilters').onclick=e=>{let f=e.target.closest('.filter');if(!f)return;shopCat=f.dataset.cat;document.querySelectorAll('#shopFilters .filter').forEach(x=>x.classList.toggle('active',x===f));renderShop()};function renderShop(){let arr=db.products.filter(p=>shopCat==='all'||p.cat===shopCat);productsList.innerHTML=arr.map(p=>`<article class="item product" onclick="productDetail('${p.id}')">${p.img?`<img class="goods-img" src="${p.img}">`:'<div class="goods-img"></div>'}<h3>${esc(p.name)}</h3><small>${catName(p.cat)}</small><p>${esc(p.desc)}</p><div class="price">₩${Number(p.price||0).toLocaleString()}</div><div class="actions" onclick="event.stopPropagation()"><button class="mini" onclick="openProductForm('${p.id}')">수정</button><button class="mini danger" onclick="del('products','${p.id}')">삭제</button></div></article>`).join('')||'<div class="empty">상품 없음</div>'}function catName(c){return{all:'All',membership:'Membership',album:'Album',products:'Products',ticket:'Ticket'}[c]||c}function productDetail(pid){let p=db.products.find(x=>x.id===pid);detail(`<div class="detail">${p.img?`<img class="detail-img" src="${p.img}">`:'<div class="goods-img"></div>'}<small>${catName(p.cat)}</small><h2>${esc(p.name)}</h2><p>${esc(p.desc)}</p><div class="price">₩${Number(p.price||0).toLocaleString()}</div><button class="submit dark-submit">구매하기 UI</button><button class="mini" onclick="openProductForm('${p.id}')">수정</button></div>`)}function openProductForm(pid){let p=db.products.find(x=>x.id===pid)||{cat:'products',name:'',desc:'',price:'',img:''};openModal(pid?'상품 수정':'상품 추가',`<select id="pCat" class="field"><option value="membership">membership</option><option value="album">album</option><option value="products">products</option><option value="ticket">ticket</option></select><input id="pName" class="field" placeholder="상품명" value="${esc(p.name)}"><textarea id="pDesc" class="field" placeholder="설명">${esc(p.desc)}</textarea><input id="pPrice" class="field" type="number" placeholder="가격" value="${esc(p.price)}"><input id="pImg" class="field" type="file" accept="image/*"><button class="submit dark-submit" onclick="saveProduct('${pid||''}')">저장</button>`);pCat.value=p.cat}async function saveProduct(pid){let im=await fileData(pImg),old=db.products.find(x=>x.id===pid)||{};let o={id:pid||id(),cat:pCat.value,name:pName.value||'New Product',desc:pDesc.value,price:pPrice.value,img:im||old.img||''};db.products=pid?db.products.map(x=>x.id===pid?o:x):[o,...db.products];save();closeModal();renderShop()}function renderNotices(){noticesList.innerHTML=db.notices.map(n=>`<article class="item" onclick="noticeDetail('${n.id}')"><small>${esc(n.date)}</small><h3>${esc(n.title)}</h3><p>${esc(n.body).slice(0,60)}...</p><div class="actions" onclick="event.stopPropagation()"><button class="mini" onclick="openNoticeForm('${n.id}')">수정</button><button class="mini danger" onclick="del('notices','${n.id}')">삭제</button></div></article>`).join('')||'<div class="empty">공지 없음</div>'}function noticeDetail(nid){let n=db.notices.find(x=>x.id===nid);detail(`<div class="detail"><small>${esc(n.date)}</small><h2>${esc(n.title)}</h2><pre>${esc(n.body)}</pre><button class="mini" onclick="openNoticeForm('${n.id}')">수정</button></div>`)}function openNoticeForm(nid){let n=db.notices.find(x=>x.id===nid)||{date:'',title:'',body:''};openModal(nid?'공지 수정':'공지 추가',`<input id="nDate" class="field" placeholder="날짜" value="${esc(n.date)}"><input id="nTitle" class="field" placeholder="제목" value="${esc(n.title)}"><textarea id="nBody" class="field" placeholder="내용">${esc(n.body)}</textarea><button class="submit dark-submit" onclick="saveNotice('${nid||''}')">저장</button>`)}function saveNotice(nid){let o={id:nid||id(),date:nDate.value,title:nTitle.value||'Notice',body:nBody.value};db.notices=nid?db.notices.map(x=>x.id===nid?o:x):[o,...db.notices];save();closeModal();renderNotices()}function del(key,i){if(!confirm('삭제할까?'))return;db[key]=db[key].filter(x=>x.id!==i);save();render()}render();</script></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLOW Official</title>
+
+<style>
+{box-sizing:border-box}
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+background:#eee7df;
+color:#171313;
+}
+
+.app{
+width:min(430px,100%);
+min-height:100vh;
+margin:0 auto;
+background:#fbf7f2;
+}
+
+/ 상단 /
+header{
+position:sticky;
+top:0;
+z-index:10;
+padding:16px 14px;
+background:#fbf7f2;
+border-bottom:1px solid #ddd;
+}
+
+.logo{
+font-weight:900;
+letter-spacing:.12em;
+}
+
+.tabs{
+display:flex;
+gap:8px;
+margin-top:12px;
+overflow:auto;
+}
+
+.tab{
+padding:8px 14px;
+border-radius:999px;
+border:1px solid #ddd;
+background:#fff;
+font-size:13px;
+}
+
+.tab.active{
+background:#171313;
+color:#fff;
+}
+
+/ 페이지 /
+.page{
+display:none;
+padding:20px 14px 40px;
+}
+
+.page.active{
+display:block;
+}
+
+/ 히어로 /
+.hero{
+border-radius:26px;
+padding:20px;
+color:#fff;
+background:linear-gradient(135deg,#211d2a,#a474b3,#f4b59d);
+margin-bottom:18px;
+}
+
+h1{
+font-size:44px;
+margin:0;
+}
+
+/ 카드 /
+.card{
+background:#fff;
+border-radius:20px;
+padding:16px;
+margin-bottom:14px;
+}
+
+/ 리스트 /
+.list{
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+/ 버튼 /
+.btn{
+border:0;
+border-radius:999px;
+padding:10px;
+background:#171313;
+color:#fff;
+width:100%;
+margin-top:10px;
+}
+
+/ 입력 /
+input, textarea{
+width:100%;
+padding:10px;
+margin-top:8px;
+border-radius:12px;
+border:1px solid #ddd;
+}
+
+/ 커뮤니티 /
+.post{
+background:#fff;
+border-radius:18px;
+padding:14px;
+}
+
+.post img{
+width:100%;
+border-radius:14px;
+margin-top:10px;
+}
+
+/ 달력 /
+.calendar{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:6px;
+margin-bottom:16px;
+}
+
+.day{
+padding:10px 0;
+border-radius:10px;
+background:#f3ece5;
+font-size:12px;
+}
+
+.day.active{
+background:#171313;
+color:#fff;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+<div class="logo">CLOW</div>
+<div class="tabs">
+<button class="tab active" onclick="show('home',this)">Home</button>
+<button class="tab" onclick="show('community',this)">Community</button>
+<button class="tab" onclick="show('schedule',this)">Schedule</button>
+</div>
+</header>
+
+<!-- HOME -->
+<section id="home" class="page active">
+<div class="hero">
+<h1>Clow</h1>
+<p>모바일 공식 앱 스타일</p>
+</div>
+
+<div class="card">
+<b>Editable</b>
+<p>모든 데이터는 브라우저에 저장됨</p>
+</div>
+</section>
+
+<!-- COMMUNITY -->
+<section id="community" class="page">
+
+<div class="card">
+<input id="nick" placeholder="닉네임">
+<textarea id="text" placeholder="글 작성"></textarea>
+<input type="file" id="img">
+<button class="btn" onclick="post()">올리기</button>
+</div>
+
+<div id="posts" class="list"></div>
+
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule" class="page">
+
+<div class="calendar" id="calendar"></div>
+
+<div class="card">
+<input id="date" type="date">
+<input id="title" placeholder="제목">
+<button class="btn" onclick="addSchedule()">추가</button>
+</div>
+
+<div id="scheduleList" class="list"></div>
+
+</section>
+
+</div>
+
+<script>
+
+/ 탭 /
+function show(id,el){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'))
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'))
+document.getElementById(id).classList.add('active')
+el.classList.add('active')
+}
+
+/ 로컬 저장 /
+let data=JSON.parse(localStorage.getItem('clow')||'{"posts":[],"schedule":[]}')
+
+function save(){
+localStorage.setItem('clow',JSON.stringify(data))
+}
+
+/ 이미지 압축 /
+function compress(file){
+return new Promise(res=>{
+if(!file) return res('')
+let r=new FileReader()
+r.onload=()=>{
+let img=new Image()
+img.onload=()=>{
+let canvas=document.createElement('canvas')
+let scale=600/Math.max(img.width,img.height)
+canvas.width=img.widthscale
+canvas.height=img.heightscale
+canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height)
+res(canvas.toDataURL('image/jpeg',0.7))
+}
+img.src=r.result
+}
+r.readAsDataURL(file)
+})
+}
+
+/ 게시글 /
+async function post(){
+let imgFile=document.getElementById('img').files[0]
+let img=await compress(imgFile)
+
+data.posts.unshift({
+nick:nick.value||'fan',
+text:text.value,
+img
+})
+
+save()
+renderPosts()
+
+nick.value=''
+text.value=''
+img.value=''
+}
+
+function renderPosts(){
+posts.innerHTML=data.posts.map(p=> <div class="post"> <b>${p.nick}</b> <p>${p.text}</p> ${p.img?<img src="${p.img}">:''} </div> ).join('')
+}
+
+/ 스케줄 /
+function addSchedule(){
+data.schedule.push({
+date:date.value,
+title:title.value
+})
+save()
+renderSchedule()
+}
+
+function renderSchedule(){
+scheduleList.innerHTML=data.schedule.map(s=><div class="card"> <b>${s.date}</b> <p>${s.title}</p> </div>).join('')
+}
+
+/ 달력 /
+function renderCalendar(){
+let html=''
+for(let i=1;i<=30;i++){
+html+=<div class="day">${i}</div>
+}
+calendar.innerHTML=html
+}
+
+/ 초기 */
+renderPosts()
+renderSchedule()
+renderCalendar()
+
+</script>
+
+</body>
+</html>
