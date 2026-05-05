@@ -90,6 +90,24 @@ header{position:sticky;top:0;z-index:30;padding:12px 14px 10px;background:rgba(1
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .skeleton{background:linear-gradient(90deg,#1b191d 25%,#242124 50%,#1b191d 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:12px;height:80px}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+
+/* 다크/화이트 모드 */
+body{transition:background .2s,color .2s}
+body.light{background:#f4f1ec;color:#111}
+body.light .app{background:#ffffff;border-color:#ddd8d0}
+body.light header{background:rgba(255,255,255,.94);border-bottom-color:#ddd8d0}
+body.light .card,body.light .item,body.light .detail,body.light .modal-card,body.light .composer,body.light .calendar,body.light .compose-mini{background:#f7f5f1;border-color:#ddd8d0;color:#111;box-shadow:0 18px 40px rgba(0,0,0,.08)}
+body.light .tab,body.light .filter,body.light .subtab,body.light .mini,body.light .file-label,body.light .storage-badge,body.light .day,body.light .fake-receipt,body.light .comment,body.light .info-line{background:#ffffff;border-color:#ddd8d0;color:#333}
+body.light .tab.active,body.light .filter.active,body.light .subtab.active,body.light .day.has,body.light .add,body.light .submit,body.light .close,body.light .lightbox-close{background:#111;color:#fff}
+body.light .field{background:#ffffff;border-color:#ddd8d0;color:#111}
+body.light .field::placeholder{color:#aaa}
+body.light p,body.light small,body.light .meta,body.light .tag,body.light .sync-status,body.light .compose-placeholder,body.light .upload-progress,body.light .gallery-upload-area p,body.light .storage-badge,body.light .lightbox-counter,body.light .dow{color:#766f68}
+body.light .gallery-upload-area{border-color:#ddd8d0;background:#fff}
+body.light .modal{background:rgba(255,255,255,.72)}
+body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e9e4dc 75%);background-size:200% 100%}
+@media(min-width:900px){body.light{background:radial-gradient(circle at 50% 0,#fff 0,#f4f1ec 48%,#f4f1ec 100%)}}
+
 </style>
 </head>
 <body>
@@ -99,7 +117,7 @@ header{position:sticky;top:0;z-index:30;padding:12px 14px 10px;background:rgba(1
     <div class="logo" onclick="showTab('home')">CLOW</div>
     <div style="display:flex;align-items:center;gap:8px">
       <span class="sync-status"><span class="sync-dot" id="syncDot"></span><span id="syncLabel">연결 중</span></span>
-      <button class="mini" onclick="toggleTheme()">☾</button>
+      <button id="themeToggleBtn" class="mini" onclick="toggleTheme()">☾</button>
       <div class="tag">OFFICIAL</div>
     </div>
   </div>
@@ -266,6 +284,25 @@ import {
   getDocs, onSnapshot, query, orderBy, serverTimestamp, getDoc
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
   
+
+// =====================
+// 다크/화이트 모드
+// =====================
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') document.body.classList.add('light');
+
+function updateThemeButton() {
+  const btn = document.getElementById('themeToggleBtn');
+  if (btn) btn.textContent = document.body.classList.contains('light') ? '☀' : '☾';
+}
+updateThemeButton();
+
+window.toggleTheme = function() {
+  document.body.classList.toggle('light');
+  localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  updateThemeButton();
+};
+
 
 // =====================
 // Firebase 설정
