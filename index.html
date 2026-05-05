@@ -1793,6 +1793,8 @@ window.openHomeContentForm = function(id = '') {
     <input id="homeContentTitle" class="field" placeholder="제목" value="${esc(item.title || '')}">
     <textarea id="homeContentBody" class="field" placeholder="내용 / 설명">${esc(item.body || '')}</textarea>
     <input id="homeContentLink" class="field" placeholder="링크 또는 영상 URL (선택)" value="${esc(item.link || '')}">
+    <label class="check-label"><input id="homeContentPinned" type="checkbox" ${item.pinned ? 'checked' : ''}> 홈 상단 고정</label>
+    <p style="font-size:11px;color:#8e8580;margin:4px 0 8px">고정 콘텐츠는 최대 2개까지 가능</p>
     <label style="color:#8e8580;font-size:12px;display:block;margin-top:8px">대표 이미지</label>
     <input id="homeContentImg" class="field" type="file" accept="image/*" multiple>
     ${(item.img || (item.urls && item.urls.length)) ? `<p style="margin-top:6px">기존 이미지가 있습니다. 새 이미지를 넣으면 교체됩니다.</p>` : ''}
@@ -1803,7 +1805,12 @@ window.saveHomeContent = async function(id = '') {
   const title = document.getElementById('homeContentTitle').value.trim();
   const body = document.getElementById('homeContentBody').value.trim();
   const link = document.getElementById('homeContentLink').value.trim();
+  const pinned = !!document.getElementById('homeContentPinned')?.checked;
   if (!title) { alert('제목을 입력해 주세요.'); return; }
+  if (pinned) {
+    const pinnedOthers = homeContents.filter(x => x.pinned && x.id !== id).length;
+    if (pinnedOthers >= 2) { alert('고정 콘텐츠는 최대 2개까지만 가능합니다. 기존 고정을 먼저 해제해 주세요.'); return; }
+  }
   setSyncStatus('loading');
   let uploadedUrls = [];
   try { uploadedUrls = await uploadMultipleFromInput(document.getElementById('homeContentImg')); }
@@ -1811,7 +1818,7 @@ window.saveHomeContent = async function(id = '') {
   const prev = homeContents.find(x => x.id === id) || {};
   const prevUrls = Array.isArray(prev.urls) ? prev.urls : (prev.img ? [prev.img] : []);
   const urls = uploadedUrls.length ? uploadedUrls : prevUrls;
-  const data = { title, body, link, urls, img: urls[0] || '' };
+  const data = { title, body, link, urls, img: urls[0] || '', pinned };
   if (id) {
     await fbSet('homeContents', id, data);
     homeContents = homeContents.map(x => x.id === id ? { ...x, ...data } : x);
@@ -1889,6 +1896,7 @@ function renderHome() {
   if (feed) {
     const sortedHomeContents = [...homeContents].sort((a,b) => {
       const getTime = (x) => x?.createdAt?.toDate ? x.createdAt.toDate().getTime() : new Date(x?.createdAt || 0).getTime();
+      if (!!b.pinned !== !!a.pinned) return Number(!!b.pinned) - Number(!!a.pinned);
       return getTime(b) - getTime(a);
     });
     feed.innerHTML = sortedHomeContents.length ? sortedHomeContents.map((it, i) => {
@@ -1897,7 +1905,7 @@ function renderHome() {
       return `<article class="home-feed-card" onclick="${click}">
         ${cover ? `<img src="${esc(cover)}" loading="lazy">` : `<div style="aspect-ratio:16/9;background:${homeFallbackImage(i)}"></div>`}
         <div class="home-feed-body">
-          <div class="home-content-date">${homeDateText(it)}</div>
+          <div class="home-content-date">${it.pinned ? '<span class="dday-badge" style="margin:0 6px 0 0">PIN</span>' : ''}${homeDateText(it)}</div>
           <h3>${esc(String(it.title || 'CLOW Contents').slice(0, 90))}</h3>
           ${it.body ? `<p>${esc(it.body)}</p>` : ''}
           <div class="home-reactions"><span class="home-reaction">👍 ${450+i*8}</span><span class="home-reaction">💗 ${1200+i*93}</span><span class="home-reaction">💬 ${80+i*17}</span></div>
