@@ -33,6 +33,7 @@ header{position:sticky;top:0;z-index:30;padding:12px 14px 10px;background:rgba(1
 .detail{padding:18px}.detail pre{white-space:pre-wrap;font-family:inherit;color:#aaa19b;font-size:14px;line-height:1.7}.back{margin-bottom:14px}.view-toggle{display:flex;gap:8px;margin-bottom:16px}.calendar{background:#141316;border:1px solid #242124;border-radius:24px;padding:14px;margin:0 0 16px;box-shadow:0 12px 28px rgba(0,0,0,.2)}.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-weight:950}.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.dow,.day{text-align:center;font-size:12px}.dow{color:#8e8580;font-weight:850}.day{min-height:34px;border:0;border-radius:12px;padding:5px;background:#1b191d;color:#aaa19b}.day.has{background:#f4f1ec;color:#111;font-weight:900}.admin-dot{border:0;background:transparent;color:#8e8580;font-size:18px;padding:4px}.admin-panel{margin-top:12px}.profile-chip{display:flex;align-items:center;gap:10px}.product{padding:11px}.goods-img{width:100%;margin-bottom:11px}
 .member-hero{position:relative;overflow:hidden;padding:0}.member-visual{height:320px;background:linear-gradient(135deg,#25202d,#765c9e,#c47a96);object-fit:cover;width:100%}.member-info{padding:18px}.member-name{font-size:34px;letter-spacing:-.06em;margin-bottom:4px}.member-role{color:#cfc7c1;font-weight:900;margin-bottom:12px}.member-bio{margin-bottom:18px}.info-grid{display:grid;gap:10px;margin-top:14px}.info-line{padding:12px;border-radius:16px;background:#1b191d;color:#bfb7b1;font-size:14px;line-height:1.45}.info-line b{display:block;color:#f4f1ec;margin-bottom:4px}
 .purchase-done{text-align:center;padding:18px 6px 8px}.purchase-done .emoji{font-size:44px;margin-bottom:10px}.purchase-done h2{margin-bottom:8px}.purchase-done p{margin-bottom:14px}.fake-receipt{margin-top:14px;padding:14px;border-radius:18px;background:#1b191d;text-align:left}.fake-receipt div{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2e292d;color:#aaa19b;font-size:13px}.fake-receipt div:last-child{border-bottom:0;color:#f4f1ec;font-weight:900}.member-only-badge{display:inline-block;margin-left:6px;border-radius:999px;background:#2a2038;color:#d6c4ff;padding:4px 8px;font-size:11px;font-weight:900}.locked-box{margin-top:12px;padding:14px;border-radius:18px;background:#1b191d;color:#aaa19b;font-size:13px}
+.profile-avatar-btn{width:36px;height:36px;border:1px solid #2e292d;border-radius:50%;background:linear-gradient(135deg,#f29ac0,#7d6fff);box-shadow:0 8px 22px rgba(0,0,0,.25);cursor:pointer;overflow:hidden;flex:0 0 36px}.profile-avatar-btn img{width:100%;height:100%;object-fit:cover}.profile-head{text-align:center;padding:8px 0 14px}.profile-head .profile-big{width:76px;height:76px;margin:0 auto 12px;border-radius:50%;background:linear-gradient(135deg,#f29ac0,#7d6fff);border:1px solid #2e292d;overflow:hidden}.profile-head .profile-big img{width:100%;height:100%;object-fit:cover}.profile-tabs{display:flex;gap:8px;overflow-x:auto;margin:12px 0 14px}.profile-tab{flex:1;border:1px solid #2e292d;border-radius:999px;background:#1b191d;color:#d9d2cc;padding:9px 10px;font-size:12px;font-weight:900}.profile-tab.active{background:#f4f1ec;color:#111}.profile-panel{display:none}.profile-panel.active{display:block}.profile-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.profile-stat{padding:12px;border-radius:16px;background:#1b191d;border:1px solid #2e292d}.profile-stat b{display:block;font-size:17px}.profile-post{padding:12px;border-radius:16px;background:#1b191d;margin-top:10px}.profile-order{padding:12px;border-radius:16px;background:#1b191d;margin-top:10px}.profile-order-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.profile-muted{color:#8e8580;font-size:12px;line-height:1.45}
 footer{text-align:center;color:#6f6764;font-size:12px;padding:24px 14px 34px}
 
 /* PC 최적화: 900px 이상에서는 모바일 앱 폭이 아니라 데스크톱 레이아웃으로 확장 */
@@ -104,8 +105,8 @@ body.light{background:#f4f1ec;color:#111}
 body.light .app{background:#ffffff;border-color:#ddd8d0}
 body.light header{background:rgba(255,255,255,.94);border-bottom-color:#ddd8d0}
 body.light .card,body.light .item,body.light .detail,body.light .modal-card,body.light .composer,body.light .calendar,body.light .compose-mini{background:#f7f5f1;border-color:#ddd8d0;color:#111;box-shadow:0 18px 40px rgba(0,0,0,.08)}
-body.light .tab,body.light .filter,body.light .subtab,body.light .mini,body.light .file-label,body.light .storage-badge,body.light .day,body.light .fake-receipt,body.light .comment,body.light .info-line{background:#ffffff;border-color:#ddd8d0;color:#333}
-body.light .tab.active,body.light .filter.active,body.light .subtab.active,body.light .day.has,body.light .add,body.light .submit,body.light .close,body.light .lightbox-close{background:#111;color:#fff}
+body.light .tab,body.light .filter,body.light .subtab,body.light .mini,body.light .file-label,body.light .storage-badge,body.light .day,body.light .fake-receipt,body.light .comment,body.light .info-line,body.light .profile-tab,body.light .profile-stat,body.light .profile-post,body.light .profile-order{background:#ffffff;border-color:#ddd8d0;color:#333}
+body.light .tab.active,body.light .filter.active,body.light .subtab.active,body.light .profile-tab.active,body.light .day.has,body.light .add,body.light .submit,body.light .close,body.light .lightbox-close{background:#111;color:#fff}
 body.light .field{background:#ffffff;border-color:#ddd8d0;color:#111}
 body.light .field::placeholder{color:#aaa}
 body.light p,body.light small,body.light .meta,body.light .tag,body.light .sync-status,body.light .compose-placeholder,body.light .upload-progress,body.light .gallery-upload-area p,body.light .storage-badge,body.light .lightbox-counter,body.light .dow{color:#766f68}
@@ -124,7 +125,7 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
     <div style="display:flex;align-items:center;gap:8px">
       <span class="sync-status"><span class="sync-dot" id="syncDot"></span><span id="syncLabel">연결 중</span></span>
       <button id="themeToggleBtn" class="mini" type="button">☾</button>
-      <div class="tag">OFFICIAL</div>
+      <button id="profileBtn" class="profile-avatar-btn" type="button" onclick="openProfile()" aria-label="내 프로필"></button>
     </div>
   </div>
   <nav class="tabs">
@@ -373,6 +374,96 @@ function uid() { return Date.now().toString(36) + Math.random().toString(36).sli
 
 let lastTab = 'home', scheduleType = 'all', shopCat = 'all', scheduleView = 'list', selectedDate = '';
 let userPlan = localStorage.getItem('clowUserPlan') || ''; // '', 'general', 'membership'
+let userProfile = JSON.parse(localStorage.getItem('clowUserProfile') || 'null') || { id: uid(), nick: 'fan', img: '' };
+localStorage.setItem('clowUserProfile', JSON.stringify(userProfile));
+
+function saveUserProfile(data = {}) {
+  userProfile = { ...userProfile, ...data };
+  localStorage.setItem('clowUserProfile', JSON.stringify(userProfile));
+  updateProfileButton();
+}
+
+function updateProfileButton() {
+  const btn = document.getElementById('profileBtn');
+  if (!btn) return;
+  btn.innerHTML = userProfile.img ? `<img src="${esc(userProfile.img)}" alt="">` : '';
+  btn.title = userProfile.nick || '내 프로필';
+}
+
+function userPlanLabel() {
+  if (userPlan === 'membership') return '멤버십 회원';
+  if (userPlan === 'general') return '일반 회원';
+  return '미가입';
+}
+
+function getOrders() {
+  return JSON.parse(localStorage.getItem('clowOrders') || '[]');
+}
+
+function saveOrder(order) {
+  const orders = getOrders();
+  orders.unshift({ id: uid(), date: new Date().toLocaleString('ko-KR'), ...order });
+  localStorage.setItem('clowOrders', JSON.stringify(orders));
+}
+
+function myFanPosts() {
+  return fanPosts.filter(p => p.authorId === userProfile.id || (!!userProfile.nick && p.nick === userProfile.nick));
+}
+
+window.openProfile = function(tab = 'info') {
+  const orders = getOrders();
+  const mine = myFanPosts();
+  openModal('내 프로필', `
+    <div class="profile-head">
+      <div class="profile-big">${userProfile.img ? `<img src="${esc(userProfile.img)}" alt="">` : ''}</div>
+      <h3>${esc(userProfile.nick || 'fan')}</h3>
+      <p>${userPlanLabel()}</p>
+    </div>
+    <div class="profile-tabs">
+      <button class="profile-tab ${tab==='info'?'active':''}" onclick="openProfile('info')">내 정보</button>
+      <button class="profile-tab ${tab==='orders'?'active':''}" onclick="openProfile('orders')">주문목록</button>
+      <button class="profile-tab ${tab==='posts'?'active':''}" onclick="openProfile('posts')">내가 남긴 글</button>
+    </div>
+    <div class="profile-panel ${tab==='info'?'active':''}">
+      <input id="profileNick" class="field" placeholder="닉네임" value="${esc(userProfile.nick || '')}">
+      <label style="color:#8e8580;font-size:12px;display:block;margin-top:8px">프로필 이미지</label>
+      <input id="profileImg" class="field" type="file" accept="image/*">
+      <div class="profile-stat-grid">
+        <div class="profile-stat"><small>계정 상태</small><b>${userPlanLabel()}</b></div>
+        <div class="profile-stat"><small>주문</small><b>${orders.length}개</b></div>
+        <div class="profile-stat"><small>내 글</small><b>${mine.length}개</b></div>
+        <div class="profile-stat"><small>멤버십</small><b>${userPlan === 'membership' ? '이용 가능' : '제한'}</b></div>
+      </div>
+      <button class="submit" onclick="saveProfileInfo()">내 정보 저장</button>
+      <div class="actions"><button class="mini" onclick="resetProfileState()">계정 상태 초기화</button></div>
+    </div>
+    <div class="profile-panel ${tab==='orders'?'active':''}">
+      ${orders.length ? orders.map(o => `<div class="profile-order"><div class="profile-order-top"><div><h3>${esc(o.name)}</h3><small>${esc(o.date)}</small></div><b>₩${Number(o.price||0).toLocaleString()}</b></div><p class="profile-muted">${esc(o.type || '상품 주문')}</p></div>`).join('') : '<div class="empty">주문 내역 없음</div>'}
+    </div>
+    <div class="profile-panel ${tab==='posts'?'active':''}">
+      ${mine.length ? mine.map(p => `<div class="profile-post"><small>${p.membershipOnly ? 'MEMBERSHIP · ' : ''}Fan Community</small><p>${esc(p.text || '')}</p>${p.img ? `<img class="post-img" src="${esc(p.img)}">` : ''}</div>`).join('') : '<div class="empty">내가 남긴 글 없음</div>'}
+    </div>
+  `);
+};
+
+window.saveProfileInfo = async function() {
+  setSyncStatus('loading');
+  const nick = document.getElementById('profileNick').value || 'fan';
+  let imgUrl = '';
+  try { imgUrl = await uploadFromInput(document.getElementById('profileImg')); }
+  catch(e) { alert('프로필 이미지 업로드 실패: ' + e.message); }
+  saveUserProfile({ nick, img: imgUrl || userProfile.img || '' });
+  setSyncStatus('ok');
+  openProfile('info');
+};
+
+window.resetProfileState = function() {
+  if (!confirm('가입 상태와 주문목록을 초기화할까? 작성글은 삭제되지 않아.')) return;
+  userPlan = '';
+  localStorage.removeItem('clowUserPlan');
+  localStorage.removeItem('clowOrders');
+  openProfile('info');
+};
 
 window.joinGeneral = function() {
   userPlan = 'general';
@@ -385,6 +476,7 @@ window.joinMembership = function() {
   userPlan = 'membership';
   localStorage.setItem('clowUserPlan', userPlan);
   if (typeof renderGallery === 'function') renderGallery();
+  saveOrder({ name: 'CLOW Membership', price: 20000, type: '멤버십 가입' });
   openModal('멤버십 가입 완료', `<div class="purchase-done"><div class="emoji">💎</div><h2>멤버십 가입 완료</h2><p>연 20,000원 가상 결제가 완료됐습니다.<br>이제 멤버십 전용 게시글, 사진, 상품을 이용할 수 있어요.</p><div class="fake-receipt"><div><span>상품</span><span>CLOW Membership</span></div><div><span>기간</span><span>1년</span></div><div><span>결제 금액</span><span>₩20,000</span></div></div><button class="submit" onclick="closeModal()">확인</button></div>`);
 };
 
@@ -404,6 +496,7 @@ function showTab(t) {
   if (t === 'gallery') loadGallery();
 }
 document.querySelectorAll('.tab').forEach(t => t.onclick = () => showTab(t.dataset.tab));
+document.addEventListener('DOMContentLoaded', updateProfileButton);
 
 function openModal(title, body) { document.getElementById('modalTitle').textContent = title; document.getElementById('modalBody').innerHTML = body; document.getElementById('modal').classList.add('open') }
 function closeModal() { document.getElementById('modal').classList.remove('open'); document.getElementById('modalBody').innerHTML = '' }
@@ -842,8 +935,11 @@ window.addFanPost = async function() {
   if (!requireJoined()) return;
   setSyncStatus('loading');
   const imgUrl = await uploadFromInput(document.getElementById('fanImg'));
+  const nick = document.getElementById('fanNick').value || userProfile.nick || 'fan';
+  saveUserProfile({ nick });
   const data = {
-    nick: document.getElementById('fanNick').value || 'fan',
+    authorId: userProfile.id,
+    nick,
     text: document.getElementById('fanText').value,
     img: imgUrl, likes: 0, comments: [],
     membershipOnly: document.getElementById('fanMemberOnly')?.checked || false
@@ -976,6 +1072,7 @@ window.productDetail = function(pid) {
 window.fakeBuy = function(pid) {
   const p = products.find(x => x.id === pid);
   if (p.membershipOnly && userPlan !== 'membership') { alert('멤버십 전용 상품이라 멤버십 가입 후 구매할 수 있어.'); showTab('home'); return; }
+  saveOrder({ name: p.name, price: p.price, type: catName(p.cat) });
   openModal('구매 완료', `<div class="purchase-done"><div class="emoji">🛍️</div><h2>구매가 완료됐습니다</h2><p>${esc(p.name)} 상품을 구매한 것처럼 처리했어요.<br>실제 결제는 일어나지 않습니다.</p><div class="fake-receipt"><div><span>상품</span><span>${esc(p.name)}</span></div><div><span>결제 방식</span><span>FAKE PAY</span></div><div><span>결제 금액</span><span>₩${Number(p.price||0).toLocaleString()}</span></div></div><button class="submit" onclick="closeModal()">확인</button></div>`);
 };
 
