@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CLOW Official</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#050505;color:#f4f1ec}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+img{display:block;max-width:100%}
+.app{width:min(430px,100%);min-height:100vh;margin:0 auto;background:#0b0b0d;border-left:1px solid #242124;border-right:1px solid #242124}
+header{position:sticky;top:0;z-index:30;padding:12px 14px 10px;background:rgba(11,11,13,.94);backdrop-filter:blur(18px);border-bottom:1px solid #242124}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.logo{font-weight:950;font-size:20px;letter-spacing:.14em;cursor:pointer}.tag{font-size:11px;color:#8e8580;font-weight:850}
+.tabs,.filters,.subtabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.tabs::-webkit-scrollbar,.filters::-webkit-scrollbar,.subtabs::-webkit-scrollbar{display:none}
+.tab,.filter,.subtab{flex:0 0 auto;border:1px solid #2e292d;border-radius:999px;padding:8px 13px;background:#141316;color:#aaa19b;font-size:13px;font-weight:850}.tab.active,.filter.active,.subtab.active{background:#f4f1ec;color:#111}
+.page{display:none;padding:22px 14px 42px}.page.active{display:block}h1,h2,h3,p{margin:0}h1{font-size:52px;line-height:.9;letter-spacing:-.08em;text-transform:uppercase}h2{font-size:24px;letter-spacing:-.045em}h3{font-size:17px}p{font-size:14px;line-height:1.55;color:#a69d97}
+.title{display:flex;justify-content:space-between;align-items:center;margin:12px 0 18px}.section-gap{margin-top:18px}.filters,.subtabs{margin:0 0 20px}.list{display:grid;gap:14px}.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card,.item,.detail,.modal-card,.composer{border:1px solid #242124;border-radius:24px;background:#141316;box-shadow:0 18px 40px rgba(0,0,0,.28)}.card,.item,.detail{padding:15px}
+.hero{min-height:370px;border-radius:28px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;background:linear-gradient(rgba(0,0,0,.08),rgba(0,0,0,.55)),radial-gradient(circle at 32% 16%,rgba(255,255,255,.9),transparent 13%),linear-gradient(145deg,#19151f,#7d5da4 52%,#ba6f8a);box-shadow:0 18px 44px rgba(0,0,0,.4)}
+.label,.pill{display:inline-block;border-radius:999px;padding:6px 9px;font-size:11px;font-weight:900}.label{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.1);letter-spacing:.08em;text-transform:uppercase}.pill{background:#2a2038;color:#d6c4ff}
+.hero-copy{padding:16px;border-radius:22px;background:rgba(0,0,0,.38);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12)}.hero p{color:rgba(255,255,255,.78);font-size:13px}.quick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.add,.submit{border:0;border-radius:999px;background:#f4f1ec;color:#111;padding:10px 13px;font-size:12px;font-weight:900}.submit{width:100%;margin-top:14px;padding:14px;font-size:14px}.row{display:flex;gap:12px;align-items:center}
+.thumb{width:86px;height:104px;flex:0 0 86px;border-radius:18px;background:linear-gradient(135deg,#25202d,#765c9e,#c47a96);object-fit:cover}.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#f29ac0,#7d6fff);object-fit:cover;flex:0 0 38px}
+.album-cover,.goods-img{aspect-ratio:1/1;border-radius:18px;background:linear-gradient(135deg,#19151f,#7d5da4 45%,#c47a96);object-fit:cover}.album-cover{width:98px;height:98px;flex:0 0 98px}.content{min-width:0;flex:1}small,.meta{color:#8e8580;font-size:12px;font-weight:780}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.mini{border:1px solid #2e292d;border-radius:999px;background:#1b191d;padding:8px 11px;font-size:12px;font-weight:850;color:#d9d2cc}.danger{color:#ff6b6b}.price{font-weight:950;margin-top:9px;font-size:21px}
+.post-img,.detail-img{width:100%;border-radius:20px;margin:0 0 18px;max-height:420px;object-fit:cover}.field{width:100%;border:1px solid #2e292d;border-radius:15px;padding:11px;margin:7px 0;background:#0d0c0f;color:#f4f1ec}.field::placeholder{color:#6f6764}
+.composer{padding:13px;margin-bottom:18px;background:#141316;color:#f4f1ec}.compose-mini{display:flex;align-items:center;gap:10px;padding:13px;border-radius:22px;background:#141316;border:1px solid #242124;box-shadow:0 8px 22px rgba(0,0,0,.25);margin-bottom:14px;cursor:pointer}.compose-placeholder{flex:1;color:#8e8580;font-size:14px}.hidden-form{display:none}.composer textarea{min-height:96px;resize:vertical}
+.file-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}.file-label{border:1px solid #2e292d;border-radius:999px;background:#1b191d;padding:8px 11px;font-size:12px;font-weight:850;color:#d9d2cc;cursor:pointer}.file-label input{display:none}.comment{margin-top:10px;padding:10px;border-radius:15px;background:#1d1a1e;color:#b9b0aa;font-size:13px}
+.modal{position:fixed;inset:0;z-index:60;display:none;background:rgba(0,0,0,.72);padding:18px;align-items:flex-end}.modal.open{display:flex}.modal-card{width:min(430px,100%);max-height:88vh;margin:0 auto;overflow:auto;background:#101012;padding:16px}.modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.close{border:0;background:#f4f1ec;color:#111;border-radius:999px;padding:8px 12px;font-weight:900}.hidden{display:none!important}.empty{text-align:center;color:#8e8580;padding:26px}
+.detail{padding:18px}.detail pre{white-space:pre-wrap;font-family:inherit;color:#aaa19b;font-size:14px;line-height:1.7}.back{margin-bottom:14px}.view-toggle{display:flex;gap:8px;margin-bottom:16px}.calendar{background:#141316;border:1px solid #242124;border-radius:24px;padding:14px;margin:0 0 16px;box-shadow:0 12px 28px rgba(0,0,0,.2)}.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-weight:950}.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.dow,.day{text-align:center;font-size:12px}.dow{color:#8e8580;font-weight:850}.day{min-height:34px;border:0;border-radius:12px;padding:5px;background:#1b191d;color:#aaa19b}.day.has{background:#f4f1ec;color:#111;font-weight:900}.admin-dot{border:0;background:transparent;color:#8e8580;font-size:18px;padding:4px}.admin-panel{margin-top:12px}.profile-chip{display:flex;align-items:center;gap:10px}.product{padding:11px}.goods-img{width:100%;margin-bottom:11px}
+.member-hero{position:relative;overflow:hidden;padding:0}.member-visual{height:320px;background:linear-gradient(135deg,#25202d,#765c9e,#c47a96);object-fit:cover;width:100%}.member-info{padding:18px}.member-name{font-size:34px;letter-spacing:-.06em;margin-bottom:4px}.member-role{color:#cfc7c1;font-weight:900;margin-bottom:12px}.member-bio{margin-bottom:18px}.info-grid{display:grid;gap:10px;margin-top:14px}.info-line{padding:12px;border-radius:16px;background:#1b191d;color:#bfb7b1;font-size:14px;line-height:1.45}.info-line b{display:block;color:#f4f1ec;margin-bottom:4px}
+.purchase-done{text-align:center;padding:18px 6px 8px}.purchase-done .emoji{font-size:44px;margin-bottom:10px}.purchase-done h2{margin-bottom:8px}.purchase-done p{margin-bottom:14px}.fake-receipt{margin-top:14px;padding:14px;border-radius:18px;background:#1b191d;text-align:left}.fake-receipt div{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2e292d;color:#aaa19b;font-size:13px}.fake-receipt div:last-child{border-bottom:0;color:#f4f1ec;font-weight:900}footer{text-align:center;color:#6f6764;font-size:12px;padding:24px 14px 34px}@media(min-width:700px){.app{margin-top:18px;margin-bottom:18px;border-radius:30px;overflow:hidden}}
+
+/* 갤러리 */
+.gallery-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:12px}
+.gallery-item{position:relative;aspect-ratio:1/1;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#25202d,#765c9e);cursor:pointer}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .2s}
+.gallery-item:hover img{transform:scale(1.06)}
+.gallery-item .del-btn{position:absolute;top:5px;right:5px;background:rgba(0,0,0,.6);border:0;color:#fff;border-radius:50%;width:22px;height:22px;font-size:12px;display:none;align-items:center;justify-content:center;cursor:pointer}
+.gallery-item:hover .del-btn{display:flex}
+.gallery-lightbox{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;flex-direction:column}
+.gallery-lightbox.open{display:flex}
+.gallery-lightbox img{max-width:100%;max-height:85vh;object-fit:contain;border-radius:16px}
+.lightbox-close{position:absolute;top:18px;right:18px;background:#f4f1ec;color:#111;border:0;border-radius:999px;padding:8px 14px;font-weight:900;cursor:pointer;font-size:14px}
+.lightbox-nav{display:flex;gap:14px;margin-top:14px}
+.lightbox-nav button{background:#1b191d;border:1px solid #2e292d;color:#f4f1ec;border-radius:999px;padding:9px 18px;font-weight:850;cursor:pointer}
+.lightbox-counter{color:#8e8580;font-size:13px;margin-top:8px}
+.upload-progress{margin:8px 0;font-size:12px;color:#8e8580;text-align:center;padding:8px}
+.gallery-upload-area{border:2px dashed #2e292d;border-radius:20px;padding:24px;text-align:center;cursor:pointer;transition:border-color .2s;margin-bottom:16px}
+.gallery-upload-area:hover{border-color:#7d5da4}
+.gallery-upload-area p{color:#8e8580;font-size:14px;margin-top:8px}
+.gallery-upload-area .upload-icon{font-size:32px}
+.storage-badge{font-size:11px;color:#8e8580;background:#1b191d;border:1px solid #2e292d;border-radius:999px;padding:4px 10px;display:inline-block;margin-top:6px}
+
+/* 로딩 상태 */
+.sync-status{font-size:11px;color:#8e8580;display:flex;align-items:center;gap:5px}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:#555;display:inline-block}
+.sync-dot.ok{background:#4caf82}
+.sync-dot.loading{background:#f0a500;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.skeleton{background:linear-gradient(90deg,#1b191d 25%,#242124 50%,#1b191d 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:12px;height:80px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="top">
+    <div class="logo" onclick="showTab('home')">CLOW</div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="sync-status"><span class="sync-dot" id="syncDot"></span><span id="syncLabel">연결 중</span></span>
+      <div class="tag">OFFICIAL</div>
+    </div>
+  </div>
+  <nav class="tabs">
+    <button class="tab active" data-tab="home">Home</button>
+    <button class="tab" data-tab="members">Members</button>
+    <button class="tab" data-tab="discography">Discography</button>
+    <button class="tab" data-tab="gallery">Gallery</button>
+    <button class="tab" data-tab="schedule">Schedule</button>
+    <button class="tab" data-tab="community">Community</button>
+    <button class="tab" data-tab="shop">Shop</button>
+    <button class="tab" data-tab="notice">Notice</button>
+  </nav>
+</header>
+<main>
+<section id="home" class="page active">
+  <div class="hero">
+    <span class="label">new era</span>
+    <div class="hero-copy">
+      <h1>Clow</h1>
+      <p>Firebase 연동 공식 홈페이지. 어느 기기에서나 동일한 데이터. 사진은 Cloudinary에 저장.</p>
+    </div>
+  </div>
+  <div class="quick">
+    <div class="card"><b>🔥 실시간 동기화</b><p>Firebase로 모든 기기에서 동일하게 유지.</p></div>
+    <div class="card"><b>☁️ 클라우드 갤러리</b><p>Cloudinary에 100장 이상 업로드 가능.</p></div>
+  </div>
+</section>
+
+<section id="members" class="page">
+  <div class="title"><h2>Members</h2><button class="add" onclick="openMemberForm()">+ 추가</button></div>
+  <div id="membersList" class="list"><div class="skeleton"></div><div class="skeleton"></div></div>
+</section>
+
+<section id="discography" class="page">
+  <div class="title"><h2>Discography</h2><button class="add" onclick="openAlbumForm()">+ 추가</button></div>
+  <div id="albumsList" class="list"><div class="skeleton"></div></div>
+</section>
+
+<section id="gallery" class="page">
+  <div class="title"><h2>Gallery</h2><span id="photoCount" class="storage-badge">0장</span></div>
+  <div class="gallery-upload-area" onclick="document.getElementById('galleryFileInput').click()">
+    <div class="upload-icon">📷</div>
+    <p>클릭해서 사진 추가 · 여러 장 한번에 가능</p>
+    <p style="font-size:11px;color:#6f6764;margin-top:4px">Cloudinary 저장 · 100장 이상 · 어디서든 동일하게</p>
+    <input id="galleryFileInput" type="file" accept="image/*" multiple style="display:none" onchange="uploadGalleryPhotos(this)">
+  </div>
+  <div id="uploadProgress" class="upload-progress" style="display:none"></div>
+  <div id="galleryGrid" class="gallery-grid"></div>
+</section>
+
+<section id="schedule" class="page">
+  <div class="title"><h2>Schedule</h2><button class="add" onclick="openScheduleForm()">+ 추가</button></div>
+  <div class="view-toggle">
+    <button class="filter active" id="listViewBtn" onclick="scheduleView='list';renderSchedules()">리스트</button>
+    <button class="filter" id="calViewBtn" onclick="scheduleView='calendar';renderSchedules()">달력</button>
+  </div>
+  <div class="filters" id="scheduleFilters">
+    <button class="filter active" data-type="all">All</button>
+    <button class="filter" data-type="album">앨범</button>
+    <button class="filter" data-type="broadcast">방송</button>
+    <button class="filter" data-type="event">행사</button>
+    <button class="filter" data-type="etc">기타</button>
+  </div>
+  <div id="calendarBox"></div>
+  <div id="scheduleList" class="list"></div>
+</section>
+
+<section id="community" class="page">
+  <div class="title"><h2>Community</h2><button class="admin-dot" onclick="toggleAdmin()">⚙︎</button></div>
+  <div class="subtabs">
+    <button class="subtab active" data-com="fan">Fan</button>
+    <button class="subtab" data-com="artist">Artist</button>
+  </div>
+  <div id="fanBox">
+    <div class="compose-mini" onclick="openComposer('fan')">
+      <div class="avatar"></div>
+      <div class="compose-placeholder">팬 커뮤니티에 글 남기기</div>
+    </div>
+    <div id="fanComposer" class="composer hidden-form">
+      <input id="fanNick" class="field" placeholder="닉네임">
+      <textarea id="fanText" class="field" placeholder="무슨 생각 중이야?"></textarea>
+      <div class="file-row">
+        <label class="file-label">사진 추가<input id="fanImg" type="file" accept="image/*"></label>
+        <button class="mini" onclick="closeComposer('fan')">접기</button>
+      </div>
+      <button class="submit" onclick="addFanPost()">올리기</button>
+    </div>
+    <div id="fanPosts" class="list"></div>
+  </div>
+  <div id="artistBox" class="hidden">
+    <div class="compose-mini" onclick="openComposer('artist')">
+      <div class="avatar"></div>
+      <div class="compose-placeholder">아티스트 커뮤니티 글 작성</div>
+    </div>
+    <div id="artistComposer" class="composer hidden-form">
+      <select id="artistSelect" class="field"></select>
+      <textarea id="artistText" class="field" placeholder="아티스트 메시지"></textarea>
+      <div class="file-row">
+        <label class="file-label">사진 추가<input id="artistImg" type="file" accept="image/*"></label>
+        <button class="mini" onclick="closeComposer('artist')">접기</button>
+      </div>
+      <button class="submit" onclick="addArtistPost()">올리기</button>
+    </div>
+    <div id="artistPosts" class="list"></div>
+  </div>
+  <div id="adminPanel" class="admin-panel hidden">
+    <div class="title"><h2>Artist Profiles</h2><span>관리자용</span></div>
+    <div id="artistProfilesList" class="list"></div>
+  </div>
+</section>
+
+<section id="shop" class="page">
+  <div class="title"><h2>Shop</h2><button class="add" onclick="openProductForm()">+ 추가</button></div>
+  <div class="filters" id="shopFilters">
+    <button class="filter active" data-cat="all">All</button>
+    <button class="filter" data-cat="membership">Membership</button>
+    <button class="filter" data-cat="album">Album</button>
+    <button class="filter" data-cat="products">Products</button>
+    <button class="filter" data-cat="ticket">Ticket</button>
+  </div>
+  <div id="productsList" class="shop-grid"></div>
+</section>
+
+<section id="notice" class="page">
+  <div class="title"><h2>Notice</h2><button class="add" onclick="openNoticeForm()">+ 추가</button></div>
+  <div id="noticesList" class="list"></div>
+</section>
+
+<section id="detailPage" class="page">
+  <button class="mini back" onclick="backToLast()">← 뒤로</button>
+  <div id="detailContent"></div>
+</section>
+</main>
+<footer>© 2026 CLOW. Firebase + Cloudinary powered official site.</footer>
+</div>
+
+<!-- 라이트박스 -->
+<div id="galleryLightbox" class="gallery-lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">닫기</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-nav">
+    <button onclick="lightboxPrev()">← 이전</button>
+    <button onclick="lightboxNext()">다음 →</button>
+  </div>
+  <div id="lightboxCounter" class="lightbox-counter"></div>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-card">
+    <div class="modal-top">
+      <h2 id="modalTitle">Edit</h2>
+      <button class="close" onclick="closeModal()">닫기</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import {
+  getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc,
+  getDocs, onSnapshot, query, orderBy, serverTimestamp, getDoc
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+// =====================
+// Firebase 설정
+// =====================
+const firebaseConfig = {
+  apiKey: "AIzaSyCKQOmgoUadRKcmw5tD8MytVMP2s-4iJok",
+  authDomain: "clow-official.firebaseapp.com",
+  projectId: "clow-official",
+  storageBucket: "clow-official.firebasestorage.app",
+  messagingSenderId: "265203837127",
+  appId: "1:265203837127:web:627757197fcca75ac736e2"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// =====================
+// Cloudinary 설정
+// =====================
+const CLOUDINARY_CLOUD = 'dbljkloal';
+const CLOUDINARY_PRESET = 'clowoffical';
+const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`;
+
+// =====================
+// 동기화 상태 표시
+// =====================
+function setSyncStatus(state) {
+  const dot = document.getElementById('syncDot');
+  const label = document.getElementById('syncLabel');
+  if (state === 'ok') { dot.className = 'sync-dot ok'; label.textContent = '동기화됨'; }
+  else if (state === 'loading') { dot.className = 'sync-dot loading'; label.textContent = '동기화 중'; }
+  else { dot.className = 'sync-dot'; label.textContent = '오프라인'; }
+}
+
+// =====================
+// 유틸
+// =====================
+function esc(s = '') { return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])) }
+function img(src, cls = 'thumb') { return src ? `<img class="${cls}" src="${esc(src)}" loading="lazy">` : `<div class="${cls}"></div>` }
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7) }
+
+let lastTab = 'home', scheduleType = 'all', shopCat = 'all', scheduleView = 'list', selectedDate = '';
+
+function showTab(t) {
+  if (t !== 'detailPage') lastTab = t;
+  document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x.dataset.tab === t));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(t).classList.add('active');
+  scrollTo({top:0,behavior:'smooth'});
+  if (t === 'gallery') loadGallery();
+}
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => showTab(t.dataset.tab));
+
+function openModal(title, body) { document.getElementById('modalTitle').textContent = title; document.getElementById('modalBody').innerHTML = body; document.getElementById('modal').classList.add('open') }
+function closeModal() { document.getElementById('modal').classList.remove('open'); document.getElementById('modalBody').innerHTML = '' }
+window.closeModal = closeModal;
+
+function detail(h) { document.getElementById('detailContent').innerHTML = h; showTab('detailPage') }
+function backToLast() { showTab(lastTab) }
+window.backToLast = backToLast;
+
+// =====================
+// Cloudinary 이미지 업로드
+// =====================
+async function uploadToCloudinary(file) {
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('upload_preset', CLOUDINARY_PRESET);
+  const res = await fetch(CLOUDINARY_URL, { method: 'POST', body: fd });
+  const data = await res.json();
+  if (data.secure_url) return data.secure_url;
+  throw new Error('Cloudinary 업로드 실패: ' + JSON.stringify(data));
+}
+
+// 파일 input에서 Cloudinary 업로드 (작은 썸네일용)
+async function uploadFromInput(inputEl) {
+  const file = inputEl && inputEl.files && inputEl.files[0];
+  if (!file) return '';
+  return await uploadToCloudinary(file);
+}
+
+// =====================
+// 갤러리
+// =====================
+let galleryPhotos = [];
+let lightboxIndex = 0;
+
+async function loadGallery() {
+  setSyncStatus('loading');
+  try {
+    const q = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    galleryPhotos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderGallery();
+    setSyncStatus('ok');
+  } catch(e) {
+    console.error(e);
+    setSyncStatus('error');
+  }
+}
+
+function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  const countEl = document.getElementById('photoCount');
+  countEl.textContent = galleryPhotos.length + '장';
+  if (!galleryPhotos.length) {
+    grid.innerHTML = '<div class="empty" style="grid-column:1/-1">사진을 추가해줘.</div>';
+    return;
+  }
+  grid.innerHTML = galleryPhotos.map((p, i) =>
+    `<div class="gallery-item" onclick="openLightbox(${i})">
+      <img src="${esc(p.url)}" loading="lazy" alt="">
+      <button class="del-btn" onclick="event.stopPropagation();deleteGalleryPhoto('${p.id}')">✕</button>
+    </div>`
+  ).join('');
+}
+
+window.uploadGalleryPhotos = async function(input) {
+  const files = Array.from(input.files);
+  if (!files.length) return;
+  const prog = document.getElementById('uploadProgress');
+  prog.style.display = 'block';
+  setSyncStatus('loading');
+  for (let i = 0; i < files.length; i++) {
+    prog.textContent = `☁️ Cloudinary 업로드 중... ${i+1} / ${files.length}`;
+    try {
+      const url = await uploadToCloudinary(files[i]);
+      const docRef = await addDoc(collection(db, 'gallery'), {
+        url,
+        createdAt: serverTimestamp()
+      });
+      galleryPhotos.unshift({ id: docRef.id, url });
+      renderGallery();
+    } catch(e) {
+      alert(`${i+1}번째 사진 업로드 실패: ${e.message}`);
+    }
+  }
+  prog.style.display = 'none';
+  input.value = '';
+  setSyncStatus('ok');
+};
+
+window.deleteGalleryPhoto = async function(id) {
+  if (!confirm('이 사진을 삭제할까?')) return;
+  setSyncStatus('loading');
+  await deleteDoc(doc(db, 'gallery', id));
+  galleryPhotos = galleryPhotos.filter(p => p.id !== id);
+  renderGallery();
+  setSyncStatus('ok');
+  if (lightboxIndex >= galleryPhotos.length) lightboxIndex = Math.max(0, galleryPhotos.length - 1);
+};
+
+window.openLightbox = function(i) { lightboxIndex = i; updateLightbox(); document.getElementById('galleryLightbox').classList.add('open'); };
+window.closeLightbox = function() { document.getElementById('galleryLightbox').classList.remove('open'); };
+function updateLightbox() {
+  const p = galleryPhotos[lightboxIndex];
+  document.getElementById('lightboxImg').src = p ? p.url : '';
+  document.getElementById('lightboxCounter').textContent = `${lightboxIndex + 1} / ${galleryPhotos.length}`;
+}
+window.lightboxPrev = function() { lightboxIndex = (lightboxIndex - 1 + galleryPhotos.length) % galleryPhotos.length; updateLightbox(); };
+window.lightboxNext = function() { lightboxIndex = (lightboxIndex + 1) % galleryPhotos.length; updateLightbox(); };
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lightboxPrev();
+  if (e.key === 'ArrowRight') lightboxNext();
+});
+
+// =====================
+// Firestore CRUD 헬퍼
+// =====================
+async function fbGetAll(colName, orderField = 'createdAt') {
+  try {
+    const q = query(collection(db, colName), orderBy(orderField, 'desc'));
+    const snap = await getDocs(q);
+    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  } catch {
+    // orderBy 실패 시 순서 없이 가져옴
+    const snap = await getDocs(collection(db, colName));
+    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  }
+}
+
+async function fbAdd(colName, data) {
+  return await addDoc(collection(db, colName), { ...data, createdAt: serverTimestamp() });
+}
+
+async function fbSet(colName, id, data) {
+  return await setDoc(doc(db, colName, id), { ...data, updatedAt: serverTimestamp() }, { merge: true });
+}
+
+async function fbDelete(colName, id) {
+  return await deleteDoc(doc(db, colName, id));
+}
+
+// =====================
+// MEMBERS
+// =====================
+let members = [];
+
+async function loadMembers() {
+  members = await fbGetAll('members');
+  renderMembers();
+}
+
+function renderMembers() {
+  document.getElementById('membersList').innerHTML = members.map(m =>
+    `<article class="item row" onclick="memberDetail('${m.id}')">
+      ${img(m.img)}
+      <div class="content">
+        <h3>${esc(m.name)}</h3><small>${esc(m.role)}</small><p>${esc(m.bio)}</p>
+        <div class="actions" onclick="event.stopPropagation()">
+          <button class="mini" onclick="openMemberForm('${m.id}')">수정</button>
+          <button class="mini danger" onclick="delItem('members','${m.id}')">삭제</button>
+        </div>
+      </div>
+    </article>`
+  ).join('') || '<div class="empty">멤버를 추가해줘.</div>';
+}
+
+window.memberDetail = function(mid) {
+  const m = members.find(x => x.id === mid);
+  const lines = (m.detail || '').split('\n').filter(Boolean);
+  detail(`<div class="detail member-hero">
+    ${m.img ? `<img class="member-visual" src="${esc(m.img)}">` : '<div class="member-visual"></div>'}
+    <div class="member-info">
+      <h2 class="member-name">${esc(m.name)}</h2>
+      <div class="member-role">${esc(m.role)}</div>
+      <p class="member-bio">${esc(m.bio)}</p>
+      <div class="info-grid">${lines.length ? lines.map(l => `<div class="info-line">${esc(l)}</div>`).join('') : '<div class="info-line"><b>Profile</b>상세 정보 없음</div>'}</div>
+      <div class="actions"><button class="mini" onclick="openMemberForm('${m.id}')">프로필 수정</button></div>
+    </div>
+  </div>`);
+};
+
+window.openMemberForm = function(mid) {
+  const m = members.find(x => x.id === mid) || {};
+  openModal(mid ? '멤버 수정' : '멤버 추가',
+    `<input id="mName" class="field" placeholder="이름" value="${esc(m.name||'')}">
+    <input id="mRole" class="field" placeholder="포지션" value="${esc(m.role||'')}">
+    <textarea id="mBio" class="field" placeholder="짧은 소개">${esc(m.bio||'')}</textarea>
+    <textarea id="mDetail" class="field" placeholder="상세 정보">${esc(m.detail||'')}</textarea>
+    <label style="color:#8e8580;font-size:12px;display:block;margin-top:8px">프로필 사진</label>
+    <input id="mImg" class="field" type="file" accept="image/*">
+    <button class="submit" onclick="saveMember('${mid||''}')">저장</button>`);
+};
+
+window.saveMember = async function(mid) {
+  setSyncStatus('loading');
+  const imgUrl = await uploadFromInput(document.getElementById('mImg'));
+  const old = members.find(x => x.id === mid) || {};
+  const data = {
+    name: document.getElementById('mName').value || 'New Member',
+    role: document.getElementById('mRole').value,
+    bio: document.getElementById('mBio').value,
+    detail: document.getElementById('mDetail').value,
+    img: imgUrl || old.img || ''
+  };
+  if (mid) {
+    await fbSet('members', mid, data);
+    members = members.map(x => x.id === mid ? { ...x, ...data } : x);
+  } else {
+    const ref = await fbAdd('members', data);
+    members.unshift({ id: ref.id, ...data });
+  }
+  closeModal(); renderMembers(); setSyncStatus('ok');
+};
+
+// =====================
+// ALBUMS
+// =====================
+let albums = [];
+
+async function loadAlbums() {
+  albums = await fbGetAll('albums');
+  renderAlbums();
+}
+
+function renderAlbums() {
+  document.getElementById('albumsList').innerHTML = albums.map(a =>
+    `<article class="item row" onclick="albumDetail('${a.id}')">
+      ${img(a.img,'album-cover')}
+      <div class="content">
+        <small>${esc(a.type)} · ${esc(a.date)}</small>
+        <h3>${esc(a.title)}</h3><p>${esc(a.desc)}</p>
+        <div class="actions" onclick="event.stopPropagation()">
+          <button class="mini" onclick="openAlbumForm('${a.id}')">수정</button>
+          <button class="mini danger" onclick="delItem('albums','${a.id}')">삭제</button>
+        </div>
+      </div>
+    </article>`
+  ).join('') || '<div class="empty">앨범을 추가해줘.</div>';
+}
+
+window.albumDetail = function(aid) {
+  const a = albums.find(x => x.id === aid);
+  detail(`<div class="detail">${img(a.img,'detail-img')}<small>${esc(a.type)} · ${esc(a.date)}</small><h2>${esc(a.title)}</h2><p>${esc(a.desc)}</p><pre>${esc(a.tracks)}</pre><button class="mini" onclick="openAlbumForm('${a.id}')">수정</button></div>`);
+};
+
+window.openAlbumForm = function(aid) {
+  const a = albums.find(x => x.id === aid) || {};
+  openModal(aid ? '앨범 수정' : '앨범 추가',
+    `<input id="aTitle" class="field" placeholder="앨범명" value="${esc(a.title||'')}">
+    <input id="aType" class="field" placeholder="Digital Single / EP" value="${esc(a.type||'')}">
+    <input id="aDate" class="field" placeholder="발매일" value="${esc(a.date||'')}">
+    <textarea id="aDesc" class="field" placeholder="설명">${esc(a.desc||'')}</textarea>
+    <textarea id="aTracks" class="field" placeholder="트랙리스트">${esc(a.tracks||'')}</textarea>
+    <label style="color:#8e8580;font-size:12px;display:block;margin-top:8px">앨범 커버</label>
+    <input id="aImg" class="field" type="file" accept="image/*">
+    <button class="submit" onclick="saveAlbum('${aid||''}')">저장</button>`);
+};
+
+window.saveAlbum = async function(aid) {
+  setSyncStatus('loading');
+  const imgUrl = await uploadFromInput(document.getElementById('aImg'));
+  const old = albums.find(x => x.id === aid) || {};
+  const data = {
+    title: document.getElementById('aTitle').value || 'New Album',
+    type: document.getElementById('aType').value,
+    date: document.getElementById('aDate').value,
+    desc: document.getElementById('aDesc').value,
+    tracks: document.getElementById('aTracks').value,
+    img: imgUrl || old.img || ''
+  };
+  if (aid) {
+    await fbSet('albums', aid, data);
+    albums = albums.map(x => x.id === aid ? { ...x, ...data } : x);
+  } else {
+    const ref = await fbAdd('albums', data);
+    albums.unshift({ id: ref.id, ...data });
+  }
+  closeModal(); renderAlbums(); setSyncStatus('ok');
+};
+
+// =====================
+// SCHEDULES
+// =====================
+let schedules = [];
+
+async function loadSchedules() {
+  schedules = await fbGetAll('schedules', 'date');
+  renderSchedules();
+}
+
+function visibleSchedules() {
+  return schedules.filter(s => scheduleType === 'all' || s.type === scheduleType)
+    .sort((a,b) => (a.date||'').localeCompare(b.date||''));
+}
+
+function renderSchedules() {
+  const listViewBtn = document.getElementById('listViewBtn');
+  const calViewBtn = document.getElementById('calViewBtn');
+  const calendarBox = document.getElementById('calendarBox');
+  const scheduleList = document.getElementById('scheduleList');
+  listViewBtn.classList.toggle('active', scheduleView === 'list');
+  calViewBtn.classList.toggle('active', scheduleView === 'calendar');
+  const arr = visibleSchedules();
+  calendarBox.innerHTML = scheduleView === 'calendar' ? calendarHTML(arr) : '';
+  scheduleList.innerHTML = scheduleView === 'list' ? arr.map(scheduleItem).join('') :
+    (selectedDate ? arr.filter(s => s.date === selectedDate).map(scheduleItem).join('') : '<div class="empty">달력 날짜를 눌러줘.</div>');
+  if (!scheduleList.innerHTML) scheduleList.innerHTML = '<div class="empty">스케줄 없음</div>';
+}
+
+document.getElementById('scheduleFilters').onclick = e => {
+  const f = e.target.closest('.filter'); if (!f) return;
+  scheduleType = f.dataset.type;
+  document.querySelectorAll('#scheduleFilters .filter').forEach(x => x.classList.toggle('active', x === f));
+  renderSchedules();
+};
+
+function typeName(t) { return {album:'앨범',broadcast:'방송',event:'행사',etc:'기타'}[t]||t }
+function calendarHTML(arr) {
+  const base = arr[0]?.date || new Date().toISOString().slice(0,10);
+  const d = new Date(base), y = d.getFullYear(), m = d.getMonth();
+  const first = new Date(y,m,1).getDay(), last = new Date(y,m+1,0).getDate();
+  const dates = new Set(arr.map(x => x.date));
+  let days = `<div class="calendar"><div class="cal-head"><span>${y}. ${String(m+1).padStart(2,'0')}</span><span>Calendar</span></div><div class="cal-grid">`;
+  ['S','M','T','W','T','F','S'].forEach(x => days += `<div class="dow">${x}</div>`);
+  for (let i = 0; i < first; i++) days += '<div></div>';
+  for (let day = 1; day <= last; day++) {
+    const dt = `${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    days += `<button class="day ${dates.has(dt)?'has':''}" onclick="selectedDate='${dt}';renderSchedules()">${day}</button>`;
+  }
+  return days + '</div></div>';
+}
+function scheduleItem(s) {
+  return `<div class="item"><span class="pill">${typeName(s.type)}</span><small> ${esc(s.date)}</small><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p><div class="actions"><button class="mini" onclick="openScheduleForm('${s.id}')">수정</button><button class="mini danger" onclick="delItem('schedules','${s.id}')">삭제</button></div></div>`;
+}
+
+window.openScheduleForm = function(sid) {
+  const s = schedules.find(x => x.id === sid) || {type:'album',date:'',title:'',desc:''};
+  openModal(sid ? '스케줄 수정' : '스케줄 추가',
+    `<select id="sType" class="field"><option value="album">앨범</option><option value="broadcast">방송</option><option value="event">행사</option><option value="etc">기타</option></select>
+    <input id="sDate" class="field" type="date" value="${esc(s.date||'')}">
+    <input id="sTitle" class="field" placeholder="제목" value="${esc(s.title||'')}">
+    <textarea id="sDesc" class="field" placeholder="내용">${esc(s.desc||'')}</textarea>
+    <button class="submit" onclick="saveSchedule('${sid||''}')">저장</button>`);
+  document.getElementById('sType').value = s.type;
+};
+
+window.saveSchedule = async function(sid) {
+  setSyncStatus('loading');
+  const data = {
+    type: document.getElementById('sType').value,
+    date: document.getElementById('sDate').value,
+    title: document.getElementById('sTitle').value || 'New Schedule',
+    desc: document.getElementById('sDesc').value
+  };
+  if (sid) {
+    await fbSet('schedules', sid, data);
+    schedules = schedules.map(x => x.id === sid ? { ...x, ...data } : x);
+  } else {
+    const ref = await fbAdd('schedules', data);
+    schedules.unshift({ id: ref.id, ...data });
+  }
+  closeModal(); renderSchedules(); setSyncStatus('ok');
+};
+
+// =====================
+// COMMUNITY
+// =====================
+let fanPosts = [], artistPosts = [], artistProfiles = [];
+
+async function loadCommunity() {
+  [fanPosts, artistPosts, artistProfiles] = await Promise.all([
+    fbGetAll('fanPosts'), fbGetAll('artistPosts'), fbGetAll('artistProfiles')
+  ]);
+  if (!artistProfiles.length) {
+    // 기본 아티스트 프로필 초기화
+    for (let i = 1; i <= 8; i++) {
+      const data = { name: `Member ${String(i).padStart(2,'0')}`, role: 'CLOW Artist', img: '' };
+      const ref = await fbAdd('artistProfiles', data);
+      artistProfiles.push({ id: ref.id, ...data });
+    }
+  }
+  renderCommunity();
+}
+
+function renderCommunity() {
+  const sel = document.getElementById('artistSelect');
+  sel.innerHTML = artistProfiles.map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('');
+  document.getElementById('fanPosts').innerHTML = fanPosts.map(p => postHTML(p,'fan')).join('') || '<div class="empty">팬 글 없음</div>';
+  document.getElementById('artistPosts').innerHTML = artistPosts.map(p => postHTML(p,'artist')).join('') || '<div class="empty">아티스트 글 없음</div>';
+  document.getElementById('artistProfilesList').innerHTML = artistProfiles.map(p =>
+    `<div class="item profile-chip">${img(p.img,'avatar')}<div class="content"><h3>${esc(p.name)}</h3><small>${esc(p.role)}</small></div><button class="mini" onclick="openArtistProfile('${p.id}')">수정</button></div>`
+  ).join('');
+}
+
+function postHTML(p, type) {
+  const prof = type === 'artist' ? artistProfiles.find(x => x.id === p.artistId) : null;
+  const name = type === 'artist' ? (prof?.name || 'Artist') : p.nick;
+  const av = type === 'artist' ? prof?.img : '';
+  return `<article class="item">
+    <div class="row"><div>${av ? `<img class="avatar" src="${esc(av)}">` : '<div class="avatar"></div>'}</div><div><h3>${esc(name)}</h3><small>${type==='artist'?'Artist Community':'Fan Community'}</small></div></div>
+    <p class="section-gap">${esc(p.text)}</p>
+    ${p.img ? `<img class="post-img" src="${esc(p.img)}">` : ''}
+    <div class="actions">
+      <button class="mini" onclick="likePost('${type}','${p.id}')">♡ ${p.likes||0}</button>
+      <button class="mini" onclick="commentPost('${type}','${p.id}')">댓글</button>
+      <button class="mini" onclick="editPost('${type}','${p.id}')">수정</button>
+      <button class="mini danger" onclick="deletePost('${type}','${p.id}')">삭제</button>
+    </div>
+    ${(p.comments||[]).map(c=>`<div class="comment">${esc(c)}</div>`).join('')}
+  </article>`;
+}
+
+document.querySelectorAll('.subtab').forEach(t => t.onclick = () => {
+  document.querySelectorAll('.subtab').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById('fanBox').classList.toggle('hidden', t.dataset.com !== 'fan');
+  document.getElementById('artistBox').classList.toggle('hidden', t.dataset.com !== 'artist');
+});
+
+window.addFanPost = async function() {
+  setSyncStatus('loading');
+  const imgUrl = await uploadFromInput(document.getElementById('fanImg'));
+  const data = {
+    nick: document.getElementById('fanNick').value || 'fan',
+    text: document.getElementById('fanText').value,
+    img: imgUrl, likes: 0, comments: []
+  };
+  const ref = await fbAdd('fanPosts', data);
+  fanPosts.unshift({ id: ref.id, ...data });
+  document.getElementById('fanText').value = '';
+  document.getElementById('fanImg').value = '';
+  closeComposer('fan'); renderCommunity(); setSyncStatus('ok');
+};
+
+window.addArtistPost = async function() {
+  setSyncStatus('loading');
+  const imgUrl = await uploadFromInput(document.getElementById('artistImg'));
+  const data = {
+    artistId: document.getElementById('artistSelect').value,
+    text: document.getElementById('artistText').value,
+    img: imgUrl, likes: 0, comments: []
+  };
+  const ref = await fbAdd('artistPosts', data);
+  artistPosts.unshift({ id: ref.id, ...data });
+  document.getElementById('artistText').value = '';
+  document.getElementById('artistImg').value = '';
+  closeComposer('artist'); renderCommunity(); setSyncStatus('ok');
+};
+
+window.likePost = async function(type, pid) {
+  const arr = type === 'artist' ? artistPosts : fanPosts;
+  const p = arr.find(x => x.id === pid);
+  p.likes = (p.likes || 0) + 1;
+  await fbSet(type === 'artist' ? 'artistPosts' : 'fanPosts', pid, { likes: p.likes });
+  renderCommunity();
+};
+
+window.commentPost = async function(type, pid) {
+  const c = prompt('댓글 입력'); if (!c) return;
+  const arr = type === 'artist' ? artistPosts : fanPosts;
+  const p = arr.find(x => x.id === pid);
+  p.comments = [...(p.comments||[]), c];
+  await fbSet(type === 'artist' ? 'artistPosts' : 'fanPosts', pid, { comments: p.comments });
+  renderCommunity();
+};
+
+window.editPost = async function(type, pid) {
+  const arr = type === 'artist' ? artistPosts : fanPosts;
+  const p = arr.find(x => x.id === pid);
+  const txt = prompt('글 수정', p.text); if (txt === null) return;
+  p.text = txt;
+  await fbSet(type === 'artist' ? 'artistPosts' : 'fanPosts', pid, { text: txt });
+  renderCommunity();
+};
+
+window.deletePost = async function(type, pid) {
+  if (!confirm('삭제할까?')) return;
+  setSyncStatus('loading');
+  const colName = type === 'artist' ? 'artistPosts' : 'fanPosts';
+  await fbDelete(colName, pid);
+  if (type === 'artist') artistPosts = artistPosts.filter(x => x.id !== pid);
+  else fanPosts = fanPosts.filter(x => x.id !== pid);
+  renderCommunity(); setSyncStatus('ok');
+};
+
+window.openArtistProfile = function(pid) {
+  const p = artistProfiles.find(x => x.id === pid);
+  openModal('아티스트 프로필 수정',
+    `<input id="apName" class="field" placeholder="이름" value="${esc(p.name)}">
+    <input id="apRole" class="field" placeholder="역할 / 설명" value="${esc(p.role)}">
+    <label style="color:#8e8580;font-size:12px;display:block;margin-top:8px">프로필 사진</label>
+    <input id="apImg" class="field" type="file" accept="image/*">
+    <button class="submit" onclick="saveArtistProfile('${pid}')">프로필 저장</button>`);
+};
+
+window.saveArtistProfile = async function(pid) {
+  setSyncStatus('loading');
+  const imgUrl = await uploadFromInput(document.getElementById('apImg'));
+  const old = artistProfiles.find(x => x.id === pid);
+  const data = {
+    name: document.getElementById('apName').value || old.name,
+    role: document.getElementById('apRole').value || old.role,
+    img: imgUrl || old.img || ''
+  };
+  await fbSet('artistProfiles', pid, data);
+  artistProfiles = artistProfiles.map(p => p.id === pid ? { ...p, ...data } : p);
+  closeModal(); renderCommunity(); setSyncStatus('ok');
+};
+
+// =====================
+// SHOP
+// =====================
+let products = [];
+
+async function loadShop() {
+  products = await fbGetAll('products');
+  renderShop();
+}
+
+function catName(c) { return {all:'All',membership:'Membership',album:'Album',products:'Products',ticket:'Ticket'}[c]||c }
+
+function renderShop() {
+  const arr = products.filter(p => shopCat === 'all' || p.cat === shopCat);
+  document.getElementById('productsList').innerHTML = arr.map(p =>
+    `<article class="item product" onclick="productDetail('${p.id}')">
+      ${p.img ? `<img class="goods-img" src="${esc(p.img)}">` : '<div class="goods-img"></div>'}
+      <h3>${esc(p.name)}</h3><small>${catName(p.cat)}</small><p>${esc(p.desc)}</p>
+      <div class="price">₩${Number(p.price||0).toLocaleString()}</div>
+      <div class="actions" onclick="event.stopPropagation()">
+        <button class="mini" onclick="openProductForm('${p.id}')">수정</button>
+        <button class="mini danger" onclick="delItem('products','${p.id}')">삭제</button>
+      </div>
+    </article>`
+  ).join('') || '<div class="empty">상품 없음</div>';
+}
+
+document.getElementById('shopFilters').onclick = e => {
+  const f = e.target.closest('.filter'); if (!f) return;
+  shopCat = f.dataset.cat;
+  document.querySelectorAll('#shopFilters .filter').forEach(x => x.classList.toggle('active', x === f));
+  renderShop();
+};
+
+window.productDetail = function(pid) {
+  const p = products.find(x => x.id === pid);
+  detail(`<div class="detail">${p.img?`<img class="detail-img" src="${esc(p.img)}">`:'<div class="goods-img"></div>'}<small>${catName(p.cat)}</small><h2>${esc(p.name)}</h2><p>${esc(p.desc)}</p><div class="price">₩${Number(p.price||0).toLocaleString()}</div><button class="submit" onclick="fakeBuy('${p.id}')">구매하기</button><div class="actions"><button class="mini" onclick="openProductForm('${p.id}')">상품 수정</button></div></div>`);
+};
+
+window.fakeBuy = function(pid) {
+  const p = products.find(x => x.id === pid);
+  openModal('구매 완료', `<div class="purchase-done"><div class="emoji">🛍️</div><h2>구매가 완료됐습니다</h2><p>${esc(p.name)} 상품을 구매한 것처럼 처리했어요.<br>실제 결제는 일어나지 않습니다.</p><div class="fake-receipt"><div><span>상품</span><span>${esc(p.name)}</span></div><div><span>결제 방식</span><span>FAKE PAY</span></div><div><span>결제 금액</span><span>₩${Number(p.price||0).toLocaleString()}</span></div></div><button class="submit" onclick="closeModal()">확인</button></div>`);
+};
+
+window.openProductForm = function(pid) {
+  const p = products.find(x => x.id === pid) || {cat:'products',name:'',desc:'',price:'',img:''};
+  openModal(pid ? '상품 수정' : '상품 추가',
+    `<select id="pCat" class="field"><option value="membership">membership</option><option value="album">album</option><option value="products">products</option><option value="ticket">ticket</option></select>
+    <input id="pName" class="field" placeholder="상품명" value="${esc(p.name||'')}">
+    <textarea id="pDesc" class="field" placeholder="설명">${esc(p.desc||'')}</textarea>
+    <input id="pPrice" class="field" type="number" placeholder="가격" value="${esc(p.price||'')}">
+    <label style="color:#8e8580;font-size:12px;display:block;margin-top:8px">상품 이미지</label>
+    <input id="pImg" class="field" type="file" accept="image/*">
+    <button class="submit" onclick="saveProduct('${pid||''}')">저장</button>`);
+  document.getElementById('pCat').value = p.cat || 'products';
+};
+
+window.saveProduct = async function(pid) {
+  setSyncStatus('loading');
+  const imgUrl = await uploadFromInput(document.getElementById('pImg'));
+  const old = products.find(x => x.id === pid) || {};
+  const data = {
+    cat: document.getElementById('pCat').value,
+    name: document.getElementById('pName').value || 'New Product',
+    desc: document.getElementById('pDesc').value,
+    price: document.getElementById('pPrice').value,
+    img: imgUrl || old.img || ''
+  };
+  if (pid) {
+    await fbSet('products', pid, data);
+    products = products.map(x => x.id === pid ? { ...x, ...data } : x);
+  } else {
+    const ref = await fbAdd('products', data);
+    products.unshift({ id: ref.id, ...data });
+  }
+  closeModal(); renderShop(); setSyncStatus('ok');
+};
+
+// =====================
+// NOTICES
+// =====================
+let notices = [];
+
+async function loadNotices() {
+  notices = await fbGetAll('notices');
+  renderNotices();
+}
+
+function renderNotices() {
+  document.getElementById('noticesList').innerHTML = notices.map(n =>
+    `<article class="item" onclick="noticeDetail('${n.id}')">
+      <small>${esc(n.date)}</small><h3>${esc(n.title)}</h3><p>${esc(n.body||'').slice(0,60)}...</p>
+      <div class="actions" onclick="event.stopPropagation()">
+        <button class="mini" onclick="openNoticeForm('${n.id}')">수정</button>
+        <button class="mini danger" onclick="delItem('notices','${n.id}')">삭제</button>
+      </div>
+    </article>`
+  ).join('') || '<div class="empty">공지 없음</div>';
+}
+
+window.noticeDetail = function(nid) {
+  const n = notices.find(x => x.id === nid);
+  detail(`<div class="detail"><small>${esc(n.date)}</small><h2>${esc(n.title)}</h2><pre>${esc(n.body)}</pre><button class="mini" onclick="openNoticeForm('${n.id}')">수정</button></div>`);
+};
+
+window.openNoticeForm = function(nid) {
+  const n = notices.find(x => x.id === nid) || {date:'',title:'',body:''};
+  openModal(nid ? '공지 수정' : '공지 추가',
+    `<input id="nDate" class="field" placeholder="날짜" value="${esc(n.date||'')}">
+    <input id="nTitle" class="field" placeholder="제목" value="${esc(n.title||'')}">
+    <textarea id="nBody" class="field" placeholder="내용">${esc(n.body||'')}</textarea>
+    <button class="submit" onclick="saveNotice('${nid||''}')">저장</button>`);
+};
+
+window.saveNotice = async function(nid) {
+  setSyncStatus('loading');
+  const data = {
+    date: document.getElementById('nDate').value,
+    title: document.getElementById('nTitle').value || 'Notice',
+    body: document.getElementById('nBody').value
+  };
+  if (nid) {
+    await fbSet('notices', nid, data);
+    notices = notices.map(x => x.id === nid ? { ...x, ...data } : x);
+  } else {
+    const ref = await fbAdd('notices', data);
+    notices.unshift({ id: ref.id, ...data });
+  }
+  closeModal(); renderNotices(); setSyncStatus('ok');
+};
+
+// =====================
+// 공통 삭제
+// =====================
+window.delItem = async function(col, id) {
+  if (!confirm('삭제할까?')) return;
+  setSyncStatus('loading');
+  await fbDelete(col, id);
+  if (col === 'members') { members = members.filter(x => x.id !== id); renderMembers(); }
+  else if (col === 'albums') { albums = albums.filter(x => x.id !== id); renderAlbums(); }
+  else if (col === 'schedules') { schedules = schedules.filter(x => x.id !== id); renderSchedules(); }
+  else if (col === 'products') { products = products.filter(x => x.id !== id); renderShop(); }
+  else if (col === 'notices') { notices = notices.filter(x => x.id !== id); renderNotices(); }
+  setSyncStatus('ok');
+};
+
+// =====================
+// 관리자 패널
+// =====================
+window.toggleAdmin = function() { document.getElementById('adminPanel').classList.toggle('hidden') };
+window.openComposer = function(t) { document.getElementById(t+'Composer').classList.remove('hidden-form') };
+window.closeComposer = function(t) { document.getElementById(t+'Composer').classList.add('hidden-form') };
+window.renderSchedules = renderSchedules;
+
+// =====================
+// 초기 로드
+// =====================
+setSyncStatus('loading');
+Promise.all([
+  loadMembers(),
+  loadAlbums(),
+  loadSchedules(),
+  loadCommunity(),
+  loadShop(),
+  loadNotices()
+]).then(() => {
+  setSyncStatus('ok');
+}).catch(err => {
+  console.error('초기 로드 실패:', err);
+  setSyncStatus('error');
+});
+
+</script>
+</body>
+</html>
