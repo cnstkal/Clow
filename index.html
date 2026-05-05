@@ -161,6 +161,13 @@ body.light .my-profile-card,body.light .my-menu,body.light .my-content-card{back
 body.light .my-menu-btn{color:#111;border-bottom-color:#ddd8d0}body.light .my-menu-btn:hover{background:#fff}
 @media(max-width:899px){#profilePage{padding-top:24px}.my-profile-card{padding:18px}.membership-title{display:block}.membership-title .storage-badge{margin-top:8px}.my-menu-btn{padding:17px 14px}}
 
+
+/* 아티스트 커뮤니티 피드형 레이아웃 */
+.artist-community-page{padding-top:24px}.artist-community-layout{display:grid;grid-template-columns:150px minmax(0,1fr);gap:28px;align-items:start;max-width:920px;margin:0 auto}.artist-sidebar{position:sticky;top:116px;display:grid;gap:16px;padding-top:8px}.artist-profile-btn{border:0;background:transparent;color:#f4f1ec;display:flex;align-items:center;gap:12px;text-align:left;font-weight:850;padding:0;min-width:0}.artist-profile-btn .avatar{width:42px;height:42px;flex:0 0 42px}.artist-profile-btn.active .avatar{outline:3px solid #d6c4ff;outline-offset:2px}.artist-profile-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}.artist-mobile-strip{display:none}.artist-feed-wrap{max-width:680px;width:100%;margin:0 auto}.artist-feed-list{display:grid;gap:22px}.artist-result-count{font-size:12px;color:#8e8580;font-weight:850;margin:2px 0 12px}.artist-feed-card{border:0;border-radius:0;background:transparent;box-shadow:none;padding:0 0 22px;border-bottom:1px solid #242124}.artist-post-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.artist-post-author{display:flex;align-items:center;gap:11px;min-width:0}.artist-post-author .avatar{width:42px;height:42px;flex:0 0 42px}.artist-name-line{display:flex;align-items:center;gap:5px;font-size:15px;font-weight:950}.verified-badge{width:16px;height:16px;border-radius:50%;background:#15366f;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:950}.post-menu-dot{border:0;background:transparent;color:#8e8580;font-size:24px;line-height:1;padding:0 4px}.artist-post-media{width:100%;border-radius:14px;margin:0 0 16px;max-height:none;object-fit:cover;background:#000}.artist-post-text{font-size:22px;line-height:1.35;color:#f4f1ec;margin:0 0 12px}.artist-post-meta{display:flex;gap:10px;flex-wrap:wrap;color:#8e8580;font-size:13px;font-weight:850;margin-bottom:12px}.artist-post-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.artist-tools{max-width:680px;margin:0 auto 14px}.artist-filter-row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}.artist-filter-row::-webkit-scrollbar{display:none}.artist-filter{flex:0 0 auto;border:1px solid #2e292d;border-radius:999px;background:#1b191d;color:#d9d2cc;padding:8px 11px;font-size:12px;font-weight:900}.artist-filter.active{background:#f4f1ec;color:#111}
+body.light .artist-profile-btn{color:#111}body.light .artist-feed-card{border-bottom-color:#e6e0d8}body.light .artist-post-text{color:#111}body.light .artist-filter{background:#fff;border-color:#ddd8d0;color:#333}body.light .artist-filter.active{background:#111;color:#fff}
+@media(max-width:899px){.artist-community-page{padding:14px 0 92px}.artist-community-page>.title{display:none}.artist-community-layout{display:block;max-width:none;margin:0}.artist-sidebar{display:none}.artist-mobile-strip{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;padding:18px 18px 16px;border-bottom:1px solid #242124;margin-bottom:18px}.artist-mobile-strip::-webkit-scrollbar{display:none}.artist-mobile-strip .artist-profile-btn{display:grid;justify-items:center;gap:7px;flex:0 0 auto;text-align:center;color:#f4f1ec}.artist-mobile-strip .artist-profile-btn .avatar{width:72px;height:72px;flex-basis:72px}.artist-mobile-strip .artist-profile-name{font-size:16px;max-width:78px}.artist-feed-wrap{max-width:none}.artist-tools,.compose-mini,.composer{margin-left:18px;margin-right:18px}.artist-filter-row{display:none}.artist-feed-list{gap:0}.artist-result-count{padding:0 18px;margin-bottom:12px}.artist-feed-card{padding:0 18px 24px;margin-bottom:24px;border-bottom:1px solid #242124}.artist-post-head{margin-bottom:16px}.artist-post-author .avatar{width:52px;height:52px;flex-basis:52px}.artist-name-line{font-size:25px}.verified-badge{width:22px;height:22px;font-size:14px}.artist-post-media{border-radius:16px;margin-bottom:18px}.artist-post-text{font-size:32px;letter-spacing:-.04em}.artist-post-meta{font-size:21px}.artist-post-actions .mini{font-size:14px;padding:9px 12px}body.light .artist-mobile-strip,body.light .artist-feed-card{border-color:#e9e4dc}body.light .artist-mobile-strip .artist-profile-btn{color:#111}}
+@media(min-width:900px){.artist-mobile-strip{display:none!important}.artist-community-page .title{max-width:920px;margin-left:auto;margin-right:auto}.artist-post-media{max-height:760px;object-fit:contain;background:#000}.artist-post-text{font-size:24px}.artist-feed-card{padding-bottom:28px}}
+
 </style>
 </head>
 <body>
@@ -256,49 +263,32 @@ body.light .my-menu-btn{color:#111;border-bottom-color:#ddd8d0}body.light .my-me
   <div id="scheduleList" class="list"></div>
 </section>
 
-<section id="community" class="page">
-  <div class="title"><h2>Community</h2><button class="admin-dot" onclick="toggleAdmin()">⚙︎</button></div>
-  <div class="subtabs">
-    <button class="subtab active" data-com="fan">Fan</button>
-    <button class="subtab" data-com="artist">Artist</button>
-  </div>
-  <div id="fanBox">
-    <div class="compose-mini" onclick="openComposer('fan')">
-      <div class="avatar"></div>
-      <div class="compose-placeholder">팬 커뮤니티에 글 남기기</div>
-    </div>
-    <div id="fanComposer" class="composer hidden-form">
-      <input id="fanNick" class="field" placeholder="닉네임">
-      <textarea id="fanText" class="field" placeholder="무슨 생각 중이야?"></textarea>
-      <div class="file-row">
-        <label class="file-label">사진 추가<input id="fanImg" type="file" accept="image/*"></label>
-        <button class="mini" onclick="closeComposer('fan')">닫기</button>
+<section id="community" class="page artist-community-page">
+  <div class="title"><h2>Artist Community</h2><button class="admin-dot" onclick="toggleAdmin()">⚙︎</button></div>
+  <div class="artist-mobile-strip" id="artistTopProfiles"></div>
+  <div class="artist-community-layout">
+    <aside class="artist-sidebar" id="artistSideProfiles"></aside>
+    <div id="artistBox" class="artist-feed-wrap">
+      <div class="artist-tools">
+        <input id="artistSearchInput" class="field" placeholder="아티스트 글 검색" oninput="setArtistSearch(this.value)">
+        <div id="artistFilterRow" class="artist-filter-row"></div>
       </div>
-      <label class="check-label"><input id="fanMemberOnly" type="checkbox"> 멤버십 전용글</label>
-      <button class="submit" onclick="addFanPost()">올리기</button>
-    </div>
-    <div id="fanPosts" class="list"></div>
-  </div>
-  <div id="artistBox" class="hidden">
-    <div class="artist-tools">
-      <input id="artistSearchInput" class="field" placeholder="아티스트 글 검색" oninput="setArtistSearch(this.value)">
-      <div id="artistFilterRow" class="artist-filter-row"></div>
-    </div>
-    <div class="compose-mini" onclick="openComposer('artist')">
-      <div class="avatar"></div>
-      <div class="compose-placeholder">아티스트 커뮤니티 글 작성</div>
-    </div>
-    <div id="artistComposer" class="composer hidden-form">
-      <select id="artistSelect" class="field"></select>
-      <textarea id="artistText" class="field" placeholder="아티스트 메시지"></textarea>
-      <div class="file-row">
-        <label class="file-label">사진 추가<input id="artistImg" type="file" accept="image/*"></label>
-        <button class="mini" onclick="closeComposer('artist')">닫기</button>
+      <div class="compose-mini" onclick="openComposer('artist')">
+        <div class="avatar"></div>
+        <div class="compose-placeholder">아티스트 커뮤니티 글 작성</div>
       </div>
-      <label class="check-label"><input id="artistMemberOnly" type="checkbox"> 멤버십 전용글</label>
-      <button class="submit" onclick="addArtistPost()">올리기</button>
+      <div id="artistComposer" class="composer hidden-form">
+        <select id="artistSelect" class="field"></select>
+        <textarea id="artistText" class="field" placeholder="아티스트 메시지"></textarea>
+        <div class="file-row">
+          <label class="file-label">사진 추가<input id="artistImg" type="file" accept="image/*"></label>
+          <button class="mini" onclick="closeComposer('artist')">닫기</button>
+        </div>
+        <label class="check-label"><input id="artistMemberOnly" type="checkbox"> 멤버십 전용글</label>
+        <button class="submit" onclick="addArtistPost()">올리기</button>
+      </div>
+      <div id="artistPosts" class="artist-feed-list"></div>
     </div>
-    <div id="artistPosts" class="list"></div>
   </div>
   <div id="adminPanel" class="admin-panel hidden">
     <div class="title"><h2>Artist Profiles</h2><span>관리자용</span></div>
@@ -1133,7 +1123,16 @@ async function loadCommunity() {
 
 function renderCommunity() {
   const sel = document.getElementById('artistSelect');
-  sel.innerHTML = artistProfiles.map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('');
+  if (sel) sel.innerHTML = artistProfiles.map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('');
+
+  const profileButtons = `<button class="artist-profile-btn ${artistFilter === 'all' ? 'active' : ''}" onclick="setArtistFilter('all')"><div class="avatar"></div><span class="artist-profile-name">전체</span></button>` +
+    artistProfiles.map(p => `<button class="artist-profile-btn ${artistFilter === p.id ? 'active' : ''}" onclick="setArtistFilter('${p.id}')">${p.img ? `<img class="avatar" src="${esc(p.img)}" loading="lazy">` : '<div class="avatar"></div>'}<span class="artist-profile-name">${esc(p.name)}</span></button>`).join('');
+
+  const side = document.getElementById('artistSideProfiles');
+  if (side) side.innerHTML = profileButtons;
+  const top = document.getElementById('artistTopProfiles');
+  if (top) top.innerHTML = profileButtons;
+
   const filterRow = document.getElementById('artistFilterRow');
   if (filterRow) {
     filterRow.innerHTML = `<button class="artist-filter ${artistFilter === 'all' ? 'active' : ''}" onclick="setArtistFilter('all')">All Artists</button>` +
@@ -1142,9 +1141,10 @@ function renderCommunity() {
   const searchInput = document.getElementById('artistSearchInput');
   if (searchInput && searchInput.value !== artistSearch) searchInput.value = artistSearch;
   const artistArr = filteredArtistPosts();
-  document.getElementById('fanPosts').innerHTML = fanPosts.map(p => postHTML(p,'fan')).join('') || '<div class="empty">팬 글이 없습니다.</div>';
-  document.getElementById('artistPosts').innerHTML = `<div class="artist-result-count">${artistArr.length}개 글 표시 중</div>` + (artistArr.map(p => postHTML(p,'artist')).join('') || '<div class="empty">조건에 맞는 아티스트 글이 없습니다.</div>');
-  document.getElementById('artistProfilesList').innerHTML = artistProfiles.map(p =>
+  const postsEl = document.getElementById('artistPosts');
+  if (postsEl) postsEl.innerHTML = `<div class="artist-result-count">${artistArr.length}개 글 표시 중</div>` + (artistArr.map(p => postHTML(p,'artist')).join('') || '<div class="empty">조건에 맞는 아티스트 글이 없습니다.</div>');
+  const profilesEl = document.getElementById('artistProfilesList');
+  if (profilesEl) profilesEl.innerHTML = artistProfiles.map(p =>
     `<div class="item profile-chip">${img(p.img,'avatar')}<div class="content"><h3>${esc(p.name)}</h3><small>${esc(p.role)}</small></div><button class="mini" onclick="openArtistProfile('${p.id}')">수정</button></div>`
   ).join('');
 }
@@ -1169,15 +1169,27 @@ function postHTML(p, type) {
   const name = type === 'artist' ? (prof?.name || 'Artist') : p.nick;
   const av = type === 'artist' ? prof?.img : '';
   const locked = p.membershipOnly && userPlan !== 'membership';
+  if (type === 'artist') {
+    return `<article class="artist-feed-card">
+      <div class="artist-post-head">
+        <div class="artist-post-author">${av ? `<img class="avatar" src="${esc(av)}" loading="lazy">` : '<div class="avatar"></div>'}<div><div class="artist-name-line">${esc(name)} <span class="verified-badge">✓</span>${p.membershipOnly ? '<span class="member-only-badge">MEMBERSHIP</span>' : ''}</div><small>Artist Community</small></div></div>
+        <button class="post-menu-dot" type="button">⋮</button>
+      </div>
+      ${locked ? '<div class="locked-box">🔒 멤버십 전용 게시글입니다. 멤버십 가입 후 열람할 수 있습니다.</div>' : `${p.img ? `<img class="artist-post-media" src="${esc(p.img)}" loading="lazy">` : ''}<p class="artist-post-text">${esc(p.text)}</p>`}
+      <div class="artist-post-meta"><span>2주 전</span><span>·</span><span>☺ ${(p.likes||0).toLocaleString()}</span><span>·</span><span>💬 ${(p.comments||[]).length.toLocaleString()}</span></div>
+      <div class="artist-post-actions">
+        <button class="mini" onclick="likePost('artist','${p.id}')">♡ ${p.likes||0}</button>
+        ${locked ? '' : `<button class="mini" onclick="commentPost('artist','${p.id}')">댓글</button>`}
+        <button class="mini" onclick="editPost('artist','${p.id}')">수정</button>
+        <button class="mini danger" onclick="deletePost('artist','${p.id}')">삭제</button>
+      </div>
+      ${locked ? '' : (p.comments||[]).map(c=>`<div class="comment">${esc(c)}</div>`).join('')}
+    </article>`;
+  }
   return `<article class="item">
-    <div class="row"><div>${av ? `<img class="avatar" src="${esc(av)}">` : '<div class="avatar"></div>'}</div><div><h3>${esc(name)}${p.membershipOnly ? '<span class="member-only-badge">MEMBERSHIP</span>' : ''}</h3><small>${type==='artist'?'Artist Community':'Fan Community'}</small></div></div>
+    <div class="row"><div>${av ? `<img class="avatar" src="${esc(av)}">` : '<div class="avatar"></div>'}</div><div><h3>${esc(name)}${p.membershipOnly ? '<span class="member-only-badge">MEMBERSHIP</span>' : ''}</h3><small>Fan Community</small></div></div>
     ${locked ? '<div class="locked-box">🔒 멤버십 전용 게시글입니다. 멤버십 가입 후 열람할 수 있습니다.</div>' : `<p class="section-gap">${esc(p.text)}</p>${p.img ? `<img class="post-img" src="${esc(p.img)}">` : ''}`}
-    <div class="actions">
-      <button class="mini" onclick="likePost('${type}','${p.id}')">♡ ${p.likes||0}</button>
-      ${locked ? '' : `<button class="mini" onclick="commentPost('${type}','${p.id}')">댓글</button>`}
-      <button class="mini" onclick="editPost('${type}','${p.id}')">수정</button>
-      <button class="mini danger" onclick="deletePost('${type}','${p.id}')">삭제</button>
-    </div>
+    <div class="actions"><button class="mini" onclick="likePost('${type}','${p.id}')">♡ ${p.likes||0}</button>${locked ? '' : `<button class="mini" onclick="commentPost('${type}','${p.id}')">댓글</button>`}<button class="mini" onclick="editPost('${type}','${p.id}')">수정</button><button class="mini danger" onclick="deletePost('${type}','${p.id}')">삭제</button></div>
     ${locked ? '' : (p.comments||[]).map(c=>`<div class="comment">${esc(c)}</div>`).join('')}
   </article>`;
 }
@@ -1185,8 +1197,10 @@ function postHTML(p, type) {
 document.querySelectorAll('.subtab').forEach(t => t.onclick = () => {
   document.querySelectorAll('.subtab').forEach(x => x.classList.remove('active'));
   t.classList.add('active');
-  document.getElementById('fanBox').classList.toggle('hidden', t.dataset.com !== 'fan');
-  document.getElementById('artistBox').classList.toggle('hidden', t.dataset.com !== 'artist');
+  const fanBox = document.getElementById('fanBox');
+  const artistBox = document.getElementById('artistBox');
+  if (fanBox) fanBox.classList.toggle('hidden', t.dataset.com !== 'fan');
+  if (artistBox) artistBox.classList.toggle('hidden', t.dataset.com !== 'artist');
 });
 
 window.addFanPost = async function() {
