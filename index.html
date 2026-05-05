@@ -99,6 +99,12 @@ footer{text-align:center;color:#6f6764;font-size:12px;padding:24px 14px 34px}
 
 /* 로딩 상태 */
 .sync-status{font-size:11px;color:#8e8580;display:flex;align-items:center;gap:5px}
+
+.notification-btn{position:relative;width:36px;height:36px;border:1px solid #2e292d;border-radius:50%;background:#1b191d;color:#f4f1ec;box-shadow:0 8px 22px rgba(0,0,0,.25);font-size:16px;font-weight:900;display:inline-flex;align-items:center;justify-content:center}
+.notification-badge{position:absolute;right:-3px;top:-3px;min-width:18px;height:18px;border-radius:999px;background:#ff4d6d;color:#fff;font-size:10px;font-weight:950;display:none;align-items:center;justify-content:center;padding:0 5px;border:2px solid #0b0b0d}
+.notification-badge.show{display:inline-flex}.notification-list{display:grid;gap:10px}.notification-item{padding:12px;border-radius:17px;background:#1b191d;border:1px solid #2e292d}.notification-item.unread{border-color:#d6c4ff}.notification-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.notification-type{font-size:11px;font-weight:950;color:#d6c4ff}.notification-time{font-size:11px;color:#8e8580;white-space:nowrap}.notification-item p{margin-top:5px}.artist-tools{display:grid;gap:10px;margin:0 0 14px}.artist-filter-row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}.artist-filter-row::-webkit-scrollbar{display:none}.artist-filter{flex:0 0 auto;border:1px solid #2e292d;border-radius:999px;background:#1b191d;color:#d9d2cc;padding:8px 11px;font-size:12px;font-weight:900}.artist-filter.active{background:#f4f1ec;color:#111}.artist-result-count{font-size:12px;color:#8e8580;font-weight:850;margin:-4px 0 10px}
+body.light .notification-btn{background:#fff;border-color:#ddd8d0;color:#111}body.light .notification-badge{border-color:#fff}body.light .notification-item,body.light .artist-filter{background:#fff;border-color:#ddd8d0;color:#333}body.light .notification-item.unread{border-color:#7d5da4}body.light .artist-filter.active{background:#111;color:#fff}
+
 .sync-dot{width:6px;height:6px;border-radius:50%;background:#555;display:inline-block}
 .sync-dot.ok{background:#4caf82}
 .sync-dot.loading{background:#f0a500;animation:pulse 1s infinite}
@@ -135,6 +141,7 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
     <div class="logo" onclick="showTab('home')">CLOW</div>
     <div style="display:flex;align-items:center;gap:8px">
       <span class="sync-status"><span class="sync-dot" id="syncDot"></span><span id="syncLabel">연결 중</span></span>
+      <button id="notificationBtn" class="notification-btn" type="button" onclick="openNotifications()" aria-label="알림">🔔<span id="notificationBadge" class="notification-badge">0</span></button>
       <button id="themeToggleBtn" class="mini" type="button">☾</button>
       <button id="profileBtn" class="profile-avatar-btn" type="button" onclick="openProfile()" aria-label="내 프로필"></button>
     </div>
@@ -244,6 +251,10 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
     <div id="fanPosts" class="list"></div>
   </div>
   <div id="artistBox" class="hidden">
+    <div class="artist-tools">
+      <input id="artistSearchInput" class="field" placeholder="아티스트 글 검색" oninput="setArtistSearch(this.value)">
+      <div id="artistFilterRow" class="artist-filter-row"></div>
+    </div>
     <div class="compose-mini" onclick="openComposer('artist')">
       <div class="avatar"></div>
       <div class="compose-placeholder">아티스트 커뮤니티 글 작성</div>
@@ -286,6 +297,10 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
 <section id="detailPage" class="page">
   <button class="mini back" onclick="backToLast()">← 뒤로</button>
   <div id="detailContent"></div>
+</section>
+
+<section id="profilePage" class="page">
+  <div id="profilePageContent"></div>
 </section>
 </main>
 <footer>© 2026 CLOW. Firebase + Cloudinary powered official site.</footer>
@@ -389,10 +404,62 @@ function img(src, cls = 'thumb') { return src ? `<img class="${cls}" src="${esc(
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7) }
 
 let lastTab = localStorage.getItem('clowActiveTab') || 'home', scheduleType = 'all', shopCat = 'all', scheduleView = 'list', selectedDate = '';
-const validTabs = ['home','members','discography','gallery','schedule','community','shop','notice'];
+const validTabs = ['home','members','discography','gallery','schedule','community','shop','notice','profilePage'];
 let userPlan = localStorage.getItem('clowUserPlan') || ''; // '', 'general', 'membership'
 
 let userProfile = JSON.parse(localStorage.getItem('clowUserProfile') || '{"nick":"fan","img":""}');
+
+let notifications = JSON.parse(localStorage.getItem('clowNotifications') || '[]');
+function saveNotifications() { localStorage.setItem('clowNotifications', JSON.stringify(notifications.slice(0, 80))); updateNotificationBadge(); }
+function formatNotificationTime(ts) {
+  if (!ts) return '';
+  const d = new Date(ts);
+  if (Number.isNaN(d.getTime())) return '';
+  return `${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+function addNotification(type, title, body, tab = '') {
+  notifications.unshift({ id: uid(), type, title, body, tab, read: false, createdAt: Date.now() });
+  saveNotifications();
+}
+function updateNotificationBadge() {
+  const badge = document.getElementById('notificationBadge');
+  if (!badge) return;
+  const unread = notifications.filter(n => !n.read).length;
+  badge.textContent = unread > 99 ? '99+' : String(unread);
+  badge.classList.toggle('show', unread > 0);
+}
+window.openNotifications = function() {
+  updateNotificationBadge();
+  openModal('알림', `<div class="notification-list">
+    ${notifications.length ? notifications.map(n => `<div class="notification-item ${n.read ? '' : 'unread'}">
+      <div class="notification-top"><span class="notification-type">${esc(n.type || '알림')}</span><span class="notification-time">${formatNotificationTime(n.createdAt)}</span></div>
+      <h3>${esc(n.title || '')}</h3>
+      <p>${esc(n.body || '')}</p>
+      ${n.tab ? `<button class="mini" style="margin-top:10px" onclick="goNotification('${n.id}')">바로가기</button>` : ''}
+    </div>`).join('') : '<div class="empty">새 알림이 없습니다.</div>'}
+  </div>
+  ${notifications.length ? '<button class="submit" onclick="markAllNotificationsRead()">모두 읽음 처리</button><button class="mini danger" style="margin-top:10px" onclick="clearNotifications()">알림 전체 삭제</button>' : ''}`);
+};
+window.goNotification = function(id) {
+  const n = notifications.find(x => x.id === id);
+  if (!n) return;
+  n.read = true;
+  saveNotifications();
+  closeModal();
+  if (n.tab) showTab(n.tab);
+};
+window.markAllNotificationsRead = function() {
+  notifications = notifications.map(n => ({ ...n, read: true }));
+  saveNotifications();
+  openNotifications();
+};
+window.clearNotifications = function() {
+  if (!confirm('알림을 모두 삭제하시겠습니까?')) return;
+  notifications = [];
+  saveNotifications();
+  openNotifications();
+};
+
 function saveUserProfile() { localStorage.setItem('clowUserProfile', JSON.stringify(userProfile)); updateProfileButton(); }
 function updateProfileButton() {
   const btn = document.getElementById('profileBtn');
@@ -404,42 +471,76 @@ function userPlanLabel() {
   if (userPlan === 'general') return '일반 회원';
   return '미가입';
 }
-window.openProfile = function(tab = 'info') {
+window.openProfile = function(view = 'menu') {
+  renderProfilePage(view);
+  showTab('profilePage');
+};
+
+function renderProfilePage(view = 'menu') {
   orders = JSON.parse(localStorage.getItem('clowOrders') || '[]');
   const nick = userProfile.nick || 'fan';
   const mine = fanPosts.filter(p => (p.nick || 'fan') === nick);
-  openModal('내 프로필', `
-    <div class="profile-head">
-      <div class="profile-big">${userProfile.img ? `<img src="${esc(userProfile.img)}" alt="">` : ''}</div>
-      <h3>${esc(nick)}</h3>
-      <p>${userPlanLabel()}</p>
-    </div>
-    <div class="profile-tabs">
-      <button class="profile-tab ${tab==='info'?'active':''}" onclick="openProfile('info')">내 정보</button>
-      <button class="profile-tab ${tab==='orders'?'active':''}" onclick="openProfile('orders')">주문목록</button>
-      <button class="profile-tab ${tab==='posts'?'active':''}" onclick="openProfile('posts')">내가 남긴 글</button>
-    </div>
-    <div class="profile-panel ${tab==='info'?'active':''}">
-      <input id="profileNick" class="field" placeholder="닉네임" value="${esc(userProfile.nick || '')}">
-      <label style="color:#8e8580;font-size:12px;display:block;margin-top:8px">프로필 이미지</label>
-      <input id="profileImg" class="field" type="file" accept="image/*">
-      <div class="profile-stat-grid">
-        <div class="profile-stat"><small>계정 상태</small><b>${userPlanLabel()}</b></div>
-        <div class="profile-stat"><small>주문</small><b>${orders.length}개</b></div>
-        <div class="profile-stat"><small>내 글</small><b>${mine.length}개</b></div>
-        <div class="profile-stat"><small>멤버십</small><b>${userPlan === 'membership' ? '이용 가능' : '제한'}</b></div>
+  const target = document.getElementById('profilePageContent');
+  if (!target) return;
+
+  if (view === 'membership') {
+    target.innerHTML = `
+      <div class="membership-page">
+        <div class="my-back-row"><button class="mini" onclick="openProfile('menu')">← 마이페이지</button></div>
+        <div class="membership-title"><h2>내 멤버십</h2><span class="storage-badge">${userPlanLabel()}</span></div>
+        <div class="membership-card"><strong>MUSE MEMBERSHIP</strong><span>CLOW</span></div>
+        <div class="membership-dot"></div>
+        <h3>MUSE MEMBERSHIP</h3>
+        <p>${userPlan === 'membership' ? '멤버십 이용 중입니다.' : '멤버십 가입 시 전용 게시글과 전용 상품을 이용할 수 있습니다.'}</p>
+        ${userPlan === 'membership' ? '' : '<button class="submit" onclick="joinMembership()">멤버십 가입하기</button>'}
+      </div>`;
+    return;
+  }
+
+  if (view === 'orders') {
+    target.innerHTML = `<div class="my-page-wrap"><div class="my-back-row"><button class="mini" onclick="openProfile('menu')">← 마이페이지</button><h2>주문 내역</h2></div><div class="my-content-card">${orders.length ? orders.map(orderCardHTML).join('') : '<div class="empty">주문 내역이 없습니다.</div>'}</div></div>`;
+    return;
+  }
+
+  if (view === 'posts') {
+    target.innerHTML = `<div class="my-page-wrap"><div class="my-back-row"><button class="mini" onclick="openProfile('menu')">← 마이페이지</button><h2>내가 쓴 글</h2></div><div class="my-content-card">${mine.length ? mine.map(p => `<div class="profile-post"><small>${p.membershipOnly ? 'MEMBERSHIP · ' : ''}Fan Community</small><p>${esc(p.text || '')}</p>${p.img ? `<img class="post-img" src="${esc(p.img)}">` : ''}</div>`).join('') : '<div class="empty">작성한 글이 없습니다.</div>'}</div></div>`;
+    return;
+  }
+
+  if (view === 'info') {
+    target.innerHTML = `
+      <div class="my-page-wrap">
+        <div class="my-back-row"><button class="mini" onclick="openProfile('menu')">← 마이페이지</button><h2>내 정보 관리</h2></div>
+        <div class="my-content-card">
+          <input id="profileNick" class="field" placeholder="닉네임" value="${esc(userProfile.nick || '')}">
+          <label style="color:#8e8580;font-size:12px;display:block;margin-top:8px">프로필 이미지</label>
+          <input id="profileImg" class="field" type="file" accept="image/*">
+          <button class="submit" onclick="saveProfileInfo()">내 정보 저장</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  target.innerHTML = `
+    <div class="my-page-wrap">
+      <div class="my-profile-card">
+        <div class="my-profile-avatar">${userProfile.img ? `<img src="${esc(userProfile.img)}" alt="">` : ''}</div>
+        <div>
+          <div class="my-badge">💎 ${userPlanLabel()}</div>
+          <h2>${esc(nick)}</h2>
+          <p>${orders.length}개 주문 · ${mine.length}개 작성글</p>
+        </div>
       </div>
-      <button class="submit" onclick="saveProfileInfo()">내 정보 저장</button>
-      <button class="mini danger" style="margin-top:10px" onclick="resetProfileState()">계정 상태 초기화</button>
-    </div>
-    <div class="profile-panel ${tab==='orders'?'active':''}">
-      ${orders.length ? orders.map(orderCardHTML).join('') : '<div class="empty">주문 내역 없음</div>'}
-    </div>
-    <div class="profile-panel ${tab==='posts'?'active':''}">
-      ${mine.length ? mine.map(p => `<div class="profile-post"><small>${p.membershipOnly ? 'MEMBERSHIP · ' : ''}Fan Community</small><p>${esc(p.text || '')}</p>${p.img ? `<img class="post-img" src="${esc(p.img)}">` : ''}</div>`).join('') : '<div class="empty">내가 남긴 글 없음</div>'}
-    </div>
-  `);
-};
+      <div class="my-menu">
+        <button class="my-menu-btn" onclick="openProfile('membership')"><span class="my-menu-left"><span class="my-menu-icon">💎</span>내 멤버십</span><span class="my-arrow">›</span></button>
+        <button class="my-menu-btn" onclick="openProfile('orders')"><span class="my-menu-left"><span class="my-menu-icon">▤</span>주문 내역</span><span class="my-arrow">›</span></button>
+        <button class="my-menu-btn" onclick="openProfile('posts')"><span class="my-menu-left"><span class="my-menu-icon">✎</span>내가 쓴 글</span><span class="my-arrow">›</span></button>
+        <button class="my-menu-btn" onclick="openProfile('info')"><span class="my-menu-left"><span class="my-menu-icon">♡</span>내 정보 관리</span><span class="my-arrow">›</span></button>
+        <button class="my-menu-btn" onclick="logoutProfile()"><span class="my-menu-left"><span class="my-menu-icon">⎋</span>로그아웃</span><span class="my-arrow">›</span></button>
+      </div>
+    </div>`;
+}
+
 window.saveProfileInfo = async function() {
   const nick = document.getElementById('profileNick').value || 'fan';
   let imgUrl = '';
@@ -459,7 +560,18 @@ window.resetProfileState = function() {
   if (typeof renderShop === 'function') renderShop();
   openProfile('info');
 };
+window.logoutProfile = function() {
+  if (!confirm('로그아웃하시겠습니까? 가입 상태와 프로필 정보가 초기화됩니다.')) return;
+  userPlan = '';
+  localStorage.removeItem('clowUserPlan');
+  userProfile = { nick: 'fan', img: '' };
+  saveUserProfile();
+  if (typeof renderGallery === 'function') renderGallery();
+  if (typeof renderShop === 'function') renderShop();
+  showTab('home');
+};
 updateProfileButton();
+updateNotificationBadge();
 
 
 window.joinGeneral = function() {
@@ -494,6 +606,7 @@ function showTab(t) {
   document.getElementById(t).classList.add('active');
   scrollTo({top:0,behavior:'smooth'});
   if (t === 'gallery') loadGallery();
+  if (t === 'profilePage' && !document.getElementById('profilePageContent').innerHTML.trim()) renderProfilePage('menu');
 }
 document.querySelectorAll('.tab').forEach(t => t.onclick = () => showTab(t.dataset.tab));
 
@@ -907,13 +1020,14 @@ window.saveSchedule = async function(sid) {
     const ref = await fbAdd('schedules', data);
     schedules.unshift({ id: ref.id, ...data });
   }
-  closeModal(); renderSchedules(); setSyncStatus('ok');
+  closeModal(); renderSchedules(); addNotification('Schedule', data.title, `${data.date || ''} 스케줄이 등록/수정되었습니다.`, 'schedule'); setSyncStatus('ok');
 };
 
 // =====================
 // COMMUNITY
 // =====================
 let fanPosts = [], artistPosts = [], artistProfiles = [];
+let artistSearch = '', artistFilter = 'all';
 
 async function loadCommunity() {
   [fanPosts, artistPosts, artistProfiles] = await Promise.all([
@@ -933,12 +1047,35 @@ async function loadCommunity() {
 function renderCommunity() {
   const sel = document.getElementById('artistSelect');
   sel.innerHTML = artistProfiles.map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('');
-  document.getElementById('fanPosts').innerHTML = fanPosts.map(p => postHTML(p,'fan')).join('') || '<div class="empty">팬 글 없음</div>';
-  document.getElementById('artistPosts').innerHTML = artistPosts.map(p => postHTML(p,'artist')).join('') || '<div class="empty">아티스트 글 없음</div>';
+  const filterRow = document.getElementById('artistFilterRow');
+  if (filterRow) {
+    filterRow.innerHTML = `<button class="artist-filter ${artistFilter === 'all' ? 'active' : ''}" onclick="setArtistFilter('all')">All Artists</button>` +
+      artistProfiles.map(p => `<button class="artist-filter ${artistFilter === p.id ? 'active' : ''}" onclick="setArtistFilter('${p.id}')">${esc(p.name)}</button>`).join('');
+  }
+  const searchInput = document.getElementById('artistSearchInput');
+  if (searchInput && searchInput.value !== artistSearch) searchInput.value = artistSearch;
+  const artistArr = filteredArtistPosts();
+  document.getElementById('fanPosts').innerHTML = fanPosts.map(p => postHTML(p,'fan')).join('') || '<div class="empty">팬 글이 없습니다.</div>';
+  document.getElementById('artistPosts').innerHTML = `<div class="artist-result-count">${artistArr.length}개 글 표시 중</div>` + (artistArr.map(p => postHTML(p,'artist')).join('') || '<div class="empty">조건에 맞는 아티스트 글이 없습니다.</div>');
   document.getElementById('artistProfilesList').innerHTML = artistProfiles.map(p =>
     `<div class="item profile-chip">${img(p.img,'avatar')}<div class="content"><h3>${esc(p.name)}</h3><small>${esc(p.role)}</small></div><button class="mini" onclick="openArtistProfile('${p.id}')">수정</button></div>`
   ).join('');
 }
+
+function filteredArtistPosts() {
+  const q = artistSearch.trim().toLowerCase();
+  return artistPosts.filter(p => {
+    const prof = artistProfiles.find(x => x.id === p.artistId);
+    const name = (prof?.name || 'Artist').toLowerCase();
+    const text = (p.text || '').toLowerCase();
+    const byArtist = artistFilter === 'all' || p.artistId === artistFilter;
+    const bySearch = !q || text.includes(q) || name.includes(q);
+    return byArtist && bySearch;
+  });
+}
+window.setArtistSearch = function(value) { artistSearch = value || ''; renderCommunity(); };
+window.setArtistFilter = function(id) { artistFilter = id || 'all'; renderCommunity(); };
+
 
 function postHTML(p, type) {
   const prof = type === 'artist' ? artistProfiles.find(x => x.id === p.artistId) : null;
@@ -980,7 +1117,7 @@ window.addFanPost = async function() {
   document.getElementById('fanText').value = '';
   document.getElementById('fanImg').value = '';
   if (document.getElementById('fanMemberOnly')) document.getElementById('fanMemberOnly').checked = false;
-  closeComposer('fan'); renderCommunity(); setSyncStatus('ok');
+  closeComposer('fan'); renderCommunity(); addNotification('Community', '새 팬 커뮤니티 글', `${data.nick}님의 글이 등록되었습니다.`, 'community'); setSyncStatus('ok');
 };
 
 window.addArtistPost = async function() {
@@ -998,7 +1135,7 @@ window.addArtistPost = async function() {
   document.getElementById('artistText').value = '';
   document.getElementById('artistImg').value = '';
   if (document.getElementById('artistMemberOnly')) document.getElementById('artistMemberOnly').checked = false;
-  closeComposer('artist'); renderCommunity(); setSyncStatus('ok');
+  closeComposer('artist'); renderCommunity(); addNotification('Artist', '새 아티스트 글', `${(artistProfiles.find(x => x.id === data.artistId)?.name) || 'Artist'}님의 글이 등록되었습니다.`, 'community'); setSyncStatus('ok');
 };
 
 window.likePost = async function(type, pid) {
@@ -1350,6 +1487,7 @@ Promise.all([
 ]).then(() => {
   const savedTab = localStorage.getItem('clowActiveTab');
   if (savedTab && validTabs.includes(savedTab)) showTab(savedTab);
+  updateNotificationBadge();
   setSyncStatus('ok');
 }).catch(err => {
   console.error('초기 로드 실패:', err);
