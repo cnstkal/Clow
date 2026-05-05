@@ -191,6 +191,21 @@ body.light .artist-profile-btn{color:#111}body.light .artist-feed-card{border-bo
 @media(max-width:899px){.home-content-section{padding:38px 18px 0}.home-content-head{align-items:flex-start}.home-content-head .add{white-space:nowrap}.home-edit-btn,.home-join-btn{padding:12px 14px}}
 body.light .home-edit-btn{border-color:rgba(0,0,0,.18);background:rgba(0,0,0,.08);color:#111}
 
+/* 디스코그래피: 갤러리형 1:1 카드 */
+.album-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.album-card{position:relative;overflow:hidden;padding:0;border-radius:18px;cursor:pointer}
+.album-card-cover{position:relative;aspect-ratio:1/1;background:linear-gradient(135deg,#19151f,#7d5da4 45%,#c47a96);overflow:hidden}
+.album-card-cover img{width:100%;height:100%;object-fit:cover}
+.album-card-body{padding:12px}
+.album-card-body h3{font-size:14px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.album-card-body small{display:block;margin-top:5px}
+.album-card-actions{position:absolute;right:8px;top:8px;display:flex;gap:6px;opacity:0;transition:.15s}
+.album-card:hover .album-card-actions{opacity:1}
+.album-card-actions .mini{background:rgba(0,0,0,.62);color:#fff;border-color:rgba(255,255,255,.2)}
+.artist-filter-row{display:none!important}
+@media(min-width:900px){.album-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px}}
+@media(max-width:899px){.album-grid{grid-template-columns:repeat(3,1fr);gap:6px}.album-card{border-radius:14px}.album-card-body{padding:9px}.album-card-body h3{font-size:12px}.album-card-body small{font-size:10px}.album-card-actions{display:none}}
+
 </style>
 </head>
 <body>
@@ -246,7 +261,7 @@ body.light .home-edit-btn{border-color:rgba(0,0,0,.18);background:rgba(0,0,0,.08
 
 <section id="discography" class="page">
   <div class="title"><h2>Discography</h2><button class="add" onclick="openAlbumForm()">+ 추가</button></div>
-  <div id="albumsList" class="list"><div class="skeleton"></div></div>
+  <div id="albumsList" class="album-grid"><div class="skeleton"></div></div>
 </section>
 
 <section id="gallery" class="page">
@@ -973,16 +988,18 @@ async function loadAlbums() {
 }
 
 function renderAlbums() {
-  document.getElementById('albumsList').innerHTML = albums.map(a =>
-    `<article class="item row" onclick="albumDetail('${a.id}')">
-      ${img(a.img,'album-cover')}
-      <div class="content">
-        <small>${esc(a.type)} · ${esc(a.date)}</small>
-        <h3>${esc(a.title)}</h3><p>${esc(a.desc)}</p>
-        <div class="actions" onclick="event.stopPropagation()">
-          <button class="mini" onclick="openAlbumForm('${a.id}')">수정</button>
-          <button class="mini danger" onclick="delItem('albums','${a.id}')">삭제</button>
-        </div>
+  const box = document.getElementById('albumsList');
+  if (!box) return;
+  box.innerHTML = albums.map(a =>
+    `<article class="card album-card" onclick="albumDetail('${a.id}')">
+      <div class="album-card-cover">${a.img ? `<img src="${esc(a.img)}" loading="lazy">` : ''}</div>
+      <div class="album-card-actions" onclick="event.stopPropagation()">
+        <button class="mini" onclick="openAlbumForm('${a.id}')">수정</button>
+        <button class="mini danger" onclick="delItem('albums','${a.id}')">삭제</button>
+      </div>
+      <div class="album-card-body">
+        <h3>${esc(a.title)}</h3>
+        <small>${esc(a.date || '')}</small>
       </div>
     </article>`
   ).join('') || '<div class="empty">앨범을 추가해 주세요.</div>';
@@ -1611,7 +1628,6 @@ function homeDateText(item) {
 async function loadHomeContents() {
   try {
     homeContents = await fbGetAll('homeContents', 'createdAt');
-    homeContents.reverse(); // 오래된 순부터 아래로 차곡차곡
     renderHome();
   } catch(e) { console.error(e); }
 }
@@ -1643,7 +1659,7 @@ window.saveHomeContent = async function(id = '') {
     homeContents = homeContents.map(x => x.id === id ? { ...x, ...data } : x);
   } else {
     const ref = await fbAdd('homeContents', data);
-    homeContents.push({ id: ref.id, ...data, createdAt: new Date().toISOString() });
+    homeContents.unshift({ id: ref.id, ...data, createdAt: new Date().toISOString() });
   }
   closeModal();
   renderHome();
@@ -1692,7 +1708,11 @@ function renderHome() {
 
   const feed = document.getElementById('homeContentsGrid');
   if (feed) {
-    feed.innerHTML = homeContents.length ? homeContents.map((it, i) => {
+    const sortedHomeContents = [...homeContents].sort((a,b) => {
+      const getTime = (x) => x?.createdAt?.toDate ? x.createdAt.toDate().getTime() : new Date(x?.createdAt || 0).getTime();
+      return getTime(b) - getTime(a);
+    });
+    feed.innerHTML = sortedHomeContents.length ? sortedHomeContents.map((it, i) => {
       const cover = it.img || '';
       const click = it.link ? `openHomeContent('${it.id}')` : '';
       return `<article class="home-feed-card" ${click ? `onclick="${click}"` : ''}>
