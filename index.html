@@ -208,7 +208,7 @@ body.light .home-edit-btn{border-color:rgba(0,0,0,.18);background:rgba(0,0,0,.08
 
 
 /* 사용자 요청 반영: 메인 이미지 업로드 / 콘텐츠 상세 / 멤버 사진 원본비율 */
-.home-hero-image-btn{width:36px;height:36px;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:rgba(255,255,255,.10);color:#fff;font-size:15px;font-weight:950;display:inline-flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);opacity:.34;transition:.18s}
+.home-hero-image-btn{position:absolute;top:12px;right:12px;z-index:5;width:34px;height:34px;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:rgba(255,255,255,.10);color:#fff;font-size:14px;font-weight:950;display:inline-flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);opacity:.42;transition:.18s}
 .home-hero-image-btn:hover{opacity:1;background:rgba(255,255,255,.18)}
 .home-hero-file{display:none!important}
 .content-detail-media{display:grid;gap:14px;margin-top:16px}
@@ -760,6 +760,7 @@ function showTab(t) {
   if (t === 'home') renderHome();
   if (t === 'profilePage' && !document.getElementById('profilePageContent').innerHTML.trim()) renderProfilePage('menu');
 }
+window.showTab = showTab;
 document.querySelectorAll('.tab').forEach(t => t.onclick = () => showTab(t.dataset.tab));
 
 function openModal(title, body) { document.getElementById('modalTitle').textContent = title; document.getElementById('modalBody').innerHTML = body; document.getElementById('modal').classList.add('open') }
