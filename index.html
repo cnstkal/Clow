@@ -406,6 +406,133 @@ body:not(.light) .schedule-modal-card{
   }
 }
 
+
+/* 사용자 요청: 모바일 아티스트 커뮤니티 글자 크기 축소 + 프로필 수정 버튼 표시 */
+@media(max-width:899px){
+  .artist-community-page{
+    padding:18px 0 92px!important;
+  }
+  .artist-community-page>.title{
+    display:flex!important;
+    padding:0 18px!important;
+    margin:0 0 12px!important;
+    align-items:center!important;
+  }
+  .artist-community-page>.title h2{
+    font-size:20px!important;
+    letter-spacing:-.04em!important;
+  }
+  .artist-community-page>.title .admin-dot{
+    width:34px!important;
+    height:34px!important;
+    border:1px solid #2e292d!important;
+    border-radius:50%!important;
+    background:#1b191d!important;
+    color:#d9d2cc!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    font-size:17px!important;
+  }
+  body.light .artist-community-page>.title .admin-dot{
+    background:#fff!important;
+    border-color:#ddd8d0!important;
+    color:#111!important;
+  }
+
+  .artist-mobile-strip{
+    gap:14px!important;
+    padding:12px 18px 14px!important;
+    margin-bottom:14px!important;
+  }
+  .artist-mobile-strip .artist-profile-btn .avatar{
+    width:52px!important;
+    height:52px!important;
+    flex-basis:52px!important;
+  }
+  .artist-mobile-strip .artist-profile-name{
+    font-size:12px!important;
+    max-width:62px!important;
+  }
+
+  .artist-tools,.compose-mini,.composer{
+    margin-left:18px!important;
+    margin-right:18px!important;
+  }
+  .artist-result-count{
+    padding:0 18px!important;
+    font-size:12px!important;
+    margin-bottom:10px!important;
+  }
+  .artist-feed-card{
+    padding:0 18px 22px!important;
+    margin-bottom:22px!important;
+  }
+  .artist-post-head{
+    margin-bottom:12px!important;
+  }
+  .artist-post-author{
+    gap:10px!important;
+  }
+  .artist-post-author .avatar{
+    width:42px!important;
+    height:42px!important;
+    flex-basis:42px!important;
+  }
+  .artist-name-line{
+    font-size:18px!important;
+    letter-spacing:-.03em!important;
+  }
+  .verified-badge{
+    width:17px!important;
+    height:17px!important;
+    font-size:11px!important;
+  }
+  .post-menu-dot{
+    font-size:22px!important;
+  }
+  .artist-post-media{
+    border-radius:14px!important;
+    margin-bottom:13px!important;
+  }
+  .artist-post-text{
+    font-size:20px!important;
+    line-height:1.38!important;
+    letter-spacing:-.03em!important;
+    margin-bottom:9px!important;
+  }
+  .artist-post-meta{
+    font-size:13px!important;
+    gap:7px!important;
+    margin-bottom:9px!important;
+  }
+  .artist-post-actions{
+    gap:7px!important;
+    margin-top:8px!important;
+  }
+  .artist-post-actions .mini{
+    font-size:12px!important;
+    padding:8px 11px!important;
+  }
+  .artist-post-actions .mini:first-child{
+    min-width:58px!important;
+  }
+  .member-only-badge{
+    font-size:9px!important;
+    padding:3px 6px!important;
+  }
+  #adminPanel{
+    margin:16px 18px 0!important;
+  }
+  #adminPanel .title{
+    display:flex!important;
+    padding:0!important;
+  }
+  #artistProfilesList.list{
+    grid-template-columns:1fr!important;
+  }
+}
+
 </style>
 </head>
 <body>
