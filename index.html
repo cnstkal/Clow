@@ -380,6 +380,32 @@ body:not(.light) .schedule-modal-card{
   }
 }
 
+
+/* 사용자 요청: 모바일 갤러리 2열 + 작성칸 침범 방지 */
+#gallery .composer{
+  position:relative;
+  z-index:2;
+  margin-bottom:18px;
+}
+#galleryGrid.gallery-grid{
+  position:relative;
+  z-index:1;
+  margin-top:16px;
+}
+@media(max-width:899px){
+  #galleryGrid.gallery-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    clear:both;
+  }
+}
+@media(min-width:900px){
+  #galleryGrid.gallery-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1155,27 +1181,46 @@ window.openMemberForm = function(mid) {
 
 window.saveMember = async function(mid) {
   setSyncStatus('loading');
-  const imgUrl = await uploadFromInput(document.getElementById('mImg'));
-  const old = members.find(x => x.id === mid) || {};
-  const position = document.getElementById('mPosition').value.trim();
-  const birth = document.getElementById('mBirth').value.trim();
-  const data = {
-    name: document.getElementById('mName').value.trim() || 'New Member',
-    role: position,
-    position,
-    birth,
-    bio: '',
-    detail: `Position\n${position || '미입력'}\nBirth\n${birth || '미입력'}`,
-    img: imgUrl || old.img || ''
-  };
-  if (mid) {
-    await fbSet('members', mid, data);
-    members = members.map(x => x.id === mid ? { ...x, ...data } : x);
-  } else {
-    const ref = await fbAdd('members', data);
-    members.unshift({ id: ref.id, ...data });
+  try {
+    const input = document.getElementById('mImg');
+    let imgUrl = '';
+
+    // 갤러리와 같은 Cloudinary 업로드 함수를 사용해서 멤버 사진 저장 오류 방지
+    if (input && input.files && input.files[0]) {
+      imgUrl = await uploadToCloudinary(input.files[0]);
+    }
+
+    const old = members.find(x => x.id === mid) || {};
+    const position = document.getElementById('mPosition').value.trim();
+    const birth = document.getElementById('mBirth').value.trim();
+    const data = {
+      name: document.getElementById('mName').value.trim() || 'New Member',
+      role: position,
+      position,
+      birth,
+      bio: old.bio || '',
+      detail: `Position\n${position || '미입력'}\nBirth\n${birth || '미입력'}`,
+      img: imgUrl || old.img || '',
+      createdAt: mid ? (old.createdAt || serverTimestamp()) : serverTimestamp()
+    };
+
+    if (mid) {
+      await fbSet('members', mid, data);
+      members = members.map(x => x.id === mid ? { ...x, ...data } : x);
+    } else {
+      const ref = await fbAdd('members', data);
+      members.unshift({ id: ref.id, ...data });
+    }
+
+    closeModal();
+    renderMembers();
+    renderHome();
+    setSyncStatus('ok');
+  } catch (e) {
+    console.error(e);
+    alert('멤버 추가 실패: ' + (e.message || e));
+    setSyncStatus('error');
   }
-  closeModal(); renderMembers(); setSyncStatus('ok');
 };
 
 // =====================
