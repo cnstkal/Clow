@@ -200,7 +200,7 @@ let db=load();
 function save(){localStorage.setItem(K,JSON.stringify(db))}
 function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function img(src,cls='thumb'){return src?`<img class="${cls}" src="${src}">`:`<div class="${cls}"></div>`}
-function compress(input,max=900,q=.82){return new Promise(res=>{let f=input.files&&input.files[0];if(!f)return res('');let r=new FileReader();r.onload=()=>{let im=new Image();im.onload=()=>{let scale=Math.min(1,max/Math.max(im.width,im.height));let c=document.createElement('canvas');c.width=Math.round(im.width*scale);c.height=Math.round(im.height*scale);c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',q))};im.src=r.result};r.readAsDataURL(f)})}
+function compress(input,max=520,q=.58){return new Promise(res=>{let f=input.files&&input.files[0];if(!f)return res('');let r=new FileReader();r.onload=()=>{let im=new Image();im.onload=()=>{let scale=Math.min(1,max/Math.max(im.width,im.height));let c=document.createElement('canvas');c.width=Math.round(im.width*scale);c.height=Math.round(im.height*scale);c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',q))};im.src=r.result};r.readAsDataURL(f)})}
 function showTab(t){if(t!=='detailPage')lastTab=t;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(t).classList.add('active');scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>showTab(t.dataset.tab));
 function openModal(t,b){modalTitle.textContent=t;modalBody.innerHTML=b;modal.classList.add('open')}
