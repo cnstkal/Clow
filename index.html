@@ -236,7 +236,7 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
       <textarea id="fanText" class="field" placeholder="무슨 생각 중이야?"></textarea>
       <div class="file-row">
         <label class="file-label">사진 추가<input id="fanImg" type="file" accept="image/*"></label>
-        <button class="mini" onclick="closeComposer('fan')">접기</button>
+        <button class="mini" onclick="closeComposer('fan')">닫기</button>
       </div>
       <label class="check-label"><input id="fanMemberOnly" type="checkbox"> 멤버십 전용글</label>
       <button class="submit" onclick="addFanPost()">올리기</button>
@@ -253,7 +253,7 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
       <textarea id="artistText" class="field" placeholder="아티스트 메시지"></textarea>
       <div class="file-row">
         <label class="file-label">사진 추가<input id="artistImg" type="file" accept="image/*"></label>
-        <button class="mini" onclick="closeComposer('artist')">접기</button>
+        <button class="mini" onclick="closeComposer('artist')">닫기</button>
       </div>
       <label class="check-label"><input id="artistMemberOnly" type="checkbox"> 멤버십 전용글</label>
       <button class="submit" onclick="addArtistPost()">올리기</button>
@@ -388,7 +388,8 @@ function esc(s = '') { return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','
 function img(src, cls = 'thumb') { return src ? `<img class="${cls}" src="${esc(src)}" loading="lazy">` : `<div class="${cls}"></div>` }
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7) }
 
-let lastTab = 'home', scheduleType = 'all', shopCat = 'all', scheduleView = 'list', selectedDate = '';
+let lastTab = localStorage.getItem('clowActiveTab') || 'home', scheduleType = 'all', shopCat = 'all', scheduleView = 'list', selectedDate = '';
+const validTabs = ['home','members','discography','gallery','schedule','community','shop','notice'];
 let userPlan = localStorage.getItem('clowUserPlan') || ''; // '', 'general', 'membership'
 
 let userProfile = JSON.parse(localStorage.getItem('clowUserProfile') || '{"nick":"fan","img":""}');
@@ -449,7 +450,7 @@ window.saveProfileInfo = async function() {
   openProfile('info');
 };
 window.resetProfileState = function() {
-  if (!confirm('가입 상태와 프로필을 초기화할까?')) return;
+  if (!confirm('가입 상태와 프로필을 초기화하시겠습니까?')) return;
   userPlan = '';
   localStorage.removeItem('clowUserPlan');
   userProfile = { nick: 'fan', img: '' };
@@ -464,26 +465,30 @@ updateProfileButton();
 window.joinGeneral = function() {
   userPlan = 'general';
   localStorage.setItem('clowUserPlan', userPlan);
-  alert('일반 가입이 완료됐어. 이제 커뮤니티에 글을 쓸 수 있어.');
+  alert('일반 가입이 완료되었습니다. 이제 커뮤니티에 글을 작성할 수 있습니다.');
 };
 
 window.joinMembership = function() {
-  if (!confirm('멤버십은 연 20,000원입니다. 가상 결제를 진행할까?')) return;
+  if (!confirm('멤버십은 연 20,000원입니다. 가상 결제를 진행하시겠습니까?')) return;
   userPlan = 'membership';
   localStorage.setItem('clowUserPlan', userPlan);
   if (typeof renderGallery === 'function') renderGallery();
-  openModal('멤버십 가입 완료', `<div class="purchase-done"><div class="emoji">💎</div><h2>멤버십 가입 완료</h2><p>연 20,000원 가상 결제가 완료됐습니다.<br>이제 멤버십 전용 게시글, 사진, 상품을 이용할 수 있어요.</p><div class="fake-receipt"><div><span>상품</span><span>CLOW Membership</span></div><div><span>기간</span><span>1년</span></div><div><span>결제 금액</span><span>₩20,000</span></div></div><button class="submit" onclick="closeModal()">확인</button></div>`);
+  openModal('멤버십 가입 완료', `<div class="purchase-done"><div class="emoji">💎</div><h2>멤버십 가입 완료</h2><p>연 20,000원 가상 결제가 완료됐습니다.<br>이제 멤버십 전용 게시글, 사진, 상품을 이용할 수 있습니다.</p><div class="fake-receipt"><div><span>상품</span><span>CLOW Membership</span></div><div><span>기간</span><span>1년</span></div><div><span>결제 금액</span><span>₩20,000</span></div></div><button class="submit" onclick="closeModal()">확인</button></div>`);
 };
 
 function requireJoined() {
   if (userPlan) return true;
-  alert('커뮤니티 글 작성은 가입 후 가능해. 일반 가입 또는 멤버십 가입을 먼저 해줘.');
+  alert('커뮤니티 글 작성은 가입 후 가능합니다. 일반 가입 또는 멤버십 가입을 먼저 진행해 주세요.');
   showTab('home');
   return false;
 }
 
 function showTab(t) {
-  if (t !== 'detailPage') lastTab = t;
+  if (!document.getElementById(t)) t = 'home';
+  if (t !== 'detailPage') {
+    lastTab = t;
+    if (validTabs.includes(t)) localStorage.setItem('clowActiveTab', t);
+  }
   document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x.dataset.tab === t));
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(t).classList.add('active');
@@ -558,7 +563,7 @@ function renderGallery() {
   const countEl = document.getElementById('photoCount');
   countEl.textContent = galleryPhotos.length + '개 게시글';
   if (!galleryPhotos.length) {
-    grid.innerHTML = '<div class="empty" style="grid-column:1/-1">갤러리 게시글을 추가해줘.</div>';
+    grid.innerHTML = '<div class="empty" style="grid-column:1/-1">갤러리 게시글을 추가해 주세요.</div>';
     return;
   }
   grid.innerHTML = galleryPhotos.map((p, i) => {
@@ -610,7 +615,7 @@ window.galleryPostDetail = function(i) {
   const p = galleryPhotos[i];
   if (!p) return;
   if (p.membershipOnly && userPlan !== 'membership') {
-    alert('멤버십 전용 갤러리 게시글이야. 멤버십 가입 후 볼 수 있어.');
+    alert('멤버십 전용 갤러리 게시글입니다. 멤버십 가입 후 열람할 수 있습니다.');
     showTab('home');
     return;
   }
@@ -625,7 +630,7 @@ window.galleryPostDetail = function(i) {
 };
 
 window.deleteGalleryPhoto = async function(id) {
-  if (!confirm('이 갤러리 게시글을 삭제할까?')) return;
+  if (!confirm('이 갤러리 게시글을 삭제하시겠습니까?')) return;
   setSyncStatus('loading');
   await deleteDoc(doc(db, 'gallery', id));
   galleryPhotos = galleryPhotos.filter(p => p.id !== id);
@@ -689,7 +694,7 @@ function renderMembers() {
         </div>
       </div>
     </article>`
-  ).join('') || '<div class="empty">멤버를 추가해줘.</div>';
+  ).join('') || '<div class="empty">멤버를 추가해 주세요.</div>';
 }
 
 window.memberDetail = function(mid) {
@@ -763,7 +768,7 @@ function renderAlbums() {
         </div>
       </div>
     </article>`
-  ).join('') || '<div class="empty">앨범을 추가해줘.</div>';
+  ).join('') || '<div class="empty">앨범을 추가해 주세요.</div>';
 }
 
 window.albumDetail = function(aid) {
@@ -831,7 +836,7 @@ function renderSchedules() {
   const arr = visibleSchedules();
   calendarBox.innerHTML = scheduleView === 'calendar' ? calendarHTML(arr) : '';
   scheduleList.innerHTML = scheduleView === 'list' ? arr.map(scheduleItem).join('') :
-    (selectedDate ? arr.filter(s => s.date === selectedDate).map(scheduleItem).join('') : '<div class="empty">달력 날짜를 눌러줘.</div>');
+    (selectedDate ? arr.filter(s => s.date === selectedDate).map(scheduleItem).join('') : '<div class="empty">달력에서 날짜를 선택해 주세요.</div>');
   if (!scheduleList.innerHTML) scheduleList.innerHTML = '<div class="empty">스케줄 없음</div>';
 }
 window.renderSchedules = renderSchedules;
@@ -942,7 +947,7 @@ function postHTML(p, type) {
   const locked = p.membershipOnly && userPlan !== 'membership';
   return `<article class="item">
     <div class="row"><div>${av ? `<img class="avatar" src="${esc(av)}">` : '<div class="avatar"></div>'}</div><div><h3>${esc(name)}${p.membershipOnly ? '<span class="member-only-badge">MEMBERSHIP</span>' : ''}</h3><small>${type==='artist'?'Artist Community':'Fan Community'}</small></div></div>
-    ${locked ? '<div class="locked-box">🔒 멤버십 전용 게시글입니다. 멤버십 가입 후 볼 수 있어요.</div>' : `<p class="section-gap">${esc(p.text)}</p>${p.img ? `<img class="post-img" src="${esc(p.img)}">` : ''}`}
+    ${locked ? '<div class="locked-box">🔒 멤버십 전용 게시글입니다. 멤버십 가입 후 열람할 수 있습니다.</div>' : `<p class="section-gap">${esc(p.text)}</p>${p.img ? `<img class="post-img" src="${esc(p.img)}">` : ''}`}
     <div class="actions">
       <button class="mini" onclick="likePost('${type}','${p.id}')">♡ ${p.likes||0}</button>
       ${locked ? '' : `<button class="mini" onclick="commentPost('${type}','${p.id}')">댓글</button>`}
@@ -1023,7 +1028,7 @@ window.editPost = async function(type, pid) {
 };
 
 window.deletePost = async function(type, pid) {
-  if (!confirm('삭제할까?')) return;
+  if (!confirm('삭제하시겠습니까?')) return;
   setSyncStatus('loading');
   const colName = type === 'artist' ? 'artistPosts' : 'fanPosts';
   await fbDelete(colName, pid);
@@ -1095,7 +1100,7 @@ function renderShop() {
         <button class="mini danger" onclick="delItem('products','${p.id}')">삭제</button>
       </div>
     </article>`
-  ).join('') || '<div class="empty">상품 없음</div>';
+  ).join('') || '<div class="empty">상품이 없습니다</div>';
   updateCartCount();
 }
 
@@ -1120,7 +1125,7 @@ window.productDetail = function(pid) {
     <div class="actions"><button class="mini" onclick="openProductForm('${p.id}')">상품 수정 / 상세 이미지 추가</button></div>
     <div class="section-gap">
       <h3>상세 이미지</h3>
-      ${detailImgs.length ? `<div class="product-detail-stack">${detailImgs.map(u => `<img src="${esc(u)}" loading="lazy">`).join('')}</div>` : '<div class="product-detail-empty">아직 추가된 상세 이미지가 없어. 상품 수정에서 추가할 수 있어.</div>'}
+      ${detailImgs.length ? `<div class="product-detail-stack">${detailImgs.map(u => `<img src="${esc(u)}" loading="lazy">`).join('')}</div>` : '<div class="product-detail-empty">아직 추가된 상세 이미지가 없습니다. 상품 수정에서 추가할 수 있습니다.</div>'}
     </div>
   </div>`);
 };
@@ -1128,12 +1133,12 @@ window.productDetail = function(pid) {
 window.addToCart = function(pid) {
   const p = products.find(x => x.id === pid);
   if (!p) return;
-  if (p.membershipOnly && userPlan !== 'membership') { alert('멤버십 전용 상품이라 멤버십 가입 후 담을 수 있어.'); showTab('home'); return; }
+  if (p.membershipOnly && userPlan !== 'membership') { alert('멤버십 전용 상품입니다. 멤버십 가입 후 장바구니에 담을 수 있습니다.'); showTab('home'); return; }
   const found = cart.find(x => x.id === pid);
   if (found) found.qty = (found.qty || 1) + 1;
   else cart.push({ id: pid, qty: 1 });
   saveCart();
-  alert('장바구니에 담았어.');
+  alert('장바구니에 담았습니다.');
 };
 
 window.removeFromCart = function(pid) { cart = cart.filter(x => x.id !== pid); saveCart(); openCart(); };
@@ -1145,7 +1150,7 @@ window.changeCartQty = function(pid, delta) {
 
 window.openCart = function() {
   const rows = cart.map(c => ({...c, product: products.find(p => p.id === c.id)})).filter(x => x.product);
-  if (!rows.length) { openModal('장바구니', '<div class="empty">장바구니가 비어있어.</div>'); return; }
+  if (!rows.length) { openModal('장바구니', '<div class="empty">장바구니가 비어 있습니다.</div>'); return; }
   const total = rows.reduce((sum, r) => sum + finalPrice(r.product) * (r.qty || 1), 0);
   openModal('장바구니', `${rows.map(r => `<div class="cart-row"><div><h3>${esc(r.product.name)}</h3><small>${r.qty}개 · ${r.product.discountEligible && userPlan==='membership'?'멤버십 할인 적용':'일반가'}</small><div class="price">₩${(finalPrice(r.product)*(r.qty||1)).toLocaleString()}</div></div><div class="actions" style="margin-top:0"><button class="mini" onclick="changeCartQty('${r.id}',-1)">-</button><button class="mini" onclick="changeCartQty('${r.id}',1)">+</button><button class="mini danger" onclick="removeFromCart('${r.id}')">삭제</button></div></div>`).join('')}<div class="fake-receipt"><div><span>총 결제 금액</span><span>₩${total.toLocaleString()}</span></div></div><button class="submit" onclick="checkoutCart()">전체 구매하기</button>`);
 };
@@ -1166,14 +1171,14 @@ window.checkoutCart = function() {
   if (!rows.length) return;
   addOrder(rows.map(r => ({ name: r.product.name, qty: r.qty || 1, price: finalPrice(r.product) })));
   cart = []; saveCart();
-  openModal('구매 완료', `<div class="purchase-done"><div class="emoji">🛍️</div><h2>주문이 접수됐습니다</h2><p>현재 상태는 <b>배송 준비중</b>이에요.<br>주문 목록에서 확인할 수 있어요.</p><button class="submit" onclick="openOrders()">주문 목록 보기</button></div>`);
+  openModal('구매 완료', `<div class="purchase-done"><div class="emoji">🛍️</div><h2>주문이 접수됐습니다</h2><p>현재 상태는 <b>배송 준비중</b>입니다.<br>주문 목록에서 확인할 수 있습니다.</p><button class="submit" onclick="openOrders()">주문 목록 보기</button></div>`);
 };
 
 window.fakeBuy = function(pid) {
   const p = products.find(x => x.id === pid);
-  if (p.membershipOnly && userPlan !== 'membership') { alert('멤버십 전용 상품이라 멤버십 가입 후 구매할 수 있어.'); showTab('home'); return; }
+  if (p.membershipOnly && userPlan !== 'membership') { alert('멤버십 전용 상품입니다. 멤버십 가입 후 구매할 수 있습니다.'); showTab('home'); return; }
   addOrder([{ name: p.name, qty: 1, price: finalPrice(p) }]);
-  openModal('구매 완료', `<div class="purchase-done"><div class="emoji">🛍️</div><h2>구매가 완료됐습니다</h2><p>${esc(p.name)} 주문이 접수됐어요.<br>현재 상태는 <b>배송 준비중</b>입니다.</p><div class="fake-receipt"><div><span>상품</span><span>${esc(p.name)}</span></div><div><span>결제 방식</span><span>FAKE PAY</span></div><div><span>배송 상태</span><span>배송 준비중</span></div><div><span>결제 금액</span><span>₩${finalPrice(p).toLocaleString()}</span></div></div><button class="submit" onclick="openOrders()">주문 목록 보기</button></div>`);
+  openModal('구매 완료', `<div class="purchase-done"><div class="emoji">🛍️</div><h2>구매가 완료됐습니다</h2><p>${esc(p.name)} 주문이 접수되었습니다.<br>현재 상태는 <b>배송 준비중</b>입니다.</p><div class="fake-receipt"><div><span>상품</span><span>${esc(p.name)}</span></div><div><span>결제 방식</span><span>FAKE PAY</span></div><div><span>배송 상태</span><span>배송 준비중</span></div><div><span>결제 금액</span><span>₩${finalPrice(p).toLocaleString()}</span></div></div><button class="submit" onclick="openOrders()">주문 목록 보기</button></div>`);
 };
 
 function orderCardHTML(o) {
@@ -1193,14 +1198,14 @@ window.completeOrder = function(id) {
 
 window.editOrder = function(id) {
   const o = orders.find(x => x.id === id); if (!o) return;
-  const status = prompt('주문 상태를 수정해줘', o.status || '배송 준비중');
+  const status = prompt('주문 상태를 입력해 주세요', o.status || '배송 준비중');
   if (status === null) return;
   orders = orders.map(x => x.id === id ? {...x, status: status || '배송 준비중'} : x);
   saveOrders(); openOrders();
 };
 
 window.deleteOrder = function(id) {
-  if (!confirm('이 주문을 삭제할까?')) return;
+  if (!confirm('이 주문을 삭제하시겠습니까?')) return;
   orders = orders.filter(o => o.id !== id);
   saveOrders(); openOrders();
 };
@@ -1310,7 +1315,7 @@ window.saveNotice = async function(nid) {
 // 공통 삭제
 // =====================
 window.delItem = async function(col, id) {
-  if (!confirm('삭제할까?')) return;
+  if (!confirm('삭제하시겠습니까?')) return;
   setSyncStatus('loading');
   await fbDelete(col, id);
   if (col === 'members') { members = members.filter(x => x.id !== id); renderMembers(); }
@@ -1343,6 +1348,8 @@ Promise.all([
   loadShop(),
   loadNotices()
 ]).then(() => {
+  const savedTab = localStorage.getItem('clowActiveTab');
+  if (savedTab && validTabs.includes(savedTab)) showTab(savedTab);
   setSyncStatus('ok');
 }).catch(err => {
   console.error('초기 로드 실패:', err);
