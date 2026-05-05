@@ -32,7 +32,34 @@ header{position:sticky;top:0;z-index:30;padding:12px 14px 10px;background:rgba(1
 .modal{position:fixed;inset:0;z-index:60;display:none;background:rgba(0,0,0,.72);padding:18px;align-items:flex-end}.modal.open{display:flex}.modal-card{width:min(430px,100%);max-height:88vh;margin:0 auto;overflow:auto;background:#101012;padding:16px}.modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.close{border:0;background:#f4f1ec;color:#111;border-radius:999px;padding:8px 12px;font-weight:900}.hidden{display:none!important}.empty{text-align:center;color:#8e8580;padding:26px}
 .detail{padding:18px}.detail pre{white-space:pre-wrap;font-family:inherit;color:#aaa19b;font-size:14px;line-height:1.7}.back{margin-bottom:14px}.view-toggle{display:flex;gap:8px;margin-bottom:16px}.calendar{background:#141316;border:1px solid #242124;border-radius:24px;padding:14px;margin:0 0 16px;box-shadow:0 12px 28px rgba(0,0,0,.2)}.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-weight:950}.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.dow,.day{text-align:center;font-size:12px}.dow{color:#8e8580;font-weight:850}.day{min-height:34px;border:0;border-radius:12px;padding:5px;background:#1b191d;color:#aaa19b}.day.has{background:#f4f1ec;color:#111;font-weight:900}.admin-dot{border:0;background:transparent;color:#8e8580;font-size:18px;padding:4px}.admin-panel{margin-top:12px}.profile-chip{display:flex;align-items:center;gap:10px}.product{padding:11px}.goods-img{width:100%;margin-bottom:11px}
 .member-hero{position:relative;overflow:hidden;padding:0}.member-visual{height:320px;background:linear-gradient(135deg,#25202d,#765c9e,#c47a96);object-fit:cover;width:100%}.member-info{padding:18px}.member-name{font-size:34px;letter-spacing:-.06em;margin-bottom:4px}.member-role{color:#cfc7c1;font-weight:900;margin-bottom:12px}.member-bio{margin-bottom:18px}.info-grid{display:grid;gap:10px;margin-top:14px}.info-line{padding:12px;border-radius:16px;background:#1b191d;color:#bfb7b1;font-size:14px;line-height:1.45}.info-line b{display:block;color:#f4f1ec;margin-bottom:4px}
-.purchase-done{text-align:center;padding:18px 6px 8px}.purchase-done .emoji{font-size:44px;margin-bottom:10px}.purchase-done h2{margin-bottom:8px}.purchase-done p{margin-bottom:14px}.fake-receipt{margin-top:14px;padding:14px;border-radius:18px;background:#1b191d;text-align:left}.fake-receipt div{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2e292d;color:#aaa19b;font-size:13px}.fake-receipt div:last-child{border-bottom:0;color:#f4f1ec;font-weight:900}footer{text-align:center;color:#6f6764;font-size:12px;padding:24px 14px 34px}@media(min-width:700px){.app{margin-top:18px;margin-bottom:18px;border-radius:30px;overflow:hidden}}
+.purchase-done{text-align:center;padding:18px 6px 8px}.purchase-done .emoji{font-size:44px;margin-bottom:10px}.purchase-done h2{margin-bottom:8px}.purchase-done p{margin-bottom:14px}.fake-receipt{margin-top:14px;padding:14px;border-radius:18px;background:#1b191d;text-align:left}.fake-receipt div{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2e292d;color:#aaa19b;font-size:13px}.fake-receipt div:last-child{border-bottom:0;color:#f4f1ec;font-weight:900}footer{text-align:center;color:#6f6764;font-size:12px;padding:24px 14px 34px}
+
+/* PC 최적화: 900px 이상에서는 모바일 앱 폭이 아니라 데스크톱 레이아웃으로 확장 */
+@media(min-width:900px){
+  body{background:radial-gradient(circle at 50% 0,#1a1420 0,#050505 42%,#050505 100%)}
+  .app{width:min(1180px,calc(100% - 48px));margin:24px auto;border-radius:34px;overflow:hidden;border:1px solid #242124;box-shadow:0 26px 80px rgba(0,0,0,.45)}
+  header{padding:18px 28px 14px}.top{margin-bottom:14px}.logo{font-size:24px}.tag{font-size:12px}
+  .tabs{gap:10px;overflow-x:visible;flex-wrap:wrap}.tab{padding:9px 16px;font-size:13px}
+  .page{padding:34px 32px 56px}.title{margin:8px 0 24px}h1{font-size:86px}h2{font-size:32px}h3{font-size:19px}p{font-size:15px}
+  .hero{min-height:460px;padding:28px;border-radius:34px}.hero-copy{max-width:560px;padding:24px}.hero p{font-size:15px}.quick{grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px}
+  .list{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.item,.card,.detail{padding:18px;border-radius:28px}.thumb{width:104px;height:126px;flex-basis:104px}.album-cover{width:118px;height:118px;flex-basis:118px}
+  .shop-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.product{padding:14px}.goods-img{border-radius:22px}
+  .gallery-grid{grid-template-columns:repeat(5,1fr);gap:10px}.gallery-item{border-radius:18px}.gallery-upload-area{padding:34px;border-radius:26px}
+  .member-visual{height:470px}.member-name{font-size:48px}.info-grid{grid-template-columns:repeat(2,1fr)}
+  #detailPage .detail{max-width:860px;margin:0 auto}.detail-img{max-height:620px}.post-img{max-height:560px}.modal{align-items:center}.modal-card{width:min(560px,100%);border-radius:30px}.calendar{max-width:720px}
+}
+
+/* 아주 큰 화면에서는 갤러리와 상품을 조금 더 넓게 */
+@media(min-width:1200px){
+  .gallery-grid{grid-template-columns:repeat(6,1fr)}
+  .shop-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+}
+
+/* 폰에서는 기존 모바일 앱 느낌 유지 */
+@media(max-width:899px){
+  .app{width:min(430px,100%);min-height:100vh;margin:0 auto}
+}
+
 
 /* 갤러리 */
 .gallery-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:12px}
