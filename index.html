@@ -301,6 +301,85 @@ body:not(.light) .schedule-modal-card{
   border-color:#242124!important;
 }
 
+
+
+/* 사용자 요청: 홈 배너 경계 자연스럽게 / 모바일 배너 축소 / 모바일 글자·버튼 축소 / 배경 이미지 삭제 버튼 */
+.home-hero{
+  background-position:center right;
+  background-repeat:no-repeat;
+}
+.home-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:linear-gradient(90deg,
+    #050505 0%,
+    #050505 26%,
+    rgba(5,5,5,.94) 33%,
+    rgba(5,5,5,.68) 42%,
+    rgba(5,5,5,.36) 52%,
+    rgba(5,5,5,.12) 62%,
+    rgba(5,5,5,0) 72%
+  );
+}
+.home-hero-shade,.home-hero-content{position:relative;z-index:1}
+.home-hero-image-tools{
+  position:absolute;
+  right:12px;
+  top:12px;
+  z-index:6;
+  display:flex;
+  gap:7px;
+}
+.home-hero-image-tools .home-hero-image-btn{
+  position:static!important;
+  flex:0 0 auto;
+}
+.home-hero-delete-btn{
+  font-size:21px!important;
+  line-height:1;
+}
+@media(max-width:899px){
+  .home-hero{
+    min-height:220px!important;
+    background-size:100% 100%, auto 100%!important;
+    background-position:center, right center!important;
+  }
+  .home-hero-content{
+    min-height:220px!important;
+    padding:24px 18px!important;
+  }
+  .home-logo-mark{
+    font-size:30px!important;
+    margin-bottom:3px!important;
+  }
+  .home-hero h1{
+    font-size:21px!important;
+    margin-bottom:14px!important;
+    line-height:1.08!important;
+  }
+  .home-join-btn,.home-edit-btn{
+    padding:8px 12px!important;
+    font-size:11px!important;
+    border-radius:8px!important;
+  }
+  .home-hero-image-tools{
+    right:10px;
+    top:10px;
+    gap:6px;
+  }
+  .home-hero-image-btn{
+    width:31px!important;
+    height:31px!important;
+    font-size:13px!important;
+  }
+  .home-hero-delete-btn{
+    font-size:19px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -336,7 +415,10 @@ body:not(.light) .schedule-modal-card{
       <div class="home-hero-actions">
         <button class="home-join-btn" onclick="joinMembership()">멤버십 가입</button>
         <button class="home-edit-btn" onclick="openHomeHeroForm()">문구 수정</button>
-        <button class="home-hero-image-btn" type="button" onclick="document.getElementById('homeHeroImageInput').click()" title="메인 사진 변경">📷</button>
+        <div class="home-hero-image-tools">
+          <button class="home-hero-image-btn" type="button" onclick="document.getElementById('homeHeroImageInput').click()" title="메인 사진 변경">📷</button>
+          <button class="home-hero-image-btn home-hero-delete-btn" type="button" onclick="deleteHomeHeroImage()" title="메인 사진 삭제">×</button>
+        </div>
         <input id="homeHeroImageInput" class="home-hero-file" type="file" accept="image/*" onchange="saveHomeHeroImage(this)">
       </div>
     </div>
@@ -1848,6 +1930,11 @@ window.saveHomeHeroImage = async function(inputEl) {
     inputEl.value = '';
   }
 };
+window.deleteHomeHeroImage = function() {
+  homeSettings.heroImg = '';
+  localStorage.setItem('clowHomeSettings', JSON.stringify(homeSettings));
+  renderHome();
+};
 function homeDateText(item) {
   const raw = item.createdAt;
   let d = null;
@@ -1965,7 +2052,7 @@ function renderHome() {
   const heroImg = homeSettings.heroImg || firstImageFromPost(galleryPhotos?.[0]) || firstImageFromPost(artistPosts?.[0]) || members.find(m => m.img)?.img || '';
   if (hero) {
     hero.style.backgroundImage = heroImg
-      ? `linear-gradient(90deg,#030303 0%,#050505 34%,rgba(5,5,5,.38) 58%,rgba(5,5,5,.04)), url('${heroImg.replace(/'/g, '%27')}')`
+      ? `linear-gradient(90deg,#030303 0%,#050505 26%,rgba(5,5,5,.94) 33%,rgba(5,5,5,.68) 42%,rgba(5,5,5,.36) 52%,rgba(5,5,5,.12) 62%,rgba(5,5,5,0) 72%), url('${heroImg.replace(/'/g, '%27')}')`
       : '';
     hero.style.backgroundSize = heroImg ? '100% 100%, auto 100%' : '';
     hero.style.backgroundPosition = heroImg ? 'center, right center' : '';
