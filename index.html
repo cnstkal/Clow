@@ -117,7 +117,7 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
     <div class="logo" onclick="showTab('home')">CLOW</div>
     <div style="display:flex;align-items:center;gap:8px">
       <span class="sync-status"><span class="sync-dot" id="syncDot"></span><span id="syncLabel">연결 중</span></span>
-      <button id="themeToggleBtn" class="mini" onclick="toggleTheme()">☾</button>
+      <button id="themeToggleBtn" class="mini" type="button">☾</button>
       <div class="tag">OFFICIAL</div>
     </div>
   </div>
@@ -276,6 +276,32 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
   </div>
 </div>
 
+
+<!-- 다크/화이트 모드: Firebase와 분리해서 항상 먼저 작동 -->
+<script>
+(function(){
+  function updateThemeButton() {
+    const btn = document.getElementById('themeToggleBtn');
+    if (btn) btn.textContent = document.body.classList.contains('light') ? '☀' : '☾';
+  }
+
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') document.body.classList.add('light');
+
+  window.toggleTheme = function() {
+    document.body.classList.toggle('light');
+    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    updateThemeButton();
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    updateThemeButton();
+    const btn = document.getElementById('themeToggleBtn');
+    if (btn) btn.addEventListener('click', window.toggleTheme);
+  });
+})();
+</script>
+
 <!-- Firebase SDK -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
@@ -283,25 +309,6 @@ import {
   getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc,
   getDocs, onSnapshot, query, orderBy, serverTimestamp, getDoc
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-  
-
-// =====================
-// 다크/화이트 모드
-// =====================
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'light') document.body.classList.add('light');
-
-function updateThemeButton() {
-  const btn = document.getElementById('themeToggleBtn');
-  if (btn) btn.textContent = document.body.classList.contains('light') ? '☀' : '☾';
-}
-updateThemeButton();
-
-window.toggleTheme = function() {
-  document.body.classList.toggle('light');
-  localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
-  updateThemeButton();
-};
 
 
 // =====================
