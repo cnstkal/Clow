@@ -32,22 +32,14 @@ header{position:sticky;top:0;z-index:30;padding:12px 14px 10px;background:rgba(1
 .modal{position:fixed;inset:0;z-index:60;display:none;background:rgba(0,0,0,.72);padding:18px;align-items:flex-end}.modal.open{display:flex}.modal-card{width:min(430px,100%);max-height:88vh;margin:0 auto;overflow:auto;background:#101012;padding:16px}.modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.close{border:0;background:#f4f1ec;color:#111;border-radius:999px;padding:8px 12px;font-weight:900}.hidden{display:none!important}.empty{text-align:center;color:#8e8580;padding:26px}
 .detail{padding:18px}.detail pre{white-space:pre-wrap;font-family:inherit;color:#aaa19b;font-size:14px;line-height:1.7}.back{margin-bottom:14px}.view-toggle{display:flex;gap:8px;margin-bottom:16px}.calendar{background:#141316;border:1px solid #242124;border-radius:24px;padding:14px;margin:0 0 16px;box-shadow:0 12px 28px rgba(0,0,0,.2)}.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-weight:950}.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.dow,.day{text-align:center;font-size:12px}.dow{color:#8e8580;font-weight:850}.day{min-height:34px;border:0;border-radius:12px;padding:5px;background:#1b191d;color:#aaa19b}.day.has{background:#f4f1ec;color:#111;font-weight:900}.admin-dot{border:0;background:transparent;color:#8e8580;font-size:18px;padding:4px}.admin-panel{margin-top:12px}.profile-chip{display:flex;align-items:center;gap:10px}.product{padding:11px}.goods-img{width:100%;margin-bottom:11px}
 .member-hero{position:relative;overflow:hidden;padding:0}.member-visual{height:320px;background:linear-gradient(135deg,#25202d,#765c9e,#c47a96);object-fit:cover;width:100%}.member-info{padding:18px}.member-name{font-size:34px;letter-spacing:-.06em;margin-bottom:4px}.member-role{color:#cfc7c1;font-weight:900;margin-bottom:12px}.member-bio{margin-bottom:18px}.info-grid{display:grid;gap:10px;margin-top:14px}.info-line{padding:12px;border-radius:16px;background:#1b191d;color:#bfb7b1;font-size:14px;line-height:1.45}.info-line b{display:block;color:#f4f1ec;margin-bottom:4px}
-.purchase-done{text-align:center;padding:18px 6px 8px}.purchase-done .emoji{font-size:44px;margin-bottom:10px}.purchase-done h2{margin-bottom:8px}.purchase-done p{margin-bottom:14px}.fake-receipt{margin-top:14px;padding:14px;border-radius:18px;background:#1b191d;text-align:left}.fake-receipt div{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2e292d;color:#aaa19b;font-size:13px}.fake-receipt div:last-child{border-bottom:0;color:#f4f1ec;font-weight:900}footer{text-align:center;color:#6f6764;font-size:12px;padding:24px 14px 34px}
+.purchase-done{text-align:center;padding:18px 6px 8px}.purchase-done .emoji{font-size:44px;margin-bottom:10px}.purchase-done h2{margin-bottom:8px}.purchase-done p{margin-bottom:14px}.fake-receipt{margin-top:14px;padding:14px;border-radius:18px;background:#1b191d;text-align:left}.fake-receipt div{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2e292d;color:#aaa19b;font-size:13px}.fake-receipt div:last-child{border-bottom:0;color:#f4f1ec;font-weight:900}.member-only-badge{display:inline-block;margin-left:6px;border-radius:999px;background:#2a2038;color:#d6c4ff;padding:4px 8px;font-size:11px;font-weight:900}.locked-box{margin-top:12px;padding:14px;border-radius:18px;background:#1b191d;color:#aaa19b;font-size:13px}
+footer{text-align:center;color:#6f6764;font-size:12px;padding:24px 14px 34px}
 
 /* PC 최적화: 900px 이상에서는 모바일 앱 폭이 아니라 데스크톱 레이아웃으로 확장 */
 @media(min-width:900px){
   /* PC에서는 모바일 프레임 제거: 화면 전체 사용 */
   html,body{min-height:100%;background:#050505}
-  .app{
-  width:min(1200px, 100%);
-  min-height:100vh;
-  margin:40px auto;
-  border-radius:0;
-  overflow:visible;
-  border:0;
-  box-shadow:none;
-  padding:0 20px;
-}
+  .app{width:min(1200px,calc(100% - 64px));max-width:1200px;min-height:100vh;margin:40px auto;border-radius:0;overflow:visible;border:0;box-shadow:none}
   header{padding:18px 32px 14px}.top{margin-bottom:14px}.logo{font-size:24px}.tag{font-size:12px}
   .tabs{gap:10px;overflow-x:visible;flex-wrap:wrap}.tab{padding:9px 16px;font-size:13px}
   .page{padding:38px 32px 64px;min-height:calc(100vh - 170px)}.title{margin:8px 0 24px}h1{font-size:86px}h2{font-size:32px}h3{font-size:19px}p{font-size:15px}
@@ -152,8 +144,16 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
     </div>
   </div>
   <div class="quick">
-    <div class="card"><b>🔥 실시간 동기화</b><p>Firebase로 모든 기기에서 동일하게 유지.</p></div>
-    <div class="card"><b>☁️ 클라우드 갤러리</b><p>Cloudinary에 100장 이상 업로드 가능.</p></div>
+    <div class="card">
+      <b>💎 멤버십 가입</b>
+      <p>연 20,000원 가상 결제. 멤버십 전용 게시글 열람과 전용 상품 구매 가능.</p>
+      <button class="submit" onclick="joinMembership()">멤버십 가입하기</button>
+    </div>
+    <div class="card">
+      <b>👤 일반 가입</b>
+      <p>무료 가입. 커뮤니티 글 작성 가능. 단, 멤버십 전용 게시글/상품은 제한됨.</p>
+      <button class="submit" onclick="joinGeneral()">일반 가입하기</button>
+    </div>
   </div>
 </section>
 
@@ -214,6 +214,7 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
         <label class="file-label">사진 추가<input id="fanImg" type="file" accept="image/*"></label>
         <button class="mini" onclick="closeComposer('fan')">접기</button>
       </div>
+      <label class="file-label" style="margin-top:8px;display:inline-block"><input id="fanMemberOnly" type="checkbox"> 멤버십 전용글</label>
       <button class="submit" onclick="addFanPost()">올리기</button>
     </div>
     <div id="fanPosts" class="list"></div>
@@ -230,6 +231,7 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
         <label class="file-label">사진 추가<input id="artistImg" type="file" accept="image/*"></label>
         <button class="mini" onclick="closeComposer('artist')">접기</button>
       </div>
+      <label class="file-label" style="margin-top:8px;display:inline-block"><input id="artistMemberOnly" type="checkbox"> 멤버십 전용글</label>
       <button class="submit" onclick="addArtistPost()">올리기</button>
     </div>
     <div id="artistPosts" class="list"></div>
@@ -362,6 +364,27 @@ function img(src, cls = 'thumb') { return src ? `<img class="${cls}" src="${esc(
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7) }
 
 let lastTab = 'home', scheduleType = 'all', shopCat = 'all', scheduleView = 'list', selectedDate = '';
+let userPlan = localStorage.getItem('clowUserPlan') || ''; // '', 'general', 'membership'
+
+window.joinGeneral = function() {
+  userPlan = 'general';
+  localStorage.setItem('clowUserPlan', userPlan);
+  alert('일반 가입이 완료됐어. 이제 커뮤니티에 글을 쓸 수 있어.');
+};
+
+window.joinMembership = function() {
+  if (!confirm('멤버십은 연 20,000원입니다. 가상 결제를 진행할까?')) return;
+  userPlan = 'membership';
+  localStorage.setItem('clowUserPlan', userPlan);
+  openModal('멤버십 가입 완료', `<div class="purchase-done"><div class="emoji">💎</div><h2>멤버십 가입 완료</h2><p>연 20,000원 가상 결제가 완료됐습니다.<br>이제 멤버십 전용 게시글과 상품을 이용할 수 있어요.</p><div class="fake-receipt"><div><span>상품</span><span>CLOW Membership</span></div><div><span>기간</span><span>1년</span></div><div><span>결제 금액</span><span>₩20,000</span></div></div><button class="submit" onclick="closeModal()">확인</button></div>`);
+};
+
+function requireJoined() {
+  if (userPlan) return true;
+  alert('커뮤니티 글 작성은 가입 후 가능해. 일반 가입 또는 멤버십 가입을 먼저 해줘.');
+  showTab('home');
+  return false;
+}
 
 function showTab(t) {
   if (t !== 'detailPage') lastTab = t;
@@ -771,17 +794,17 @@ function postHTML(p, type) {
   const prof = type === 'artist' ? artistProfiles.find(x => x.id === p.artistId) : null;
   const name = type === 'artist' ? (prof?.name || 'Artist') : p.nick;
   const av = type === 'artist' ? prof?.img : '';
+  const locked = p.membershipOnly && userPlan !== 'membership';
   return `<article class="item">
-    <div class="row"><div>${av ? `<img class="avatar" src="${esc(av)}">` : '<div class="avatar"></div>'}</div><div><h3>${esc(name)}</h3><small>${type==='artist'?'Artist Community':'Fan Community'}</small></div></div>
-    <p class="section-gap">${esc(p.text)}</p>
-    ${p.img ? `<img class="post-img" src="${esc(p.img)}">` : ''}
+    <div class="row"><div>${av ? `<img class="avatar" src="${esc(av)}">` : '<div class="avatar"></div>'}</div><div><h3>${esc(name)}${p.membershipOnly ? '<span class="member-only-badge">MEMBERSHIP</span>' : ''}</h3><small>${type==='artist'?'Artist Community':'Fan Community'}</small></div></div>
+    ${locked ? '<div class="locked-box">🔒 멤버십 전용 게시글입니다. 멤버십 가입 후 볼 수 있어요.</div>' : `<p class="section-gap">${esc(p.text)}</p>${p.img ? `<img class="post-img" src="${esc(p.img)}">` : ''}`}
     <div class="actions">
       <button class="mini" onclick="likePost('${type}','${p.id}')">♡ ${p.likes||0}</button>
-      <button class="mini" onclick="commentPost('${type}','${p.id}')">댓글</button>
+      ${locked ? '' : `<button class="mini" onclick="commentPost('${type}','${p.id}')">댓글</button>`}
       <button class="mini" onclick="editPost('${type}','${p.id}')">수정</button>
       <button class="mini danger" onclick="deletePost('${type}','${p.id}')">삭제</button>
     </div>
-    ${(p.comments||[]).map(c=>`<div class="comment">${esc(c)}</div>`).join('')}
+    ${locked ? '' : (p.comments||[]).map(c=>`<div class="comment">${esc(c)}</div>`).join('')}
   </article>`;
 }
 
@@ -793,32 +816,38 @@ document.querySelectorAll('.subtab').forEach(t => t.onclick = () => {
 });
 
 window.addFanPost = async function() {
+  if (!requireJoined()) return;
   setSyncStatus('loading');
   const imgUrl = await uploadFromInput(document.getElementById('fanImg'));
   const data = {
     nick: document.getElementById('fanNick').value || 'fan',
     text: document.getElementById('fanText').value,
-    img: imgUrl, likes: 0, comments: []
+    img: imgUrl, likes: 0, comments: [],
+    membershipOnly: document.getElementById('fanMemberOnly')?.checked || false
   };
   const ref = await fbAdd('fanPosts', data);
   fanPosts.unshift({ id: ref.id, ...data });
   document.getElementById('fanText').value = '';
   document.getElementById('fanImg').value = '';
+  if (document.getElementById('fanMemberOnly')) document.getElementById('fanMemberOnly').checked = false;
   closeComposer('fan'); renderCommunity(); setSyncStatus('ok');
 };
 
 window.addArtistPost = async function() {
+  if (!requireJoined()) return;
   setSyncStatus('loading');
   const imgUrl = await uploadFromInput(document.getElementById('artistImg'));
   const data = {
     artistId: document.getElementById('artistSelect').value,
     text: document.getElementById('artistText').value,
-    img: imgUrl, likes: 0, comments: []
+    img: imgUrl, likes: 0, comments: [],
+    membershipOnly: document.getElementById('artistMemberOnly')?.checked || false
   };
   const ref = await fbAdd('artistPosts', data);
   artistPosts.unshift({ id: ref.id, ...data });
   document.getElementById('artistText').value = '';
   document.getElementById('artistImg').value = '';
+  if (document.getElementById('artistMemberOnly')) document.getElementById('artistMemberOnly').checked = false;
   closeComposer('artist'); renderCommunity(); setSyncStatus('ok');
 };
 
@@ -899,7 +928,7 @@ function renderShop() {
   document.getElementById('productsList').innerHTML = arr.map(p =>
     `<article class="item product" onclick="productDetail('${p.id}')">
       ${p.img ? `<img class="goods-img" src="${esc(p.img)}">` : '<div class="goods-img"></div>'}
-      <h3>${esc(p.name)}</h3><small>${catName(p.cat)}</small><p>${esc(p.desc)}</p>
+      <h3>${esc(p.name)}${p.membershipOnly ? '<span class="member-only-badge">MEMBERSHIP</span>' : ''}</h3><small>${catName(p.cat)}</small><p>${esc(p.desc)}</p>
       <div class="price">₩${Number(p.price||0).toLocaleString()}</div>
       <div class="actions" onclick="event.stopPropagation()">
         <button class="mini" onclick="openProductForm('${p.id}')">수정</button>
@@ -918,11 +947,12 @@ document.getElementById('shopFilters').onclick = e => {
 
 window.productDetail = function(pid) {
   const p = products.find(x => x.id === pid);
-  detail(`<div class="detail">${p.img?`<img class="detail-img" src="${esc(p.img)}">`:'<div class="goods-img"></div>'}<small>${catName(p.cat)}</small><h2>${esc(p.name)}</h2><p>${esc(p.desc)}</p><div class="price">₩${Number(p.price||0).toLocaleString()}</div><button class="submit" onclick="fakeBuy('${p.id}')">구매하기</button><div class="actions"><button class="mini" onclick="openProductForm('${p.id}')">상품 수정</button></div></div>`);
+  detail(`<div class="detail">${p.img?`<img class="detail-img" src="${esc(p.img)}">`:'<div class="goods-img"></div>'}<small>${catName(p.cat)}${p.membershipOnly ? ' · MEMBERSHIP ONLY' : ''}</small><h2>${esc(p.name)}</h2><p>${esc(p.desc)}</p><div class="price">₩${Number(p.price||0).toLocaleString()}</div><button class="submit" onclick="fakeBuy('${p.id}')">구매하기</button><div class="actions"><button class="mini" onclick="openProductForm('${p.id}')">상품 수정</button></div></div>`);
 };
 
 window.fakeBuy = function(pid) {
   const p = products.find(x => x.id === pid);
+  if (p.membershipOnly && userPlan !== 'membership') { alert('멤버십 전용 상품이라 멤버십 가입 후 구매할 수 있어.'); showTab('home'); return; }
   openModal('구매 완료', `<div class="purchase-done"><div class="emoji">🛍️</div><h2>구매가 완료됐습니다</h2><p>${esc(p.name)} 상품을 구매한 것처럼 처리했어요.<br>실제 결제는 일어나지 않습니다.</p><div class="fake-receipt"><div><span>상품</span><span>${esc(p.name)}</span></div><div><span>결제 방식</span><span>FAKE PAY</span></div><div><span>결제 금액</span><span>₩${Number(p.price||0).toLocaleString()}</span></div></div><button class="submit" onclick="closeModal()">확인</button></div>`);
 };
 
@@ -935,7 +965,9 @@ window.openProductForm = function(pid) {
     <input id="pPrice" class="field" type="number" placeholder="가격" value="${esc(p.price||'')}">
     <label style="color:#8e8580;font-size:12px;display:block;margin-top:8px">상품 이미지</label>
     <input id="pImg" class="field" type="file" accept="image/*">
+    <label class="file-label" style="margin-top:8px;display:inline-block"><input id="pMemberOnly" type="checkbox"> 멤버십 전용 상품</label>
     <button class="submit" onclick="saveProduct('${pid||''}')">저장</button>`);
+  document.getElementById('pMemberOnly').checked = !!p.membershipOnly;
   document.getElementById('pCat').value = p.cat || 'products';
 };
 
@@ -948,7 +980,8 @@ window.saveProduct = async function(pid) {
     name: document.getElementById('pName').value || 'New Product',
     desc: document.getElementById('pDesc').value,
     price: document.getElementById('pPrice').value,
-    img: imgUrl || old.img || ''
+    img: imgUrl || old.img || '',
+    membershipOnly: document.getElementById('pMemberOnly')?.checked || false
   };
   if (pid) {
     await fbSet('products', pid, data);
