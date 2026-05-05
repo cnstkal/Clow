@@ -33,7 +33,14 @@ header{position:sticky;top:0;z-index:30;padding:12px 14px 10px;background:rgba(1
 .detail{padding:18px}.detail pre{white-space:pre-wrap;font-family:inherit;color:#aaa19b;font-size:14px;line-height:1.7}.back{margin-bottom:14px}.view-toggle{display:flex;gap:8px;margin-bottom:16px}.calendar{background:#141316;border:1px solid #242124;border-radius:24px;padding:14px;margin:0 0 16px;box-shadow:0 12px 28px rgba(0,0,0,.2)}.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-weight:950}.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.dow,.day{text-align:center;font-size:12px}.dow{color:#8e8580;font-weight:850}.day{min-height:34px;border:0;border-radius:12px;padding:5px;background:#1b191d;color:#aaa19b}.day.has{background:#f4f1ec;color:#111;font-weight:900}.admin-dot{border:0;background:transparent;color:#8e8580;font-size:18px;padding:4px}.admin-panel{margin-top:12px}.profile-chip{display:flex;align-items:center;gap:10px}.product{padding:11px}.goods-img{width:100%;margin-bottom:11px}
 .member-hero{position:relative;overflow:hidden;padding:0}.member-visual{height:320px;background:linear-gradient(135deg,#25202d,#765c9e,#c47a96);object-fit:cover;width:100%}.member-info{padding:18px}.member-name{font-size:34px;letter-spacing:-.06em;margin-bottom:4px}.member-role{color:#cfc7c1;font-weight:900;margin-bottom:12px}.member-bio{margin-bottom:18px}.info-grid{display:grid;gap:10px;margin-top:14px}.info-line{padding:12px;border-radius:16px;background:#1b191d;color:#bfb7b1;font-size:14px;line-height:1.45}.info-line b{display:block;color:#f4f1ec;margin-bottom:4px}
 .purchase-done{text-align:center;padding:18px 6px 8px}.purchase-done .emoji{font-size:44px;margin-bottom:10px}.purchase-done h2{margin-bottom:8px}.purchase-done p{margin-bottom:14px}.fake-receipt{margin-top:14px;padding:14px;border-radius:18px;background:#1b191d;text-align:left}.fake-receipt div{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #2e292d;color:#aaa19b;font-size:13px}.fake-receipt div:last-child{border-bottom:0;color:#f4f1ec;font-weight:900}.member-only-badge{display:inline-block;margin-left:6px;border-radius:999px;background:#2a2038;color:#d6c4ff;padding:4px 8px;font-size:11px;font-weight:900}.locked-box{margin-top:12px;padding:14px;border-radius:18px;background:#1b191d;color:#aaa19b;font-size:13px}
-.profile-avatar-btn{width:36px;height:36px;border:1px solid #2e292d;border-radius:50%;background:linear-gradient(135deg,#f29ac0,#7d6fff);box-shadow:0 8px 22px rgba(0,0,0,.25);cursor:pointer;overflow:hidden;flex:0 0 36px}.profile-avatar-btn img{width:100%;height:100%;object-fit:cover}.profile-head{text-align:center;padding:8px 0 14px}.profile-head .profile-big{width:76px;height:76px;margin:0 auto 12px;border-radius:50%;background:linear-gradient(135deg,#f29ac0,#7d6fff);border:1px solid #2e292d;overflow:hidden}.profile-head .profile-big img{width:100%;height:100%;object-fit:cover}.profile-tabs{display:flex;gap:8px;overflow-x:auto;margin:12px 0 14px}.profile-tab{flex:1;border:1px solid #2e292d;border-radius:999px;background:#1b191d;color:#d9d2cc;padding:9px 10px;font-size:12px;font-weight:900}.profile-tab.active{background:#f4f1ec;color:#111}.profile-panel{display:none}.profile-panel.active{display:block}.profile-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.profile-stat{padding:12px;border-radius:16px;background:#1b191d;border:1px solid #2e292d}.profile-stat b{display:block;font-size:17px}.profile-post{padding:12px;border-radius:16px;background:#1b191d;margin-top:10px}.profile-order{padding:12px;border-radius:16px;background:#1b191d;margin-top:10px}.profile-order-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.profile-muted{color:#8e8580;font-size:12px;line-height:1.45}
+
+/* 쇼핑/스케줄/갤러리 게시글 확장 */
+.badge-today{display:inline-block;margin-left:6px;border-radius:999px;background:#ff4d6d;color:#fff;padding:4px 8px;font-size:10px;font-weight:950;letter-spacing:.04em}
+.dday-badge{display:inline-block;margin-left:6px;border-radius:999px;background:#f4f1ec;color:#111;padding:4px 8px;font-size:10px;font-weight:950}
+.discount-line{margin-top:8px;color:#d6c4ff;font-size:12px;font-weight:900}.origin-price{text-decoration:line-through;color:#6f6764;font-size:13px;margin-right:6px}.cart-count{min-width:20px;height:20px;border-radius:999px;background:#f4f1ec;color:#111;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:950;margin-left:4px}.cart-row{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px;border-radius:18px;background:#1b191d;margin-top:10px}.order-status{display:inline-block;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:950;background:#2a2038;color:#d6c4ff}.order-status.done{background:#214234;color:#9ff0c3}.gallery-post-card{overflow:hidden;padding:0}.gallery-cover{position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#25202d,#765c9e);overflow:hidden}.gallery-cover img{width:100%;height:100%;object-fit:cover}.gallery-cover.locked img{filter:blur(12px);transform:scale(1.08);opacity:.72}.gallery-post-body{padding:14px}.gallery-stack{display:grid;gap:12px}.gallery-stack img{width:100%;border-radius:20px;object-fit:cover}.gallery-more{position:absolute;right:8px;bottom:8px;border-radius:999px;background:rgba(0,0,0,.62);color:#fff;padding:5px 9px;font-size:11px;font-weight:950}.gallery-meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px}
+body.light .cart-row{background:#fff;border:1px solid #ddd8d0}
+body.light .dday-badge,body.light .cart-count{background:#111;color:#fff}
+
 footer{text-align:center;color:#6f6764;font-size:12px;padding:24px 14px 34px}
 
 /* PC 최적화: 900px 이상에서는 모바일 앱 폭이 아니라 데스크톱 레이아웃으로 확장 */
@@ -105,8 +112,8 @@ body.light{background:#f4f1ec;color:#111}
 body.light .app{background:#ffffff;border-color:#ddd8d0}
 body.light header{background:rgba(255,255,255,.94);border-bottom-color:#ddd8d0}
 body.light .card,body.light .item,body.light .detail,body.light .modal-card,body.light .composer,body.light .calendar,body.light .compose-mini{background:#f7f5f1;border-color:#ddd8d0;color:#111;box-shadow:0 18px 40px rgba(0,0,0,.08)}
-body.light .tab,body.light .filter,body.light .subtab,body.light .mini,body.light .file-label,body.light .storage-badge,body.light .day,body.light .fake-receipt,body.light .comment,body.light .info-line,body.light .profile-tab,body.light .profile-stat,body.light .profile-post,body.light .profile-order{background:#ffffff;border-color:#ddd8d0;color:#333}
-body.light .tab.active,body.light .filter.active,body.light .subtab.active,body.light .profile-tab.active,body.light .day.has,body.light .add,body.light .submit,body.light .close,body.light .lightbox-close{background:#111;color:#fff}
+body.light .tab,body.light .filter,body.light .subtab,body.light .mini,body.light .file-label,body.light .storage-badge,body.light .day,body.light .fake-receipt,body.light .comment,body.light .info-line{background:#ffffff;border-color:#ddd8d0;color:#333}
+body.light .tab.active,body.light .filter.active,body.light .subtab.active,body.light .day.has,body.light .add,body.light .submit,body.light .close,body.light .lightbox-close{background:#111;color:#fff}
 body.light .field{background:#ffffff;border-color:#ddd8d0;color:#111}
 body.light .field::placeholder{color:#aaa}
 body.light p,body.light small,body.light .meta,body.light .tag,body.light .sync-status,body.light .compose-placeholder,body.light .upload-progress,body.light .gallery-upload-area p,body.light .storage-badge,body.light .lightbox-counter,body.light .dow{color:#766f68}
@@ -125,7 +132,6 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
     <div style="display:flex;align-items:center;gap:8px">
       <span class="sync-status"><span class="sync-dot" id="syncDot"></span><span id="syncLabel">연결 중</span></span>
       <button id="themeToggleBtn" class="mini" type="button">☾</button>
-      <button id="profileBtn" class="profile-avatar-btn" type="button" onclick="openProfile()" aria-label="내 프로필"></button>
     </div>
   </div>
   <nav class="tabs">
@@ -173,19 +179,23 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
 </section>
 
 <section id="gallery" class="page">
-  <div class="title"><h2>Gallery</h2><span id="photoCount" class="storage-badge">0장</span></div>
-  <div class="gallery-upload-area" onclick="document.getElementById('galleryFileInput').click()">
-    <div class="upload-icon">📷</div>
-    <p>클릭해서 사진 추가 · 여러 장 한번에 가능</p>
-    <p style="font-size:11px;color:#6f6764;margin-top:4px">Cloudinary 저장 · 공개/멤버십 사진 구분 가능</p>
-    <input id="galleryFileInput" type="file" accept="image/*" multiple style="display:none" onchange="uploadGalleryPhotos(this)">
+  <div class="title"><h2>Gallery</h2><span id="photoCount" class="storage-badge">0개 게시글</span></div>
+  <div class="composer">
+    <input id="galleryTitle" class="field" placeholder="갤러리 게시글 제목">
+    <textarea id="galleryBody" class="field" placeholder="사진 설명 / 짧은 글"></textarea>
+    <select id="galleryAccess" class="field">
+      <option value="public">비멤버십 공개 게시글</option>
+      <option value="membership">멤버십 전용 게시글</option>
+    </select>
+    <div class="gallery-upload-area" onclick="document.getElementById('galleryFileInput').click()">
+      <div class="upload-icon">📷</div>
+      <p>사진 여러 장 선택해서 갤러리 게시글로 올리기</p>
+      <p style="font-size:11px;color:#6f6764;margin-top:4px">누르면 게시글 상세로 들어가고 사진은 아래로 스크롤</p>
+      <input id="galleryFileInput" type="file" accept="image/*" multiple style="display:none" onchange="uploadGalleryPhotos(this)">
+    </div>
   </div>
-  <select id="galleryAccess" class="field" style="margin-bottom:14px">
-    <option value="public">비멤버십 공개 사진</option>
-    <option value="membership">멤버십 전용 사진</option>
-  </select>
   <div id="uploadProgress" class="upload-progress" style="display:none"></div>
-  <div id="galleryGrid" class="gallery-grid"></div>
+  <div id="galleryGrid" class="list"></div>
 </section>
 
 <section id="schedule" class="page">
@@ -252,7 +262,7 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
 </section>
 
 <section id="shop" class="page">
-  <div class="title"><h2>Shop</h2><button class="add" onclick="openProductForm()">+ 추가</button></div>
+  <div class="title"><h2>Shop</h2><div class="actions" style="margin-top:0"><button class="mini" onclick="openCart()">장바구니 <span id="cartCount" class="cart-count">0</span></button><button class="add" onclick="openProductForm()">+ 추가</button></div></div>
   <div class="filters" id="shopFilters">
     <button class="filter active" data-cat="all">All</button>
     <button class="filter" data-cat="membership">Membership</button>
@@ -374,96 +384,6 @@ function uid() { return Date.now().toString(36) + Math.random().toString(36).sli
 
 let lastTab = 'home', scheduleType = 'all', shopCat = 'all', scheduleView = 'list', selectedDate = '';
 let userPlan = localStorage.getItem('clowUserPlan') || ''; // '', 'general', 'membership'
-let userProfile = JSON.parse(localStorage.getItem('clowUserProfile') || 'null') || { id: uid(), nick: 'fan', img: '' };
-localStorage.setItem('clowUserProfile', JSON.stringify(userProfile));
-
-function saveUserProfile(data = {}) {
-  userProfile = { ...userProfile, ...data };
-  localStorage.setItem('clowUserProfile', JSON.stringify(userProfile));
-  updateProfileButton();
-}
-
-function updateProfileButton() {
-  const btn = document.getElementById('profileBtn');
-  if (!btn) return;
-  btn.innerHTML = userProfile.img ? `<img src="${esc(userProfile.img)}" alt="">` : '';
-  btn.title = userProfile.nick || '내 프로필';
-}
-
-function userPlanLabel() {
-  if (userPlan === 'membership') return '멤버십 회원';
-  if (userPlan === 'general') return '일반 회원';
-  return '미가입';
-}
-
-function getOrders() {
-  return JSON.parse(localStorage.getItem('clowOrders') || '[]');
-}
-
-function saveOrder(order) {
-  const orders = getOrders();
-  orders.unshift({ id: uid(), date: new Date().toLocaleString('ko-KR'), ...order });
-  localStorage.setItem('clowOrders', JSON.stringify(orders));
-}
-
-function myFanPosts() {
-  return fanPosts.filter(p => p.authorId === userProfile.id || (!!userProfile.nick && p.nick === userProfile.nick));
-}
-
-window.openProfile = function(tab = 'info') {
-  const orders = getOrders();
-  const mine = myFanPosts();
-  openModal('내 프로필', `
-    <div class="profile-head">
-      <div class="profile-big">${userProfile.img ? `<img src="${esc(userProfile.img)}" alt="">` : ''}</div>
-      <h3>${esc(userProfile.nick || 'fan')}</h3>
-      <p>${userPlanLabel()}</p>
-    </div>
-    <div class="profile-tabs">
-      <button class="profile-tab ${tab==='info'?'active':''}" onclick="openProfile('info')">내 정보</button>
-      <button class="profile-tab ${tab==='orders'?'active':''}" onclick="openProfile('orders')">주문목록</button>
-      <button class="profile-tab ${tab==='posts'?'active':''}" onclick="openProfile('posts')">내가 남긴 글</button>
-    </div>
-    <div class="profile-panel ${tab==='info'?'active':''}">
-      <input id="profileNick" class="field" placeholder="닉네임" value="${esc(userProfile.nick || '')}">
-      <label style="color:#8e8580;font-size:12px;display:block;margin-top:8px">프로필 이미지</label>
-      <input id="profileImg" class="field" type="file" accept="image/*">
-      <div class="profile-stat-grid">
-        <div class="profile-stat"><small>계정 상태</small><b>${userPlanLabel()}</b></div>
-        <div class="profile-stat"><small>주문</small><b>${orders.length}개</b></div>
-        <div class="profile-stat"><small>내 글</small><b>${mine.length}개</b></div>
-        <div class="profile-stat"><small>멤버십</small><b>${userPlan === 'membership' ? '이용 가능' : '제한'}</b></div>
-      </div>
-      <button class="submit" onclick="saveProfileInfo()">내 정보 저장</button>
-      <div class="actions"><button class="mini" onclick="resetProfileState()">계정 상태 초기화</button></div>
-    </div>
-    <div class="profile-panel ${tab==='orders'?'active':''}">
-      ${orders.length ? orders.map(o => `<div class="profile-order"><div class="profile-order-top"><div><h3>${esc(o.name)}</h3><small>${esc(o.date)}</small></div><b>₩${Number(o.price||0).toLocaleString()}</b></div><p class="profile-muted">${esc(o.type || '상품 주문')}</p></div>`).join('') : '<div class="empty">주문 내역 없음</div>'}
-    </div>
-    <div class="profile-panel ${tab==='posts'?'active':''}">
-      ${mine.length ? mine.map(p => `<div class="profile-post"><small>${p.membershipOnly ? 'MEMBERSHIP · ' : ''}Fan Community</small><p>${esc(p.text || '')}</p>${p.img ? `<img class="post-img" src="${esc(p.img)}">` : ''}</div>`).join('') : '<div class="empty">내가 남긴 글 없음</div>'}
-    </div>
-  `);
-};
-
-window.saveProfileInfo = async function() {
-  setSyncStatus('loading');
-  const nick = document.getElementById('profileNick').value || 'fan';
-  let imgUrl = '';
-  try { imgUrl = await uploadFromInput(document.getElementById('profileImg')); }
-  catch(e) { alert('프로필 이미지 업로드 실패: ' + e.message); }
-  saveUserProfile({ nick, img: imgUrl || userProfile.img || '' });
-  setSyncStatus('ok');
-  openProfile('info');
-};
-
-window.resetProfileState = function() {
-  if (!confirm('가입 상태와 주문목록을 초기화할까? 작성글은 삭제되지 않아.')) return;
-  userPlan = '';
-  localStorage.removeItem('clowUserPlan');
-  localStorage.removeItem('clowOrders');
-  openProfile('info');
-};
 
 window.joinGeneral = function() {
   userPlan = 'general';
@@ -476,7 +396,6 @@ window.joinMembership = function() {
   userPlan = 'membership';
   localStorage.setItem('clowUserPlan', userPlan);
   if (typeof renderGallery === 'function') renderGallery();
-  saveOrder({ name: 'CLOW Membership', price: 20000, type: '멤버십 가입' });
   openModal('멤버십 가입 완료', `<div class="purchase-done"><div class="emoji">💎</div><h2>멤버십 가입 완료</h2><p>연 20,000원 가상 결제가 완료됐습니다.<br>이제 멤버십 전용 게시글, 사진, 상품을 이용할 수 있어요.</p><div class="fake-receipt"><div><span>상품</span><span>CLOW Membership</span></div><div><span>기간</span><span>1년</span></div><div><span>결제 금액</span><span>₩20,000</span></div></div><button class="submit" onclick="closeModal()">확인</button></div>`);
 };
 
@@ -496,7 +415,6 @@ function showTab(t) {
   if (t === 'gallery') loadGallery();
 }
 document.querySelectorAll('.tab').forEach(t => t.onclick = () => showTab(t.dataset.tab));
-document.addEventListener('DOMContentLoaded', updateProfileButton);
 
 function openModal(title, body) { document.getElementById('modalTitle').textContent = title; document.getElementById('modalBody').innerHTML = body; document.getElementById('modal').classList.add('open') }
 function closeModal() { document.getElementById('modal').classList.remove('open'); document.getElementById('modalBody').innerHTML = '' }
@@ -527,17 +445,23 @@ async function uploadFromInput(inputEl) {
 }
 
 // =====================
-// 갤러리
+// 갤러리 게시글
 // =====================
 let galleryPhotos = [];
 let lightboxIndex = 0;
+
+function normalizeGalleryPost(d) {
+  const data = d.data ? d.data() : d;
+  const urls = Array.isArray(data.urls) ? data.urls : (data.url ? [data.url] : []);
+  return { id: d.id || data.id, ...data, urls, url: data.url || urls[0] || '' };
+}
 
 async function loadGallery() {
   setSyncStatus('loading');
   try {
     const q = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
     const snap = await getDocs(q);
-    galleryPhotos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    galleryPhotos = snap.docs.map(normalizeGalleryPost);
     renderGallery();
     setSyncStatus('ok');
   } catch(e) {
@@ -549,19 +473,32 @@ async function loadGallery() {
 function renderGallery() {
   const grid = document.getElementById('galleryGrid');
   const countEl = document.getElementById('photoCount');
-  countEl.textContent = galleryPhotos.length + '장';
+  countEl.textContent = galleryPhotos.length + '개 게시글';
   if (!galleryPhotos.length) {
-    grid.innerHTML = '<div class="empty" style="grid-column:1/-1">사진을 추가해줘.</div>';
+    grid.innerHTML = '<div class="empty">갤러리 게시글을 추가해줘.</div>';
     return;
   }
   grid.innerHTML = galleryPhotos.map((p, i) => {
     const locked = p.membershipOnly && userPlan !== 'membership';
-    return `<div class="gallery-item ${locked ? 'locked' : ''}" onclick="openLightbox(${i})">
-      <img src="${esc(p.url)}" loading="lazy" alt="">
-      ${p.membershipOnly ? '<span class="gallery-badge">MEMBERSHIP</span>' : ''}
-      ${locked ? '<div class="gallery-lock">멤버십 전용<br>가입 후 열람</div>' : ''}
-      <button class="del-btn" onclick="event.stopPropagation();deleteGalleryPhoto('${p.id}')">✕</button>
-    </div>`;
+    const cover = p.url || (p.urls && p.urls[0]) || '';
+    const title = p.title || 'Gallery Post';
+    const body = p.body || '';
+    return `<article class="item gallery-post-card" onclick="galleryPostDetail(${i})">
+      <div class="gallery-cover ${locked ? 'locked' : ''}">
+        ${cover ? `<img src="${esc(cover)}" loading="lazy" alt="">` : ''}
+        ${p.membershipOnly ? '<span class="gallery-badge">MEMBERSHIP</span>' : ''}
+        ${locked ? '<div class="gallery-lock">멤버십 전용<br>가입 후 열람</div>' : ''}
+        ${(p.urls||[]).length > 1 ? `<span class="gallery-more">+${(p.urls||[]).length - 1}</span>` : ''}
+      </div>
+      <div class="gallery-post-body">
+        <h3>${esc(title)}</h3>
+        <p>${locked ? '멤버십 가입 후 게시글 전체를 볼 수 있어요.' : esc(body).slice(0, 90)}</p>
+        <div class="gallery-meta-row">
+          <small>${(p.urls||[]).length}장</small>
+          <button class="mini danger" onclick="event.stopPropagation();deleteGalleryPhoto('${p.id}')">삭제</button>
+        </div>
+      </div>
+    </article>`;
   }).join('');
 }
 
@@ -571,60 +508,65 @@ window.uploadGalleryPhotos = async function(input) {
   const prog = document.getElementById('uploadProgress');
   prog.style.display = 'block';
   setSyncStatus('loading');
+  const urls = [];
   for (let i = 0; i < files.length; i++) {
     prog.textContent = `☁️ Cloudinary 업로드 중... ${i+1} / ${files.length}`;
     try {
-      const url = await uploadToCloudinary(files[i]);
-      const membershipOnly = document.getElementById('galleryAccess')?.value === 'membership';
-      const docRef = await addDoc(collection(db, 'gallery'), {
-        url,
-        membershipOnly,
-        createdAt: serverTimestamp()
-      });
-      galleryPhotos.unshift({ id: docRef.id, url, membershipOnly });
-      renderGallery();
+      urls.push(await uploadToCloudinary(files[i]));
     } catch(e) {
       alert(`${i+1}번째 사진 업로드 실패: ${e.message}`);
     }
+  }
+  if (urls.length) {
+    const membershipOnly = document.getElementById('galleryAccess')?.value === 'membership';
+    const title = document.getElementById('galleryTitle')?.value || 'Gallery Post';
+    const body = document.getElementById('galleryBody')?.value || '';
+    const docRef = await addDoc(collection(db, 'gallery'), {
+      title, body, urls, url: urls[0], membershipOnly, createdAt: serverTimestamp()
+    });
+    galleryPhotos.unshift({ id: docRef.id, title, body, urls, url: urls[0], membershipOnly });
+    document.getElementById('galleryTitle').value = '';
+    document.getElementById('galleryBody').value = '';
+    renderGallery();
   }
   prog.style.display = 'none';
   input.value = '';
   setSyncStatus('ok');
 };
 
+window.galleryPostDetail = function(i) {
+  const p = galleryPhotos[i];
+  if (!p) return;
+  if (p.membershipOnly && userPlan !== 'membership') {
+    alert('멤버십 전용 갤러리 게시글이야. 멤버십 가입 후 볼 수 있어.');
+    showTab('home');
+    return;
+  }
+  const urls = p.urls || (p.url ? [p.url] : []);
+  detail(`<div class="detail">
+    <small>${p.membershipOnly ? 'MEMBERSHIP ONLY' : 'PUBLIC'} · ${urls.length}장</small>
+    <h2>${esc(p.title || 'Gallery Post')}</h2>
+    <p class="section-gap">${esc(p.body || '')}</p>
+    <div class="gallery-stack section-gap">${urls.map(u => `<img src="${esc(u)}" loading="lazy">`).join('')}</div>
+    <div class="actions"><button class="mini danger" onclick="deleteGalleryPhoto('${p.id}');backToLast()">게시글 삭제</button></div>
+  </div>`);
+};
+
 window.deleteGalleryPhoto = async function(id) {
-  if (!confirm('이 사진을 삭제할까?')) return;
+  if (!confirm('이 갤러리 게시글을 삭제할까?')) return;
   setSyncStatus('loading');
   await deleteDoc(doc(db, 'gallery', id));
   galleryPhotos = galleryPhotos.filter(p => p.id !== id);
   renderGallery();
   setSyncStatus('ok');
-  if (lightboxIndex >= galleryPhotos.length) lightboxIndex = Math.max(0, galleryPhotos.length - 1);
 };
 
-window.openLightbox = function(i) {
-  const p = galleryPhotos[i];
-  if (p?.membershipOnly && userPlan !== 'membership') {
-    alert('멤버십 전용 사진이야. 멤버십 가입 후 볼 수 있어.');
-    showTab('home');
-    return;
-  }
-  lightboxIndex = i; updateLightbox(); document.getElementById('galleryLightbox').classList.add('open');
-};
+// 예전 라이트박스 함수 호환용
+window.openLightbox = function(i) { galleryPostDetail(i); };
 window.closeLightbox = function() { document.getElementById('galleryLightbox').classList.remove('open'); };
-function updateLightbox() {
-  const p = galleryPhotos[lightboxIndex];
-  if (p?.membershipOnly && userPlan !== 'membership') { closeLightbox(); renderGallery(); return; }
-  document.getElementById('lightboxImg').src = p ? p.url : '';
-  document.getElementById('lightboxCounter').textContent = `${lightboxIndex + 1} / ${galleryPhotos.length}`;
-}
-window.lightboxPrev = function() { lightboxIndex = (lightboxIndex - 1 + galleryPhotos.length) % galleryPhotos.length; updateLightbox(); };
-window.lightboxNext = function() { lightboxIndex = (lightboxIndex + 1) % galleryPhotos.length; updateLightbox(); };
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowLeft') lightboxPrev();
-  if (e.key === 'ArrowRight') lightboxNext();
-});
+window.lightboxPrev = function() {};
+window.lightboxNext = function() {};
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
 // =====================
 // Firestore CRUD 헬퍼
@@ -829,6 +771,16 @@ document.getElementById('scheduleFilters').onclick = e => {
 };
 
 function typeName(t) { return {album:'앨범',broadcast:'방송',event:'행사',etc:'기타'}[t]||t }
+function todayStr() { return new Date().toISOString().slice(0,10); }
+function ddayText(dateStr) {
+  if (!dateStr) return '';
+  const today = new Date(todayStr() + 'T00:00:00');
+  const target = new Date(dateStr + 'T00:00:00');
+  const diff = Math.round((target - today) / 86400000);
+  if (diff === 0) return '<span class="badge-today">TODAY</span>';
+  if (diff > 0) return `<span class="dday-badge">D-${diff}</span>`;
+  return `<span class="dday-badge">D+${Math.abs(diff)}</span>`;
+}
 function calendarHTML(arr) {
   const base = arr[0]?.date || new Date().toISOString().slice(0,10);
   const d = new Date(base), y = d.getFullYear(), m = d.getMonth();
@@ -839,12 +791,12 @@ function calendarHTML(arr) {
   for (let i = 0; i < first; i++) days += '<div></div>';
   for (let day = 1; day <= last; day++) {
     const dt = `${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-    days += `<button class="day ${dates.has(dt)?'has':''}" onclick="selectedDate='${dt}';renderSchedules()">${day}</button>`;
+    days += `<button class="day ${dates.has(dt)?'has':''} ${dt===todayStr()?'has':''}" onclick="selectedDate='${dt}';renderSchedules()">${day}</button>`;
   }
   return days + '</div></div>';
 }
 function scheduleItem(s) {
-  return `<div class="item"><span class="pill">${typeName(s.type)}</span><small> ${esc(s.date)}</small><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p><div class="actions"><button class="mini" onclick="openScheduleForm('${s.id}')">수정</button><button class="mini danger" onclick="delItem('schedules','${s.id}')">삭제</button></div></div>`;
+  return `<div class="item"><span class="pill">${typeName(s.type)}</span><small> ${esc(s.date)}</small>${ddayText(s.date)}<h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p><div class="actions"><button class="mini" onclick="openScheduleForm('${s.id}')">수정</button><button class="mini danger" onclick="delItem('schedules','${s.id}')">삭제</button></div></div>`;
 }
 
 window.openScheduleForm = function(sid) {
@@ -935,11 +887,8 @@ window.addFanPost = async function() {
   if (!requireJoined()) return;
   setSyncStatus('loading');
   const imgUrl = await uploadFromInput(document.getElementById('fanImg'));
-  const nick = document.getElementById('fanNick').value || userProfile.nick || 'fan';
-  saveUserProfile({ nick });
   const data = {
-    authorId: userProfile.id,
-    nick,
+    nick: document.getElementById('fanNick').value || 'fan',
     text: document.getElementById('fanText').value,
     img: imgUrl, likes: 0, comments: [],
     membershipOnly: document.getElementById('fanMemberOnly')?.checked || false
@@ -1034,13 +983,27 @@ window.saveArtistProfile = async function(pid) {
 // SHOP
 // =====================
 let products = [];
+let cart = JSON.parse(localStorage.getItem('clowCart') || '[]');
+let orders = JSON.parse(localStorage.getItem('clowOrders') || '[]');
 
 async function loadShop() {
   products = await fbGetAll('products');
   renderShop();
+  updateCartCount();
 }
 
 function catName(c) { return {all:'All',membership:'Membership',album:'Album',products:'Products',ticket:'Ticket'}[c]||c }
+function productPrice(p) { return Number(p.price || 0); }
+function finalPrice(p) { return userPlan === 'membership' ? Math.round(productPrice(p) * 0.8) : productPrice(p); }
+function priceHTML(p) {
+  const price = productPrice(p), sale = finalPrice(p);
+  return userPlan === 'membership'
+    ? `<div class="price"><span class="origin-price">₩${price.toLocaleString()}</span>₩${sale.toLocaleString()}</div><div class="discount-line">💎 멤버십 -20% 적용</div>`
+    : `<div class="price">₩${price.toLocaleString()}</div><div class="discount-line">멤버십 가입 시 20% 할인</div>`;
+}
+function saveCart() { localStorage.setItem('clowCart', JSON.stringify(cart)); updateCartCount(); }
+function saveOrders() { localStorage.setItem('clowOrders', JSON.stringify(orders)); }
+function updateCartCount() { const el = document.getElementById('cartCount'); if (el) el.textContent = cart.reduce((a,c)=>a+(c.qty||1),0); }
 
 function renderShop() {
   const arr = products.filter(p => shopCat === 'all' || p.cat === shopCat);
@@ -1048,13 +1011,15 @@ function renderShop() {
     `<article class="item product" onclick="productDetail('${p.id}')">
       ${p.img ? `<img class="goods-img" src="${esc(p.img)}">` : '<div class="goods-img"></div>'}
       <h3>${esc(p.name)}${p.membershipOnly ? '<span class="member-only-badge">MEMBERSHIP</span>' : ''}</h3><small>${catName(p.cat)}</small><p>${esc(p.desc)}</p>
-      <div class="price">₩${Number(p.price||0).toLocaleString()}</div>
+      ${priceHTML(p)}
       <div class="actions" onclick="event.stopPropagation()">
+        <button class="mini" onclick="addToCart('${p.id}')">장바구니</button>
         <button class="mini" onclick="openProductForm('${p.id}')">수정</button>
         <button class="mini danger" onclick="delItem('products','${p.id}')">삭제</button>
       </div>
     </article>`
   ).join('') || '<div class="empty">상품 없음</div>';
+  updateCartCount();
 }
 
 document.getElementById('shopFilters').onclick = e => {
@@ -1066,14 +1031,69 @@ document.getElementById('shopFilters').onclick = e => {
 
 window.productDetail = function(pid) {
   const p = products.find(x => x.id === pid);
-  detail(`<div class="detail">${p.img?`<img class="detail-img" src="${esc(p.img)}">`:'<div class="goods-img"></div>'}<small>${catName(p.cat)}${p.membershipOnly ? ' · MEMBERSHIP ONLY' : ''}</small><h2>${esc(p.name)}</h2><p>${esc(p.desc)}</p><div class="price">₩${Number(p.price||0).toLocaleString()}</div><button class="submit" onclick="fakeBuy('${p.id}')">구매하기</button><div class="actions"><button class="mini" onclick="openProductForm('${p.id}')">상품 수정</button></div></div>`);
+  detail(`<div class="detail">${p.img?`<img class="detail-img" src="${esc(p.img)}">`:'<div class="goods-img"></div>'}<small>${catName(p.cat)}${p.membershipOnly ? ' · MEMBERSHIP ONLY' : ''}</small><h2>${esc(p.name)}</h2><p>${esc(p.desc)}</p>${priceHTML(p)}<button class="submit" onclick="fakeBuy('${p.id}')">바로 구매하기</button><button class="submit" style="margin-top:8px" onclick="addToCart('${p.id}')">장바구니 담기</button><div class="actions"><button class="mini" onclick="openProductForm('${p.id}')">상품 수정</button></div></div>`);
+};
+
+window.addToCart = function(pid) {
+  const p = products.find(x => x.id === pid);
+  if (!p) return;
+  if (p.membershipOnly && userPlan !== 'membership') { alert('멤버십 전용 상품이라 멤버십 가입 후 담을 수 있어.'); showTab('home'); return; }
+  const found = cart.find(x => x.id === pid);
+  if (found) found.qty = (found.qty || 1) + 1;
+  else cart.push({ id: pid, qty: 1 });
+  saveCart();
+  alert('장바구니에 담았어.');
+};
+
+window.removeFromCart = function(pid) { cart = cart.filter(x => x.id !== pid); saveCart(); openCart(); };
+window.changeCartQty = function(pid, delta) {
+  const item = cart.find(x => x.id === pid); if (!item) return;
+  item.qty = Math.max(1, (item.qty || 1) + delta);
+  saveCart(); openCart();
+};
+
+window.openCart = function() {
+  const rows = cart.map(c => ({...c, product: products.find(p => p.id === c.id)})).filter(x => x.product);
+  if (!rows.length) { openModal('장바구니', '<div class="empty">장바구니가 비어있어.</div>'); return; }
+  const total = rows.reduce((sum, r) => sum + finalPrice(r.product) * (r.qty || 1), 0);
+  openModal('장바구니', `${rows.map(r => `<div class="cart-row"><div><h3>${esc(r.product.name)}</h3><small>${r.qty}개 · ${userPlan==='membership'?'멤버십 할인 적용':'일반가'}</small><div class="price">₩${(finalPrice(r.product)*(r.qty||1)).toLocaleString()}</div></div><div class="actions" style="margin-top:0"><button class="mini" onclick="changeCartQty('${r.id}',-1)">-</button><button class="mini" onclick="changeCartQty('${r.id}',1)">+</button><button class="mini danger" onclick="removeFromCart('${r.id}')">삭제</button></div></div>`).join('')}<div class="fake-receipt"><div><span>총 결제 금액</span><span>₩${total.toLocaleString()}</span></div></div><button class="submit" onclick="checkoutCart()">전체 구매하기</button>`);
+};
+
+function addOrder(items) {
+  orders.unshift({
+    id: uid(),
+    items,
+    status: '배송 준비중',
+    createdAt: new Date().toLocaleDateString(),
+    total: items.reduce((sum, it) => sum + Number(it.price || 0) * Number(it.qty || 1), 0)
+  });
+  saveOrders();
+}
+
+window.checkoutCart = function() {
+  const rows = cart.map(c => ({...c, product: products.find(p => p.id === c.id)})).filter(x => x.product);
+  if (!rows.length) return;
+  addOrder(rows.map(r => ({ name: r.product.name, qty: r.qty || 1, price: finalPrice(r.product) })));
+  cart = []; saveCart();
+  openModal('구매 완료', `<div class="purchase-done"><div class="emoji">🛍️</div><h2>주문이 접수됐습니다</h2><p>현재 상태는 <b>배송 준비중</b>이에요.<br>주문 목록에서 확인할 수 있어요.</p><button class="submit" onclick="openOrders()">주문 목록 보기</button></div>`);
 };
 
 window.fakeBuy = function(pid) {
   const p = products.find(x => x.id === pid);
   if (p.membershipOnly && userPlan !== 'membership') { alert('멤버십 전용 상품이라 멤버십 가입 후 구매할 수 있어.'); showTab('home'); return; }
-  saveOrder({ name: p.name, price: p.price, type: catName(p.cat) });
-  openModal('구매 완료', `<div class="purchase-done"><div class="emoji">🛍️</div><h2>구매가 완료됐습니다</h2><p>${esc(p.name)} 상품을 구매한 것처럼 처리했어요.<br>실제 결제는 일어나지 않습니다.</p><div class="fake-receipt"><div><span>상품</span><span>${esc(p.name)}</span></div><div><span>결제 방식</span><span>FAKE PAY</span></div><div><span>결제 금액</span><span>₩${Number(p.price||0).toLocaleString()}</span></div></div><button class="submit" onclick="closeModal()">확인</button></div>`);
+  addOrder([{ name: p.name, qty: 1, price: finalPrice(p) }]);
+  openModal('구매 완료', `<div class="purchase-done"><div class="emoji">🛍️</div><h2>구매가 완료됐습니다</h2><p>${esc(p.name)} 주문이 접수됐어요.<br>현재 상태는 <b>배송 준비중</b>입니다.</p><div class="fake-receipt"><div><span>상품</span><span>${esc(p.name)}</span></div><div><span>결제 방식</span><span>FAKE PAY</span></div><div><span>배송 상태</span><span>배송 준비중</span></div><div><span>결제 금액</span><span>₩${finalPrice(p).toLocaleString()}</span></div></div><button class="submit" onclick="openOrders()">주문 목록 보기</button></div>`);
+};
+
+window.openOrders = function() {
+  orders = JSON.parse(localStorage.getItem('clowOrders') || '[]');
+  if (!orders.length) { openModal('주문 목록', '<div class="empty">주문 내역 없음</div>'); return; }
+  openModal('주문 목록', orders.map(o => `<div class="item"><div class="row" style="justify-content:space-between"><h3>주문 ${esc(o.id||'')}</h3><span class="order-status ${o.status==='배송 완료'?'done':''}">${esc(o.status||'배송 준비중')}</span></div><small>${esc(o.createdAt||'')}</small>${(o.items||[]).map(it=>`<p>${esc(it.name)} · ${it.qty||1}개</p>`).join('')}<div class="price">₩${Number(o.total||0).toLocaleString()}</div><div class="actions"><button class="mini" onclick="completeOrder('${o.id}')">배송 완료 처리</button></div></div>`).join(''));
+};
+
+window.completeOrder = function(id) {
+  orders = orders.map(o => o.id === id ? {...o, status:'배송 완료'} : o);
+  saveOrders(); openOrders();
 };
 
 window.openProductForm = function(pid) {
