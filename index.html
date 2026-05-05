@@ -67,6 +67,10 @@ footer{text-align:center;color:#6f6764;font-size:12px;padding:24px 14px 34px}
 .gallery-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:12px}
 .gallery-item{position:relative;aspect-ratio:1/1;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#25202d,#765c9e);cursor:pointer}
 .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .2s}
+.gallery-item.locked img{filter:blur(12px);transform:scale(1.08);opacity:.72}
+.gallery-item.locked:hover img{transform:scale(1.12)}
+.gallery-lock{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;background:rgba(0,0,0,.28);color:#fff;font-size:12px;font-weight:950;text-shadow:0 2px 8px rgba(0,0,0,.6);pointer-events:none}
+.gallery-badge{position:absolute;left:6px;top:6px;border-radius:999px;background:rgba(42,32,56,.9);color:#d6c4ff;padding:4px 8px;font-size:10px;font-weight:950;letter-spacing:.04em}
 .gallery-item:hover img{transform:scale(1.06)}
 .gallery-item .del-btn{position:absolute;top:5px;right:5px;background:rgba(0,0,0,.6);border:0;color:#fff;border-radius:50%;width:22px;height:22px;font-size:12px;display:none;align-items:center;justify-content:center;cursor:pointer}
 .gallery-item:hover .del-btn{display:flex}
@@ -172,9 +176,13 @@ body.light .skeleton{background:linear-gradient(90deg,#e9e4dc 25%,#f7f5f1 50%,#e
   <div class="gallery-upload-area" onclick="document.getElementById('galleryFileInput').click()">
     <div class="upload-icon">📷</div>
     <p>클릭해서 사진 추가 · 여러 장 한번에 가능</p>
-    <p style="font-size:11px;color:#6f6764;margin-top:4px">Cloudinary 저장 · 100장 이상 · 어디서든 동일하게</p>
+    <p style="font-size:11px;color:#6f6764;margin-top:4px">Cloudinary 저장 · 공개/멤버십 사진 구분 가능</p>
     <input id="galleryFileInput" type="file" accept="image/*" multiple style="display:none" onchange="uploadGalleryPhotos(this)">
   </div>
+  <select id="galleryAccess" class="field" style="margin-bottom:14px">
+    <option value="public">비멤버십 공개 사진</option>
+    <option value="membership">멤버십 전용 사진</option>
+  </select>
   <div id="uploadProgress" class="upload-progress" style="display:none"></div>
   <div id="galleryGrid" class="gallery-grid"></div>
 </section>
@@ -376,7 +384,8 @@ window.joinMembership = function() {
   if (!confirm('멤버십은 연 20,000원입니다. 가상 결제를 진행할까?')) return;
   userPlan = 'membership';
   localStorage.setItem('clowUserPlan', userPlan);
-  openModal('멤버십 가입 완료', `<div class="purchase-done"><div class="emoji">💎</div><h2>멤버십 가입 완료</h2><p>연 20,000원 가상 결제가 완료됐습니다.<br>이제 멤버십 전용 게시글과 상품을 이용할 수 있어요.</p><div class="fake-receipt"><div><span>상품</span><span>CLOW Membership</span></div><div><span>기간</span><span>1년</span></div><div><span>결제 금액</span><span>₩20,000</span></div></div><button class="submit" onclick="closeModal()">확인</button></div>`);
+  if (typeof renderGallery === 'function') renderGallery();
+  openModal('멤버십 가입 완료', `<div class="purchase-done"><div class="emoji">💎</div><h2>멤버십 가입 완료</h2><p>연 20,000원 가상 결제가 완료됐습니다.<br>이제 멤버십 전용 게시글, 사진, 상품을 이용할 수 있어요.</p><div class="fake-receipt"><div><span>상품</span><span>CLOW Membership</span></div><div><span>기간</span><span>1년</span></div><div><span>결제 금액</span><span>₩20,000</span></div></div><button class="submit" onclick="closeModal()">확인</button></div>`);
 };
 
 function requireJoined() {
@@ -452,12 +461,15 @@ function renderGallery() {
     grid.innerHTML = '<div class="empty" style="grid-column:1/-1">사진을 추가해줘.</div>';
     return;
   }
-  grid.innerHTML = galleryPhotos.map((p, i) =>
-    `<div class="gallery-item" onclick="openLightbox(${i})">
+  grid.innerHTML = galleryPhotos.map((p, i) => {
+    const locked = p.membershipOnly && userPlan !== 'membership';
+    return `<div class="gallery-item ${locked ? 'locked' : ''}" onclick="openLightbox(${i})">
       <img src="${esc(p.url)}" loading="lazy" alt="">
+      ${p.membershipOnly ? '<span class="gallery-badge">MEMBERSHIP</span>' : ''}
+      ${locked ? '<div class="gallery-lock">멤버십 전용<br>가입 후 열람</div>' : ''}
       <button class="del-btn" onclick="event.stopPropagation();deleteGalleryPhoto('${p.id}')">✕</button>
-    </div>`
-  ).join('');
+    </div>`;
+  }).join('');
 }
 
 window.uploadGalleryPhotos = async function(input) {
@@ -470,11 +482,13 @@ window.uploadGalleryPhotos = async function(input) {
     prog.textContent = `☁️ Cloudinary 업로드 중... ${i+1} / ${files.length}`;
     try {
       const url = await uploadToCloudinary(files[i]);
+      const membershipOnly = document.getElementById('galleryAccess')?.value === 'membership';
       const docRef = await addDoc(collection(db, 'gallery'), {
         url,
+        membershipOnly,
         createdAt: serverTimestamp()
       });
-      galleryPhotos.unshift({ id: docRef.id, url });
+      galleryPhotos.unshift({ id: docRef.id, url, membershipOnly });
       renderGallery();
     } catch(e) {
       alert(`${i+1}번째 사진 업로드 실패: ${e.message}`);
@@ -495,10 +509,19 @@ window.deleteGalleryPhoto = async function(id) {
   if (lightboxIndex >= galleryPhotos.length) lightboxIndex = Math.max(0, galleryPhotos.length - 1);
 };
 
-window.openLightbox = function(i) { lightboxIndex = i; updateLightbox(); document.getElementById('galleryLightbox').classList.add('open'); };
+window.openLightbox = function(i) {
+  const p = galleryPhotos[i];
+  if (p?.membershipOnly && userPlan !== 'membership') {
+    alert('멤버십 전용 사진이야. 멤버십 가입 후 볼 수 있어.');
+    showTab('home');
+    return;
+  }
+  lightboxIndex = i; updateLightbox(); document.getElementById('galleryLightbox').classList.add('open');
+};
 window.closeLightbox = function() { document.getElementById('galleryLightbox').classList.remove('open'); };
 function updateLightbox() {
   const p = galleryPhotos[lightboxIndex];
+  if (p?.membershipOnly && userPlan !== 'membership') { closeLightbox(); renderGallery(); return; }
   document.getElementById('lightboxImg').src = p ? p.url : '';
   document.getElementById('lightboxCounter').textContent = `${lightboxIndex + 1} / ${galleryPhotos.length}`;
 }
